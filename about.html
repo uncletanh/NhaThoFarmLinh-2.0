@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About | Notebook</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="css/style.css">
-    
+
     <style>
         .about-layout {
             display: grid;
@@ -65,6 +68,7 @@
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
+
             .author-image {
                 max-width: 300px;
                 margin: 0 auto;
@@ -72,6 +76,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <header class="site-header">
@@ -85,10 +90,13 @@
                 <a href="archive.html" data-i18n="navArchive">Archive</a>
                 <a href="about.html" class="active" data-i18n="navAbout">About</a>
                 <div class="header-toggles" style="display: flex; gap: 10px; align-items: center;">
-                    <button id="lang-toggle" class="theme-toggle" aria-label="Toggle language" style="font-size: 0.8rem; font-weight: 500; border: 1px solid var(--border-color); border-radius: 4px; padding: 2px 6px;">EN</button>
+                    <button id="lang-toggle" class="theme-toggle" aria-label="Toggle language"
+                        style="font-size: 0.8rem; font-weight: 500; border: 1px solid var(--border-color); border-radius: 4px; padding: 2px 6px;">EN</button>
                     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
                         <svg viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                            </path>
                         </svg>
                     </button>
                 </div>
@@ -98,22 +106,28 @@
 
     <main class="page-wrapper container">
         <h1 class="section-title" data-i18n="aboutPageTitle">About the Author</h1>
-        
+
         <div class="about-layout">
             <div class="author-image">
                 <!-- Replace background with an actual <img> tag when image is available -->
             </div>
-            
-            <div class="author-bio">
-                <p data-i18n="aboutBio1">Hello. I'm a writer and observer navigating the modern world. This digital notebook is where I collect my fragmented thoughts, distill experiences into poetry, and attempt to make sense of the noise.</p>
-                
-                <p data-i18n="aboutBio2">My work primarily focuses on the intersection of nature, memory, and the solitary experience in urban environments. I believe that paying attention to the small, quiet moments is paramount in an era that constantly demands our distraction.</p>
 
-                <p data-i18n="aboutBio3">When I am not writing, you can find me wandering through city streets, reading in quiet corners, or simply watching the light change.</p>
+            <div class="author-bio">
+                <p data-i18n="aboutBio1">Hello. I'm a writer and observer navigating the modern world. This digital
+                    notebook is where I collect my fragmented thoughts, distill experiences into poetry, and attempt to
+                    make sense of the noise.</p>
+
+                <p data-i18n="aboutBio2">My work primarily focuses on the intersection of nature, memory, and the
+                    solitary experience in urban environments. I believe that paying attention to the small, quiet
+                    moments is paramount in an era that constantly demands our distraction.</p>
+
+                <p data-i18n="aboutBio3">When I am not writing, you can find me wandering through city streets, reading
+                    in quiet corners, or simply watching the light change.</p>
 
                 <div class="contact-links">
-                    <a href="mailto:hello@example.com" class="contact-link" data-i18n="contactEmail">Email</a>
-                    <a href="#" class="contact-link" data-i18n="contactTwitter">Twitter</a>
+                    <a href="tienanhnguyen912@gmail.com" class="contact-link" data-i18n="contactEmail">Email</a>
+                    <a href="https://www.facebook.com/nha.tho.farm.linh/" class="contact-link"
+                        data-i18n="contactFacebook">Facebook</a>
                     <a href="#" class="contact-link" data-i18n="contactInstagram">Instagram</a>
                 </div>
             </div>
@@ -127,4 +141,5 @@
     <script src="js/i18n.js"></script>
     <script src="js/script.js"></script>
 </body>
+
 </html>

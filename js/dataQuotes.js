@@ -1,28 +1,53 @@
 const quotes = [
     {
         id: "q1",
-        text: "Poetry applies to the things you just see, and then you put it down to share.",
-        author: "Jack Kerouac"
+        text: "Being deeply loved by someone gives you strength, while loving someone deeply gives you courage.",
+        author: "Lao Tzu"
     },
     {
         id: "q2",
-        text: "A line will take us hours maybe; Yet if it does not seem a moment's thought, Our stitching and unstitching has been naught.",
-        author: "W.B. Yeats"
+        text: "To love oneself is the beginning of a lifelong romance.",
+        author: "Oscar Wilde"
     },
     {
         id: "q3",
-        text: "Simplicity is the ultimate sophistication.",
-        author: "Leonardo da Vinci"
+        text: "The greatest happiness of life is the conviction that we are loved.",
+        author: "Victor Hugo"
     },
     {
         id: "q4",
-        text: "To pay attention, this is our endless and proper work.",
-        author: "Mary Oliver"
+        text: "Live as if you were to die tomorrow. Learn as if you were to live forever.",
+        author: "Mahatma Gandhi"
     },
     {
         id: "q5",
-        text: "Everything should be made as simple as possible, but not simpler.",
+        text: "Life is really simple, but we insist on making it complicated.",
+        author: "Confucius"
+    },
+    {
+        id: "q6",
+        text: "The two most important days in your life are the day you are born and the day you find out why.",
+        author: "Mark Twain"
+    },
+    {
+        id: "q7",
+        text: "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+        author: "Winston Churchill"
+    },
+    {
+        id: "q8",
+        text: "Try not to become a man of success, but rather try to become a man of value.",
         author: "Albert Einstein"
+    },
+    {
+        id: "q9",
+        text: "The only way to do great work is to love what you do.",
+        author: "Steve Jobs"
+    },
+    {
+        id: "q10",
+        text: "Love what you do, live with purpose, and success will follow.",
+        author: "Unknown"
     }
 ];
 

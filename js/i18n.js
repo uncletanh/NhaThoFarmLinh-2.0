@@ -12,8 +12,8 @@ const translations = {
         footerText: "&copy; 2026 Notebook. Crafted with minimal intent.",
         
         // Home
-        heroQuote: '"To pay attention, this is our endless and proper work."',
-        heroAuthor: "— Mary Oliver",
+        heroQuote: '"I\'ve never played for a draw in my life."',
+        heroAuthor: "— Sir Alex Ferguson",
         recentPoemsTitle: "Recent Poems",
         viewAllPoetry: "View All Poetry",
         latestThoughtsTitle: "Latest Thoughts",
@@ -48,7 +48,7 @@ const translations = {
         aboutBio2: "My work primarily focuses on the intersection of nature, memory, and the solitary experience in urban environments. I believe that paying attention to the small, quiet moments is paramount in an era that constantly demands our distraction.",
         aboutBio3: "When I am not writing, you can find me wandering through city streets, reading in quiet corners, or simply watching the light change.",
         contactEmail: "Email",
-        contactTwitter: "Twitter",
+        contactFacebook: "Facebook",
         contactInstagram: "Instagram"
     },
     vi: {
@@ -64,8 +64,8 @@ const translations = {
         footerText: "&copy; 2026 Notebook. Chế tác với chủ đích tối giản.",
         
         // Home
-        heroQuote: '"Sự chú tâm, đó là công việc vô tận và đích thực của chúng ta."',
-        heroAuthor: "— Mary Oliver",
+        heroQuote: '"Tôi chưa bao giờ ra sân để tìm kiếm một trận hòa trong suốt cuộc đời mình."',
+        heroAuthor: "— Sir Alex Ferguson",
         recentPoemsTitle: "Thơ mới nhất",
         viewAllPoetry: "Xem tất cả Thơ",
         latestThoughtsTitle: "Tản văn gần đây",
@@ -100,7 +100,7 @@ const translations = {
         aboutBio2: "Các tác phẩm của tôi chủ yếu tập trung vào sự giao thoa giữa thiên nhiên, ký ức và trải nghiệm cô độc giữa lòng đô thị. Tôi tin rằng việc chú tâm vào những khoảnh khắc nhỏ bé, tĩnh lặng là điều vô cùng quan trọng trong một thời đại luôn không ngừng lấy đi sự phân tán của chúng ta.",
         aboutBio3: "Khi không viết, bạn có thể tìm thấy tôi lang thang trên những con phố, đọc sách ở những góc yên tĩnh, hoặc chỉ đơn giản là đang ngắm nhìn ánh sáng thay đổi.",
         contactEmail: "Email",
-        contactTwitter: "Twitter",
+        contactFacebook: "Facebook",
         contactInstagram: "Instagram"
     }
 };
