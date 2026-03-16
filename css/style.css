@@ -291,11 +291,45 @@ img {
   RESPONSIVE
 =============================================================================*/
 @media (max-width: 768px) {
+  .site-header {
+    height: auto;
+    padding-bottom: 0.5rem;
+  }
+
+  .nav-container {
+    flex-direction: column;
+    padding: 1rem 1.5rem;
+  }
+
+  .site-brand {
+    margin-bottom: 1rem;
+    text-align: center;
+    width: 100%;
+  }
+
   .site-nav {
-    display: none; /* Mobile menu implementation later if needed */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .site-nav a {
+    font-size: 0.8rem;
+  }
+
+  .site-nav .header-toggles {
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.5rem;
   }
   
   .container {
     padding: 0 1.5rem;
+  }
+
+  .page-wrapper {
+    padding-top: 160px; /* Account for taller mobile header */
   }
 }
