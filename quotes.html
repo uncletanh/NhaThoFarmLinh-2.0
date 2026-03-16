@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotes | Notebook</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        .quote-generator {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .quote-display {
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            line-height: 1.4;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            transition: opacity 0.4s ease;
+        }
+
+        .quote-author {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+            margin-bottom: 4rem;
+            transition: opacity 0.4s ease;
+        }
+
+        .generate-btn {
+            padding: 1rem 2rem;
+            background-color: var(--text-primary);
+            color: var(--bg-color);
+            border: none;
+            border-radius: 30px;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background-color: var(--accent-color);
+        }
+
+        .fade-out {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="index.html" class="site-brand">Nhà Thơ Farm Lính</a>
+            <nav class="site-nav">
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="poetry.html" data-i18n="navPoetry">Poetry</a>
+                <a href="thoughts.html" data-i18n="navThoughts">Thoughts</a>
+                <a href="quotes.html" class="active" data-i18n="navQuotes">Quotes</a>
+                <a href="archive.html" data-i18n="navArchive">Archive</a>
+                <a href="about.html" data-i18n="navAbout">About</a>
+                <div class="header-toggles" style="display: flex; gap: 10px; align-items: center;">
+                    <button id="lang-toggle" class="theme-toggle" aria-label="Toggle language" style="font-size: 0.8rem; font-weight: 500; border: 1px solid var(--border-color); border-radius: 4px; padding: 2px 6px;">EN</button>
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                        <svg viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-wrapper container">
+        
+        <div class="quote-generator">
+            <div id="quote-text" class="quote-display" data-i18n="quotesGeneratorHint">"Press the button to reveal a thought."</div>
+            <div id="quote-author" class="quote-author" data-i18n="quotesAuthorHint">— Notebook</div>
+            
+            <button id="generate-btn" class="generate-btn" data-i18n="anotherQuoteBtn">another quote</button>
+        </div>
+
+    </main>
+
+    <footer class="site-footer">
+        <p data-i18n="footerText">&copy; 2026 Notebook. Crafted with minimal intent.</p>
+    </footer>
+
+    <script src="js/dataQuotes.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const quoteText = document.getElementById('quote-text');
+            const quoteAuthor = document.getElementById('quote-author');
+            const generateBtn = document.getElementById('generate-btn');
+
+            let lastIndex = -1;
+
+            function getRandomQuote() {
+                if (!quotes || quotes.length === 0) return;
+                
+                let randomIndex = Math.floor(Math.random() * quotes.length);
+                // Prevent same quote twice in a row if possible
+                while(randomIndex === lastIndex && quotes.length > 1) {
+                    randomIndex = Math.floor(Math.random() * quotes.length);
+                }
+                lastIndex = randomIndex;
+                
+                const quote = quotes[randomIndex];
+
+                // Fade out animation
+                quoteText.classList.add('fade-out');
+                quoteAuthor.classList.add('fade-out');
+
+                setTimeout(() => {
+                    quoteText.textContent = `"${quote.text}"`;
+                    quoteAuthor.textContent = `— ${quote.author}`;
+                    
+                    // Fade in
+                    quoteText.classList.remove('fade-out');
+                    quoteAuthor.classList.remove('fade-out');
+                }, 400); // Wait for transition duration
+            }
+
+            generateBtn.addEventListener('click', getRandomQuote);
+            
+            // Show first random quote immediately
+            getRandomQuote();
+        });
+    </script>
+</body>
+</html>

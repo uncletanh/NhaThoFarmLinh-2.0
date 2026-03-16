@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notebook & Poetry | A Literary Space</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* Home specific styles */
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .hero-quote {
+            font-size: 2.5rem;
+            max-width: 700px;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .hero-author {
+            margin-top: 1.5rem;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+        }
+
+        .section-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 5rem;
+        }
+
+        @media (max-width: 768px) {
+            .section-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero-quote {
+                font-size: 2rem;
+            }
+        }
+
+        .quote-card {
+            padding: 3rem;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            margin: 4rem 0;
+            background-color: var(--nav-bg);
+        }
+
+        .quote-card p {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .quote-card span {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="index.html" class="site-brand">Nhà Thơ Farm Lính</a>
+            <nav class="site-nav">
+                <a href="index.html" class="active" data-i18n="navHome">Home</a>
+                <a href="poetry.html" data-i18n="navPoetry">Poetry</a>
+                <a href="thoughts.html" data-i18n="navThoughts">Thoughts</a>
+                <a href="quotes.html" data-i18n="navQuotes">Quotes</a>
+                <a href="archive.html" data-i18n="navArchive">Archive</a>
+                <a href="about.html" data-i18n="navAbout">About</a>
+                <div class="header-toggles" style="display: flex; gap: 10px; align-items: center;">
+                    <button id="lang-toggle" class="theme-toggle" aria-label="Toggle language" style="font-size: 0.8rem; font-weight: 500; border: 1px solid var(--border-color); border-radius: 4px; padding: 2px 6px;">EN</button>
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                        <svg viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-wrapper container">
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div>
+                <h1 class="hero-quote" data-i18n="heroQuote">"To pay attention, this is our endless and proper work."</h1>
+                <div class="hero-author" data-i18n="heroAuthor">— Mary Oliver</div>
+            </div>
+        </section>
+
+        <!-- Two Column Layout for Latest Content -->
+        <div class="section-grid">
+            <!-- Latest Poems -->
+            <section>
+                <h2 class="section-title" data-i18n="recentPoemsTitle">Recent Poems</h2>
+                <div id="latest-poems">
+                    <!-- Injected via JS -->
+                </div>
+                <a href="poetry.html" class="btn" data-i18n="viewAllPoetry">View All Poetry</a>
+            </section>
+
+            <!-- Latest Thoughts -->
+            <section>
+                <h2 class="section-title" data-i18n="latestThoughtsTitle">Latest Thoughts</h2>
+                <div id="latest-thoughts">
+                    <!-- Injected via JS -->
+                </div>
+                <a href="thoughts.html" class="btn" data-i18n="readAllEssays">Read All Essays</a>
+            </section>
+        </div>
+
+        <!-- Quote of the Day -->
+        <section class="quote-card" id="qotd">
+            <p id="qotd-text">"Everything should be made as simple as possible, but not simpler."</p>
+            <span id="qotd-author">— Albert Einstein</span>
+        </section>
+
+        <!-- About Preview -->
+        <section style="text-align: center; max-width: 600px; margin: 0 auto 4rem auto;">
+            <h2 class="section-title" style="margin-bottom: 2rem;" data-i18n="aboutAuthorTitle">About the Author</h2>
+            <p data-i18n="indexAboutPara">I write to understand the world and myself. This digital space serves as a quiet garden for my poetry,
+                essays, and collected fragments of thought.</p>
+            <a href="about.html" class="btn" data-i18n="moreAboutMeBtn">More About Me</a>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <p data-i18n="footerText">&copy; 2026 Notebook. Crafted with minimal intent.</p>
+    </footer>
+
+    <!-- Data and Scripts -->
+    <script src="js/dataPoem.js"></script>
+    <script src="js/dataThoughts.js"></script>
+    <script src="js/dataQuotes.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Populate latest poems (last 2)
+            const poemContainer = document.getElementById('latest-poems');
+            if (poems) {
+                const recentPoems = poems.slice(0, 2);
+                recentPoems.forEach(p => {
+                    poemContainer.innerHTML += `
+                        <a href="poetry.html#${p.id}" class="list-item">
+                            <div class="list-item-date">${p.date}</div>
+                            <h3 class="list-item-title">${p.title}</h3>
+                            <p class="list-item-preview">${p.preview}</p>
+                        </a>
+                    `;
+                });
+            }
+
+            // Populate latest thoughts (last 2)
+            const thoughtContainer = document.getElementById('latest-thoughts');
+            if (thoughts) {
+                const recentThoughts = thoughts.slice(0, 2);
+                recentThoughts.forEach(t => {
+                    thoughtContainer.innerHTML += `
+                        <a href="thoughts.html#${t.id}" class="list-item">
+                            <div class="list-item-date">${t.date}</div>
+                            <h3 class="list-item-title">${t.title}</h3>
+                            <p class="list-item-preview">${t.preview}</p>
+                        </a>
+                    `;
+                });
+            }
+
+            // Random Quote of the Day
+            if (quotes && quotes.length > 0) {
+                const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+                document.getElementById('qotd-text').textContent = `"${randomQuote.text}"`;
+                document.getElementById('qotd-author').textContent = `— ${randomQuote.author}`;
+            }
+        });
+    </script>
+</body>
+
+</html>

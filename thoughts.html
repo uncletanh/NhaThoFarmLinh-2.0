@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thoughts | Notebook</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        .thought-content {
+            display: none;
+            margin-top: 1.5rem;
+            color: var(--text-primary);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            font-family: var(--font-serif);
+        }
+        
+        .thought-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .list-item.reading .thought-content {
+            display: block;
+        }
+        
+        .list-item.reading .list-item-preview {
+            display: none;
+        }
+
+        .read-toggle {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: var(--accent-color);
+            cursor: pointer;
+            margin-top: 1rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="index.html" class="site-brand">Nhà Thơ Farm Lính</a>
+            <nav class="site-nav">
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="poetry.html" data-i18n="navPoetry">Poetry</a>
+                <a href="thoughts.html" class="active" data-i18n="navThoughts">Thoughts</a>
+                <a href="quotes.html" data-i18n="navQuotes">Quotes</a>
+                <a href="archive.html" data-i18n="navArchive">Archive</a>
+                <a href="about.html" data-i18n="navAbout">About</a>
+                <div class="header-toggles" style="display: flex; gap: 10px; align-items: center;">
+                    <button id="lang-toggle" class="theme-toggle" aria-label="Toggle language" style="font-size: 0.8rem; font-weight: 500; border: 1px solid var(--border-color); border-radius: 4px; padding: 2px 6px;">EN</button>
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                        <svg viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-wrapper container">
+        <h1 class="section-title" data-i18n="thoughtsCollectionTitle">Collected Thoughts</h1>
+        
+        <div id="thoughts-list">
+            <!-- Thoughts injected here -->
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p data-i18n="footerText">&copy; 2026 Notebook. Crafted with minimal intent.</p>
+    </footer>
+
+    <script src="js/dataThoughts.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const thoughtsList = document.getElementById('thoughts-list');
+
+            function renderThoughts() {
+                thoughtsList.innerHTML = '';
+                if (thoughts) {
+                    thoughts.forEach(t => {
+                        const el = document.createElement('div');
+                        el.className = 'list-item';
+                        el.id = t.id;
+                        
+                        const readText = window.currentLangDict?.readEssay || 'Read Essay';
+                        const collapseText = window.currentLangDict?.collapsePoem || 'Collapse';
+                        
+                        el.innerHTML = `
+                            <div class="list-item-date">${t.date}</div>
+                            <h2 class="list-item-title">${t.title}</h2>
+                            <p class="list-item-preview">${t.preview}</p>
+                            <div class="thought-content">${t.content}</div>
+                            <div class="read-toggle">${readText}</div>
+                        `;
+                        
+                        // Toggle Read state
+                        el.querySelector('.read-toggle').addEventListener('click', (e) => {
+                            el.classList.toggle('reading');
+                            e.target.textContent = el.classList.contains('reading') ? collapseText : readText;
+                        });
+
+                        thoughtsList.appendChild(el);
+                    });
+                }
+            }
+
+            // Initial render
+            if (window.currentLangDict) {
+                renderThoughts();
+            } else {
+                setTimeout(renderThoughts, 50); // Small buffer to ensure dictionary load
+            }
+            
+            // Re-render on language toggle
+            window.addEventListener('languageChanged', renderThoughts);
+
+            // Handle hash links from homepage
+            if (window.location.hash) {
+                const targetId = window.location.hash.substring(1);
+                setTimeout(() => {
+                    const targetEl = document.getElementById(targetId);
+                    if (targetEl) {
+                        targetEl.classList.add('reading');
+                        targetEl.querySelector('.read-toggle').textContent = 'Collapse';
+                        targetEl.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>

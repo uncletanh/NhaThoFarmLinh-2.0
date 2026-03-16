@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archive | Notebook</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        .archive-year {
+            font-size: 2rem;
+            margin: 4rem 0 2rem 0;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .archive-month {
+            font-family: var(--font-sans);
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin: 2rem 0 1rem 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .archive-item {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 1rem;
+            gap: 1.5rem;
+        }
+
+        .archive-date {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            min-width: 60px;
+        }
+
+        .archive-title {
+            font-size: 1.15rem;
+            color: var(--text-primary);
+            transition: var(--transition-smooth);
+        }
+
+        .archive-title:hover {
+            color: var(--accent-color);
+        }
+
+        .archive-type {
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            padding: 0.1rem 0.5rem;
+            border-radius: 4px;
+            background-color: var(--border-color);
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-left: auto;
+        }
+
+        @media (max-width: 600px) {
+            .archive-item {
+                flex-direction: column;
+                gap: 0.2rem;
+                margin-bottom: 1.5rem;
+            }
+            .archive-type {
+                margin-left: 0;
+                margin-top: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="index.html" class="site-brand">Nhà Thơ Farm Lính</a>
+            <nav class="site-nav">
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="poetry.html" data-i18n="navPoetry">Poetry</a>
+                <a href="thoughts.html" data-i18n="navThoughts">Thoughts</a>
+                <a href="quotes.html" data-i18n="navQuotes">Quotes</a>
+                <a href="archive.html" class="active" data-i18n="navArchive">Archive</a>
+                <a href="about.html" data-i18n="navAbout">About</a>
+                <div class="header-toggles" style="display: flex; gap: 10px; align-items: center;">
+                    <button id="lang-toggle" class="theme-toggle" aria-label="Toggle language" style="font-size: 0.8rem; font-weight: 500; border: 1px solid var(--border-color); border-radius: 4px; padding: 2px 6px;">EN</button>
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                        <svg viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-wrapper container">
+        <h1 class="section-title" data-i18n="archiveTitle">Archive</h1>
+        
+        <div id="archive-list">
+            <!-- Content injected via JS -->
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p data-i18n="footerText">&copy; 2026 Notebook. Crafted with minimal intent.</p>
+    </footer>
+
+    <script src="js/dataPoem.js"></script>
+    <script src="js/dataThoughts.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const archiveList = document.getElementById('archive-list');
+            
+            function renderArchive() {
+                const locale = (window.currentLangDict && window.currentLangDict.navHome === 'Trang chủ') ? 'vi-VN' : 'en-US';
+                const poetryLabel = window.currentLangDict?.navPoetry || 'Poetry';
+                const thoughtLabel = window.currentLangDict?.navThoughts || 'Thoughts';
+
+                let allPosts = [];
+                
+                if (typeof poems !== 'undefined') {
+                    allPosts = allPosts.concat(poems.map(p => ({...p, type: poetryLabel, url: `poetry.html#${p.id}`})));
+                }
+                if (typeof thoughts !== 'undefined') {
+                    allPosts = allPosts.concat(thoughts.map(t => ({...t, type: thoughtLabel, url: `thoughts.html#${t.id}`})));
+                }
+                
+                // Sort by date descending
+                allPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                // Setup formatting
+                const getYearMonth = (dateString) => {
+                    const d = new Date(dateString);
+                    const year = d.getFullYear();
+                    const month = d.toLocaleString(locale, { month: 'long' });
+                    const day = d.getDate().toString().padStart(2, '0');
+                    return { year, month, day };
+                };
+
+                // Group logic
+                let currentYear = null;
+                let currentMonth = null;
+                let htmlContent = '';
+
+                allPosts.forEach(post => {
+                    const dateInfo = getYearMonth(post.date);
+
+                    if (dateInfo.year !== currentYear) {
+                        currentYear = dateInfo.year;
+                        htmlContent += `<h2 class="archive-year">${currentYear}</h2>`;
+                        currentMonth = null; // Reset month on new year
+                    }
+
+                    if (dateInfo.month !== currentMonth) {
+                        currentMonth = dateInfo.month;
+                        htmlContent += `<h3 class="archive-month">${currentMonth}</h3>`;
+                    }
+
+                    htmlContent += `
+                        <div class="archive-item">
+                            <span class="archive-date">${dateInfo.day}</span>
+                            <a href="${post.url}" class="archive-title">${post.title}</a>
+                            <span class="archive-type">${post.type}</span>
+                        </div>
+                    `;
+                });
+
+                archiveList.innerHTML = htmlContent;
+            }
+
+            if (window.currentLangDict) {
+                renderArchive();
+            } else {
+                setTimeout(renderArchive, 50);
+            }
+
+            window.addEventListener('languageChanged', renderArchive);
+        });
+    </script>
+</body>
+</html>

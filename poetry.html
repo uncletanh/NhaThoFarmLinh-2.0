@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry | Notebook</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        .search-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 1px solid var(--border-color);
+            background-color: transparent;
+            color: var(--text-primary);
+            border-radius: 30px;
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            transition: var(--transition-smooth);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .tag-scroll-wrapper {
+            position: relative;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .scroll-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            flex-shrink: 0;
+            padding: 0;
+        }
+
+        .scroll-btn:hover {
+            color: var(--accent-color);
+        }
+
+        .filter-container {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 0.5rem 0;
+            margin: 0 0.5rem;
+            scrollbar-width: none; /* Firefox */
+            flex-grow: 1;
+        }
+
+        .filter-container::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+        
+        .filter-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border-color: var(--accent-color);
+        }
+
+        .poem-content {
+            white-space: pre-line; /* Preserves poetic line breaks */
+            font-size: 1.25rem;
+            line-height: 2;
+            margin-top: 1rem;
+            display: none;
+            border-left: 2px solid var(--accent-color);
+            padding-left: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        /* Toggled via JS to read full poem inline or on new page */
+        .list-item.reading .poem-content {
+            display: block;
+        }
+        
+        .list-item.reading .list-item-preview {
+            display: none;
+        }
+
+        .read-toggle {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: var(--accent-color);
+            cursor: pointer;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="index.html" class="site-brand">Nhà Thơ Farm Lính</a>
+            <nav class="site-nav">
+                <a href="index.html" data-i18n="navHome">Home</a>
+                <a href="poetry.html" class="active" data-i18n="navPoetry">Poetry</a>
+                <a href="thoughts.html" data-i18n="navThoughts">Thoughts</a>
+                <a href="quotes.html" data-i18n="navQuotes">Quotes</a>
+                <a href="archive.html" data-i18n="navArchive">Archive</a>
+                <a href="about.html" data-i18n="navAbout">About</a>
+                <div class="header-toggles" style="display: flex; gap: 10px; align-items: center;">
+                    <button id="lang-toggle" class="theme-toggle" aria-label="Toggle language" style="font-size: 0.8rem; font-weight: 500; border: 1px solid var(--border-color); border-radius: 4px; padding: 2px 6px;">EN</button>
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                        <svg viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-wrapper container">
+        <h1 class="section-title" data-i18n="poetryCollectionTitle">Poetry Collection</h1>
+        
+        <div class="search-container">
+            <input type="text" id="poetry-search" class="search-input" placeholder="Search by tag, title, or words..." autocomplete="off" data-i18n="searchPlaceholder">
+        </div>
+        
+        <div class="tag-scroll-wrapper">
+            <button class="scroll-btn" id="scroll-left" aria-label="Scroll left">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <div class="filter-container" id="filter-container">
+                <button class="filter-btn active" data-filter="all" data-i18n="filterAll">All</button>
+                <!-- Injected via JS -->
+            </div>
+            <button class="scroll-btn" id="scroll-right" aria-label="Scroll right">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+        </div>
+
+        <div id="poetry-list">
+            <!-- Poems injected here -->
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p data-i18n="footerText">&copy; 2026 Notebook. Crafted with minimal intent.</p>
+    </footer>
+
+    <script src="js/dataPoem.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const poetryList = document.getElementById('poetry-list');
+            const filterContainer = document.getElementById('filter-container');
+
+            // 1. Extract unique tags
+            let allTags = new Set();
+            poems.forEach(p => {
+                if(p.tags) p.tags.forEach(t => allTags.add(t));
+            });
+            const sortedTags = Array.from(allTags).sort();
+            
+            // 2. Render filter buttons
+            sortedTags.forEach(tag => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-btn';
+                btn.setAttribute('data-filter', tag);
+                btn.textContent = tag;
+                filterContainer.appendChild(btn);
+            });
+
+            // Handle Scroll Arrows
+            const scrollLeftBtn = document.getElementById('scroll-left');
+            const scrollRightBtn = document.getElementById('scroll-right');
+            const scrollAmount = 250;
+
+            scrollLeftBtn.addEventListener('click', () => {
+                filterContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            });
+
+            scrollRightBtn.addEventListener('click', () => {
+                filterContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            });
+
+            // 3. Render poems function
+            let activeFilter = 'all';
+            let currentSearch = '';
+
+            function renderPoems() {
+                poetryList.innerHTML = '';
+                
+                const filtered = poems.filter(p => {
+                    const matchesFilter = activeFilter === 'all' || (p.tags && p.tags.includes(activeFilter));
+                    
+                    const term = currentSearch.toLowerCase();
+                    const matchesSearch = term === '' || 
+                        p.title.toLowerCase().includes(term) || 
+                        p.content.toLowerCase().includes(term) ||
+                        (p.tags && p.tags.some(t => t.toLowerCase().includes(term)));
+                        
+                    return matchesFilter && matchesSearch;
+                });
+                
+                const notFoundMsg = window.currentLangDict?.noPoemsFound || 'No poems found matching your criteria.';
+                const readBtnText = window.currentLangDict?.readPoem || 'Read Poem';
+                const collapseBtnText = window.currentLangDict?.collapsePoem || 'Collapse';
+
+                if (filtered.length === 0) {
+                    poetryList.innerHTML = `<p style="color: var(--text-secondary); margin-top: 2rem;">${notFoundMsg}</p>`;
+                    return;
+                }
+                
+                filtered.forEach(p => {
+                    const tagHtml = p.tags ? p.tags.map(t => `<span class="tag">${t}</span>`).join('') : '';
+                    
+                    const el = document.createElement('div');
+                    el.className = 'list-item';
+                    el.id = p.id;
+                    el.innerHTML = `
+                        <div class="list-item-date">${p.date}</div>
+                        <h2 class="list-item-title">${p.title}</h2>
+                        <div class="tags" style="margin-bottom: 1rem;">${tagHtml}</div>
+                        <p class="list-item-preview">${p.preview}</p>
+                        <div class="poem-content">${p.content.trim()}</div>
+                        <div class="read-toggle">${readBtnText}</div>
+                    `;
+                    
+                    // Toggle Read state inline
+                    el.querySelector('.read-toggle').addEventListener('click', (e) => {
+                        el.classList.toggle('reading');
+                        e.target.textContent = el.classList.contains('reading') ? collapseBtnText : readBtnText;
+                    });
+
+                    poetryList.appendChild(el);
+                });
+            }
+
+            // Initial render
+            if (window.currentLangDict) {
+                renderPoems();
+            } else {
+                setTimeout(renderPoems, 50);
+            }
+            
+            // Re-render when language changes
+            window.addEventListener('languageChanged', renderPoems);
+
+            // 4. Handle filtering click
+            filterContainer.addEventListener('click', (e) => {
+                if(e.target.tagName === 'BUTTON') {
+                    // Update active state
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    
+                    activeFilter = e.target.getAttribute('data-filter');
+                    renderPoems();
+
+                    // Optional: auto-scroll to the clicked button so it stays in view
+                    e.target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }
+            });
+
+            // 5. Handle Search
+            const searchInput = document.getElementById('poetry-search');
+            searchInput.addEventListener('input', (e) => {
+                currentSearch = e.target.value.trim();
+                renderPoems();
+            });
+            
+            // Handle hash links from homepage
+            if (window.location.hash) {
+                const targetId = window.location.hash.substring(1);
+                setTimeout(() => {
+                    const targetEl = document.getElementById(targetId);
+                    if (targetEl) {
+                        targetEl.classList.add('reading');
+                        targetEl.querySelector('.read-toggle').textContent = 'Collapse';
+                        targetEl.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>
