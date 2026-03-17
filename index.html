@@ -88,26 +88,32 @@
 
     <header class="site-header">
         <div class="nav-container">
+            <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Menu">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
             <a href="index.html" class="site-brand">Nhà Thơ Farm Lính</a>
-            <nav class="site-nav">
+            <nav class="site-nav" id="site-nav">
                 <a href="index.html" class="active" data-i18n="navHome">Home</a>
                 <a href="poetry.html" data-i18n="navPoetry">Poetry</a>
                 <a href="thoughts.html" data-i18n="navThoughts">Thoughts</a>
                 <a href="quotes.html" data-i18n="navQuotes">Quotes</a>
                 <a href="archive.html" data-i18n="navArchive">Archive</a>
                 <a href="about.html" data-i18n="navAbout">About</a>
-                <div class="header-toggles" style="display: flex; gap: 10px; align-items: center;">
-                    <button id="lang-toggle" class="theme-toggle" aria-label="Toggle language"
-                        style="font-size: 0.8rem; font-weight: 500; border: 1px solid var(--border-color); border-radius: 4px; padding: 2px 6px;">EN</button>
-                    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-                        <svg viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
-                            </path>
-                        </svg>
-                    </button>
-                </div>
             </nav>
+            <div class="header-toggles">
+                <button id="lang-toggle" class="theme-toggle lang-toggle-btn" aria-label="Toggle language">EN</button>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <svg viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
+                        </path>
+                    </svg>
+                </button>
+            </div>
         </div>
     </header>
 

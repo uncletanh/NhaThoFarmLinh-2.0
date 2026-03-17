@@ -5,6 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     initThemeToggle();
     initScrollHeader();
+    initMobileMenu();
 });
 
 // Theme Toggle Logic
@@ -58,6 +59,31 @@ function initScrollHeader() {
             header.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');
+        }
+    });
+}
+
+// Mobile Menu Logic
+function initMobileMenu() {
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const siteNav = document.getElementById('site-nav');
+    if (!mobileBtn || !siteNav) return;
+
+    mobileBtn.addEventListener('click', () => {
+        siteNav.classList.toggle('open');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!siteNav.contains(e.target) && !mobileBtn.contains(e.target)) {
+            siteNav.classList.remove('open');
+        }
+    });
+
+    // Close menu when resizing to desktop
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            siteNav.classList.remove('open');
         }
     });
 }
