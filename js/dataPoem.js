@@ -121,25 +121,25 @@ Nhà thơ ngốc nghếch sẽ đem nàng về`
         date: "2025-02-23",
         tags: ["love", "longing"],
         preview: "Chỉ muốn được gặp em ngay / Lò xo nén chặt lâu ngày bật tung...",
-        content: `Chỉ muốn được gặp em ngay
-Lò xo nén chặt lâu ngày bật tung
-Nỗi nhớ to lớn vô cùng
-Trào dâng như sóng cuộn vùng biển xa
+        content: `Chỉ mong được gặp em ngay,
+Tương tư kìm nén bao ngày vỡ tung.
+Nhớ thương đâu có tận cùng,
+Trào dâng như sóng điệp trùng biển xa.
 
-Tìm em giữa chốn bao la
-Mịt mù sương phủ nhạt nhoà bóng ai
-Pizza nay thiếu phô mai
-Trái tim trống rỗng u hoài đêm thâu
+Tìm em giữa chốn bao la,
+Mịt mù sương phủ nhạt nhoà bóng ai.
+Thở dài đếm những sương mai, 
+Trái tim trống rỗng u hoài đêm thâu.
 
-Em giờ đang ở nơi đâu
-Để anh mãi ngóng, mãi sầu đêm nay
-Trăng buồn lặng lẽ tối ngày
-Nhà thơ buồn quá hai tay ôm đàn
+Em giờ đang ở nơi đâu,
+Để anh mãi ngóng, mãi sầu đêm nay.
+Trăng buồn nhìn áng mây bay, 
+Nhà thơ lặng lẽ hai tay ôm đàn.
 
-Tìm em khắp chốn nhân gian
-Ngỡ đâu thấp thoáng giữa làn sương rơi
-Bước chân lạc lõng chơi vơi
-Lang thang độc bóng giữa trời bao la`
+Tìm em giữa chốn non ngàn,
+Ngỡ đâu thấp thoáng trong làn sương rơi.
+Bước chân lạc lõng chơi vơi,
+Lang thang độc bóng giữa trời bao la.`
     },
     {
         title: "Mình nói chuyện lại được không",
