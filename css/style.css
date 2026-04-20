@@ -591,6 +591,7 @@ img {
     overflow: hidden;
     cursor: grab;
     background-color: var(--bg-color);
+    touch-action: none; /* Prevent iOS Safari tab UI pop on pinch */
 }
 .gallery-viewport::after {
     content: '';
@@ -903,5 +904,44 @@ body.is-fullscreen .gallery-viewport {
 
   .page-wrapper {
     padding-top: calc(var(--nav-height) + 2rem);
+  }
+
+  /* --- Cinematic Mobile Overrides --- */
+  
+  /* Disable mouse-tracking flashlight entirely on mobile */
+  #flashlight {
+      display: none !important;
+  }
+
+  /* Scale down the center intro hub */
+  .gallery-center {
+      width: 90% !important;
+      padding: 1.5rem !important;
+  }
+  .hero-quote {
+      font-size: 1.6rem;
+  }
+
+  /* Scale down the physical museum frames and font sizes */
+  .gallery-frame {
+      width: 250px !important;
+      padding: 1.5rem 1rem 1rem !important;
+      border-width: 6px !important;
+      box-shadow: 
+          inset 0 0 0 10px var(--bg-color), 
+          inset 0 0 0 11px var(--border-color),
+          inset 0 0 5px 11px rgba(0,0,0,0.02),
+          5px 10px 20px rgba(0,0,0,0.15) !important;
+  }
+  [data-theme="dark"] .gallery-frame {
+      box-shadow: 
+          inset 0 0 0 10px #111,
+          inset 0 0 0 11px rgba(212, 175, 55, 0.2),
+          5px 10px 20px rgba(0,0,0,0.8) !important;
+  }
+
+  /* Force hover effects to be a gentle tap animation and don't scale wildly out of bounds */
+  .gallery-frame:hover, .gallery-frame:active {
+      transform: translate(-50%, -50%) rotate(0deg) scale(1.02) !important;
   }
 }

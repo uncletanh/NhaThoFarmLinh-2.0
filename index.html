@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-theme="light">
 
 <head>
@@ -14,7 +14,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="css/style.css?v=2.2">
+    <link rel="stylesheet" href="css/style.css?v=2.3">
     <style>
         /* Force strictly no-scroll and float footer on index */
         /* Force strictly no-scroll and hide footer entirely on gallery wall */
@@ -111,7 +111,7 @@
                     <line x1="3" y1="18" x2="21" y2="18"></line>
                 </svg>
             </button>
-            <a href="index.html" class="site-brand">NhĂ  ThÆ¡ Farm LĂ­nh</a>
+            <a href="index.html" class="site-brand">Nhà Thơ Farm Lính</a>
             <nav class="site-nav" id="site-nav">
                 <a href="index.html" class="active" data-i18n="navHome">Home</a>
                 <a href="poetry.html" data-i18n="navPoetry">Poetry</a>
@@ -148,7 +148,7 @@
                     style="font-family: var(--font-sans); font-size: 1rem; color: var(--text-secondary); margin-bottom: 2rem; letter-spacing: 4px; text-transform: uppercase;">
                 </h2>
                 <h1 class="hero-quote" id="gallery-quote">"I've never played for a draw in my life."</h1>
-                <div class="hero-author">â€” Sir Alex Ferguson</div>
+                <div class="hero-author">— Sir Alex Ferguson</div>
                 <p
                     style="margin-top:2rem; font-family: var(--font-sans); font-size: 0.8rem; letter-spacing: 2px; color: var(--accent-color); ">
                     DRAG TO EXPLORE THE GALLERY</p>
@@ -170,11 +170,11 @@
     </footer>
 
     <!-- Data and Scripts -->
-    <script src="js/dataPoem.js?v=2.2"></script>
-    <script src="js/dataThoughts.js?v=2.2"></script>
-    <script src="js/dataQuotes.js?v=2.2"></script>
-    <script src="js/i18n.js?v=2.2"></script>
-    <script src="js/script.js?v=2.2"></script>
+    <script src="js/dataPoem.js?v=2.3"></script>
+    <script src="js/dataThoughts.js?v=2.3"></script>
+    <script src="js/dataQuotes.js?v=2.3"></script>
+    <script src="js/i18n.js?v=2.3"></script>
+    <script src="js/script.js?v=2.3"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Random Quote of the Day in Center
@@ -183,7 +183,7 @@
                 document.getElementById('gallery-quote').textContent = `"${r.text}"`;
                 // Author is hardcoded in HTML, so we should actually target author
                 const authorEl = document.querySelector('.gallery-center .hero-author');
-                if (authorEl) authorEl.textContent = `â€” ${r.author}`;
+                if (authorEl) authorEl.textContent = `— ${r.author}`;
             }
 
             // Gallery Wall Injection Logic
@@ -380,6 +380,6 @@
     </script>
     
     <!-- Phase 3 Easter Egg -->
-    <div id="easter-egg" style="position:fixed; bottom:15px; left:15px; width:4px; height:4px; background:var(--accent-color); border-radius:50%; opacity:0.2; cursor:pointer; z-index:9999; box-shadow:0 0 5px var(--accent-color); transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.2" onclick="if(window.openZenMode) window.openZenMode('âœ¦ BĂ­ Máº­t ÄĂ£ Má»Ÿ KhĂ³a âœ¦', `ChĂºc má»«ng! Báº¡n náº±m trong sá»‘ ráº¥t Ă­t nhá»¯ng ngÆ°á»i tĂ¬m tháº¥y máº£ng kĂ­ á»©c Ä‘Æ°á»£c giáº¥u kĂ­n nháº¥t cá»§a báº£o tĂ ng nĂ y. Cáº£m Æ¡n sá»± tá»‰ má»‰ cá»§a báº¡n.\n\nMá»i báº¡n Ä‘á»c láº¡i nhá»¯ng dĂ²ng chá»¯ khá»Ÿi nguyĂªn:\n\n---\n\nHĂ´m nay tĂ´i dáº¡y em farm\nNgĂ y mai tĂ´i dáº¡y em lĂ m nhĂ  thÆ¡`)"></div>
+    <div id="easter-egg" style="position:fixed; bottom:15px; left:15px; width:4px; height:4px; background:var(--accent-color); border-radius:50%; opacity:0.2; cursor:pointer; z-index:9999; box-shadow:0 0 5px var(--accent-color); transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.2" onclick="if(window.openZenMode) window.openZenMode('✦ Bí Mật Đã Mở Khóa ✦', `Chúc mừng! Bạn nằm trong số rất ít những người tìm thấy mảng kí ức được giấu kín nhất của bảo tàng này. Cảm ơn sự tỉ mỉ của bạn.\n\nMời bạn đọc lại những dòng chữ khởi nguyên:\n\n---\n\nHôm nay tôi dạy em farm\nNgày mai tôi dạy em làm nhà thơ`)"></div>
 </body>
 </html>

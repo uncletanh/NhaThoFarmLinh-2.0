@@ -371,23 +371,87 @@ function initGalleryDrag() {
     window.addEventListener('mouseup', () => { isDragging = false; });
     window.addEventListener('mouseleave', () => { isDragging = false; });
 
-    // Touch
+    // Touch events and Pinch-to-Zoom
+    let initialPinchDistance = null;
+    let initialScaleAtPinchStart = currentScale;
+    let pinchCenter = {x: 0, y: 0};
+
     viewport.addEventListener('touchstart', (e) => {
-        isDragging = true;
-        window.galleryHasDragged = false;
-        clickStartX = e.touches[0].clientX;
-        clickStartY = e.touches[0].clientY;
-        startX = e.touches[0].clientX - currentX;
-        startY = e.touches[0].clientY - currentY;
+        if (e.touches.length === 2) {
+            isDragging = false;
+            // Initialize pinch zoom
+            const touch1 = e.touches[0];
+            const touch2 = e.touches[1];
+            initialPinchDistance = Math.hypot(touch2.clientX - touch1.clientX, touch2.clientY - touch1.clientY);
+            initialScaleAtPinchStart = currentScale;
+            
+            // Calculate center of pinch for focal point
+            const rect = viewport.getBoundingClientRect();
+            pinchCenter = {
+                x: (touch1.clientX + touch2.clientX) / 2,
+                y: (touch1.clientY + touch2.clientY) / 2
+            };
+        } else if (e.touches.length === 1) {
+            isDragging = true;
+            window.galleryHasDragged = false;
+            clickStartX = e.touches[0].clientX;
+            clickStartY = e.touches[0].clientY;
+            startX = e.touches[0].clientX - currentX;
+            startY = e.touches[0].clientY - currentY;
+        }
     });
+    
     window.addEventListener('touchmove', (e) => {
+        if (e.touches.length === 2 && initialPinchDistance) {
+            e.preventDefault(); // Prevent standard browser zoom
+            const touch1 = e.touches[0];
+            const touch2 = e.touches[1];
+            const currentDistance = Math.hypot(touch2.clientX - touch1.clientX, touch2.clientY - touch1.clientY);
+            
+            const oldScale = currentScale;
+            currentScale = initialScaleAtPinchStart * (currentDistance / initialPinchDistance);
+            
+            // Clamp scale
+            if(currentScale < 0.25) currentScale = 0.25;
+            if(currentScale > 2.5) currentScale = 2.5;
+
+            // Apply focus math based on pinch center
+            const rect = viewport.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const vx = pinchCenter.x - cx;
+            const vy = pinchCenter.y - cy;
+            const factor = currentScale / oldScale;
+
+            currentX = currentX * factor + vx * (1 - factor);
+            currentY = currentY * factor + vy * (1 - factor);
+
+            const maxDragX = 4000 * currentScale;
+            const maxDragY = 4000 * currentScale;
+            if(currentX > maxDragX) currentX = maxDragX;
+            if(currentX < -maxDragX) currentX = -maxDragX;
+            if(currentY > maxDragY) currentY = maxDragY;
+            if(currentY < -maxDragY) currentY = -maxDragY;
+
+            if(!rafId) rafId = requestAnimationFrame(render);
+            return;
+        }
+
         if(!isDragging || !e.touches[0]) return;
         if (Math.abs(e.touches[0].clientX - clickStartX) > 5 || Math.abs(e.touches[0].clientY - clickStartY) > 5) {
             window.galleryHasDragged = true;
         }
         updatePosition(e.touches[0].clientX, e.touches[0].clientY);
+    }, {passive: false});
+    
+    window.addEventListener('touchend', (e) => {
+        if (e.touches.length < 2) {
+            initialPinchDistance = null;
+        }
+        if (e.touches.length === 0) {
+            isDragging = false;
+        }
     });
-    window.addEventListener('touchend', () => isDragging = false);
 }
 
 function initParticles() {
