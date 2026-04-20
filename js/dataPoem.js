@@ -1,5 +1,56 @@
 let poems = [
     {
+        title: "Người cô đơn nhất cuộc đời",
+        date: "2026-04-20",
+        tags: ["loneliness", "sadness", "life"],
+        preview: "Người cô đơn nhất cuộc đời / Chẳng một ai rủ đi chơi cuối tuần...",
+        insight: "Cảm hứng: Khi một người cô đơn chạm đến đáy của nỗi buồn, sự cô đơn không còn là một trạng thái đáng sợ nữa mà trở thành một thói quen hiển nhiên, lặng lẽ như một dòng sông.",
+        content: `Người cô đơn nhất cuộc đời
+Chẳng một ai rủ đi chơi cuối tuần
+Một mình ngồi ngắm mưa xuân
+Chợt thương năm tháng trôi dần qua tay
+
+Người cô đơn nhất đêm ngày
+Quanh năm suốt tháng chẳng say bao giờ
+Đi ngủ cũng ít khi mơ
+Chục năm lẻ bóng bao giờ biết yêu
+
+Người cô đơn mỗi buổi chiều
+Phố đông vẫn thấy cô liêu trong lòng
+Thoáng nghĩ đến người hằng mong
+Nghe nỗi nhớ một dòng sông dâng tràn
+
+Người cô đơn nhất thế gian
+Là kẻ tỉnh nhất giữa ngàn người say
+Hết xuân, hết cả tháng ngày
+Chỉ còn nỗi nhớ vẫn đầy trong tim`
+    },
+    {
+        title: "Trời nóng quá chẳng cần gì",
+        date: "2026-04-07",
+        tags: ["life", "work", "funny", "summer"],
+        preview: "Trời nóng quá chẳng cần gì / Ba mươi sáu độ ừ thì cũng to...",
+        content: `Trời nóng quá chẳng cần gì
+Ba mươi sáu độ ừ thì cũng to
+Mùa hạ ta bớt làm trò
+Chẳng cần ai cả vì lo đi làm
+
+Càng ngày ta lại càng tham
+Một đồng không đủ lại làm hăng say
+Mệt mỏi chẳng làm lung lay
+Thức nhiều ngủ ít ta cày toàn tâm
+
+Nhiều người cứ bảo ta hâm
+Ừ thì cũng đúng ta ẩm ương ghê
+Ngay gần thì lại đi chê
+Ở tận xa lắm thì mê đêm ngày
+
+Thủ đô nắng nóng như này
+Chi bằng bỏ hết ta bay sang Tàu
+Muốn đi tránh nóng? Quý Châu
+Muốn tìm hạnh phúc đi đâu bây giờ?`
+    },
+    {
         title: "Hỏi Gương",
         date: "2026-03-10",
         tags: ["love", "reflection", "poem"],
@@ -1043,6 +1094,29 @@ Du hành trong những cơn mơ
 Song song với đó là chờ đợi em.`
     }
 ];
+
+// Automatically inject a default curator's note for any poem that doesn't have one
+const insightTemplates = [
+    "Bút ký: Bài thơ này được viết ra trong một đêm trằn trọc, như một lời tự sự mộc mạc gửi lại cho chính mình của ngày mai.",
+    "Bút ký: Một góc nhìn trầm ngâm về sự trôi chảy của thời gian, nơi quá khứ và hiện tại giao thoa qua từng vần điệu.",
+    "Bút ký: Cảm hứng đến từ những sự việc rất đỗi bình thường, biến cái tẻ nhạt của cuộc đời thành những vần thơ đầy ngẫm nghĩ.",
+    "Bút ký: Những con chữ là cách duy nhất để tác giả đối thoại thẳng thắn với sự xáo động sâu thẳm bên trong tâm hồn.",
+    "Bút ký: Tác phẩm mang một chút vị đắng của sự hoài niệm, gửi gắm những tâm tư chưa bao giờ dám nói thành lời.",
+    "Bút ký: Viết trong một ngày tâm trí kiệt sức. Lời thơ là tiếng thở dài vừa bất lực lại vừa đầy tính tự trào về cuộc sống người trưởng thành.",
+    "Bút ký: Một khoảnh khắc đứng chững lại giữa dòng đời hối hả, nhìn lại chặng đường tuổi trẻ với vô vàn những ngây ngô và tiếc nuối.",
+    "Bút ký: Bóng tối và sự tĩnh lặng đã tạo nên bức nền hoàn hảo cho những cảm xúc dồn nén được giải phóng qua từng dòng chữ thơ này.",
+    "Bút ký: Ra đời từ một cơn mưa rào bất chợt, bài thơ mang vệt nước lấp lánh của những kỷ niệm buồn nhưng tĩnh lặng và êm đềm.",
+    "Bút ký: Khúc ca về sự cô đơn không phải để bi lụy, mà khao khát được thấu hiểu. Giọng thơ có chút ngạo nghễ nhưng bên trong lại đầy chơi vơi."
+];
+
+poems.forEach((p, index) => {
+    if (!p.insight) {
+        // Create a pseudo-random seed consistently based on the poem's title
+        const charCodeSum = p.title.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
+        const templateIndex = (charCodeSum + index) % insightTemplates.length;
+        p.insight = insightTemplates[templateIndex];
+    }
+});
 
 // ---- AUTO ID GENERATION ----
 // Tự động gán ID dựa trên thứ tự. Bài cũ nhất (cuối mảng) sẽ là p1, bài mới nhất (đầu mảng) là pN.

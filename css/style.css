@@ -1,35 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
 /*=============================================================================
   GLOBAL DESIGN SYSTEM & VARIABLES
 =============================================================================*/
 :root {
-  /* Colors - Light Theme */
-  --bg-color: #F9F9F7;
-  --text-primary: #2C2C2C;
-  --text-secondary: #5A5A5A;
-  --accent-color: #8C7A6B;
-  --border-color: #e2e2dd;
-  --nav-bg: rgba(249, 249, 247, 0.9);
+  /* Colors - Light Theme (Cream/Espresso & Gold) */
+  --bg-color: #FDFBF7;
+  --text-primary: #3B3024;
+  --text-secondary: #6B5C4E;
+  --accent-color: #CBA365;
+  --border-color: #E2DCD3;
+  --nav-bg: rgba(253, 251, 247, 0.8);
 
   /* Typography */
-  --font-serif: 'Lora', 'Playfair Display', serif;
-  --font-sans: 'Inter', 'Outfit', sans-serif;
+  --font-serif: 'Playfair Display', 'Lora', serif;
+  --font-sans: 'Outfit', 'Inter', sans-serif;
 
   /* Spacing & Layout */
   --content-width: 800px;
   --nav-height: 80px;
 
   /* Transitions */
-  --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 [data-theme="dark"] {
-  /* Colors - Dark Theme */
-  --bg-color: #161618;
-  --text-primary: #E4E4E4;
-  --text-secondary: #A0A0A0;
-  --accent-color: #BFA892;
-  --border-color: #333333;
-  --nav-bg: rgba(22, 22, 24, 0.9);
+  /* Colors - Dark Theme (Obsidian & Gold) */
+  --bg-color: #0A0A0A;
+  --text-primary: #F0EAE1;
+  --text-secondary: #A39B91;
+  --accent-color: #D4AF37;
+  --border-color: #2A2A2A;
+  --nav-bg: rgba(10, 10, 10, 0.8);
 }
 
 /*=============================================================================
@@ -49,8 +51,24 @@ body {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.4s ease, color 0.4s ease;
+  transition: background-color 0.8s ease, color 0.8s ease;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* Elegant Grain Overlay */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 9999;
+  pointer-events: none;
+  background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noise)"/%3E%3C/svg%3E');
+  opacity: 0.05;
+}
+
+[data-theme="dark"] body::after {
+  opacity: 0.03;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -250,26 +268,81 @@ img {
   color: var(--accent-color);
 }
 
-/* Cards / List Items */
+/*=============================================================================
+  ANIMATIONS
+=============================================================================*/
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+
+/* Cards / List Items (Typography Art Style) */
 .list-item {
-  margin-bottom: 3rem;
+  margin-bottom: 5rem;
   display: block;
-  group: list-item;
+  padding: 1rem 0;
+  border: none;
+  background: transparent;
+  transition: var(--transition-smooth);
+  position: relative;
+  scroll-margin-top: 150px;
+}
+
+[data-theme="dark"] .list-item {
+  background: transparent;
+}
+
+.list-item:hover {
+  background: transparent;
+  transform: translateX(10px);
+  box-shadow: none;
 }
 
 .list-item-date {
   font-family: var(--font-sans);
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--accent-color);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 3px;
+  position: absolute;
+  top: -1.5rem;
+  left: 0;
+  opacity: 0.5;
 }
 
 .list-item-title {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
+  font-size: 2.8rem;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-weight: 500;
   transition: var(--transition-smooth);
+  position: relative;
+  z-index: 2;
+  color: var(--text-primary);
+}
+
+.poem-content, .thought-content {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .list-item-title {
+    font-size: 1.8rem;
+  }
 }
 
 .list-item:hover .list-item-title {
@@ -278,7 +351,215 @@ img {
 
 .list-item-preview {
   margin-bottom: 0;
+  font-size: 1.1rem;
+  max-width: 600px;
+  color: var(--text-secondary);
+  position: relative;
+  z-index: 2;
+  padding-left: 2rem;
+  border-left: 1px solid var(--border-color);
+}
+
+/* Zen Mode Enhancements */
+.zen-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: radial-gradient(circle at center, rgba(253, 251, 247, 0.98), rgba(245, 240, 230, 1));
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 6rem 2rem;
+  will-change: opacity;
+}
+[data-theme="dark"] .zen-overlay {
+  background: radial-gradient(circle at center, rgba(20, 20, 20, 0.98), rgba(5, 5, 5, 1));
+}
+
+.zen-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.zen-content {
+  max-width: 600px;
+  width: 100%;
+  margin: auto;
+}
+
+.zen-close {
+  position: fixed;
+  top: 2rem;
+  left: 3rem;
+  right: auto;
+  background: transparent;
+  border: none;
+  font-size: 3rem;
+  color: var(--text-primary);
+  opacity: 0.5;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10001;
+}
+
+.zen-close:hover {
+  color: var(--accent-color);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.zen-poem-title {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+  font-style: italic;
+  position: relative;
+  z-index: 9999;
+}
+
+.zen-poem-body {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  line-height: Math.max(2, 2.5);
+  white-space: pre-line;
+  color: var(--text-primary);
+  text-align: center;
+  position: relative;
+  z-index: 9999;
+}
+
+/* Narration Button (Poetry.html) */
+.narration-btn {
+  background: rgba(140, 122, 107, 0.1);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+.narration-btn:hover {
+  background: var(--accent-color);
+  color: #fff;
+  border-color: var(--accent-color);
+}
+.narration-btn svg {
+  width: 16px; height: 16px;
+  fill: currentColor;
+}
+.narration-btn.playing {
+  background: var(--accent-color);
+  color: #fff;
+}
+
+/* Handwritten Signature Animation */
+.signature-wrap {
+  width: max-content;
+  max-width: 100%;
+  margin: 4rem auto 0;
+  display: block;
+  font-family: 'Great Vibes', cursive;
+  font-size: 3.5rem;
+  color: var(--text-primary);
+  font-weight: 400;
+  position: relative;
+  white-space: nowrap;
+  letter-spacing: 2px;
+  opacity: 0.9;
+  padding: 0 1rem;
+}
+.zen-overlay.active .signature-wrap {
+  animation: revealSignature 2.5s ease-in-out forwards;
+  animation-delay: 0.5s;
+  clip-path: inset(0 100% 0 0);
+}
+@keyframes revealSignature {
+  to { clip-path: inset(0 0 0 0); }
+}
+
+/* Audio Player Floating Button */
+.audio-toggle {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--nav-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 9998;
+  transition: var(--transition-smooth);
+  backdrop-filter: blur(10px);
+}
+.audio-toggle:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  transform: scale(1.05);
+}
+.audio-toggle.is-playing {
+  animation: spin 8s linear infinite;
+  border-color: var(--accent-color);
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+/* Curator's Notes */
+.curator-wrapper {
+  margin-top: 1.5rem;
+}
+.curator-toggle {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  border-radius: 50%;
+  width: 40px; height: 40px;
+  display: inline-flex; justify-content: center; align-items: center;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+.curator-toggle:hover {
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+  transform: scale(1.1);
+}
+.curator-note {
+  max-width: 600px;
+  margin-top: 1rem;
+  padding: 1.5rem;
+  border-left: 2px solid var(--accent-color);
+  background: rgba(140, 122, 107, 0.05);
+  font-family: var(--font-serif);
   font-size: 1rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.curator-note.visible {
+  display: block;
+}
+.curator-note.fade-in-note {
+  opacity: 1;
 }
 
 /* Tags */
@@ -298,6 +579,238 @@ img {
   border-radius: 20px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+/*=============================================================================
+  PHASE 2: GALLERY WALL & ROOMS
+=============================================================================*/
+.gallery-viewport {
+    position: relative;
+    width: 100vw;
+    height: calc(100vh - var(--nav-height));
+    overflow: hidden;
+    cursor: grab;
+    background-color: var(--bg-color);
+}
+.gallery-viewport::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 150px rgba(0,0,0,0.1);
+    z-index: 999;
+}
+[data-theme="dark"] .gallery-viewport::after {
+    box-shadow: inset 0 0 300px rgba(0,0,0,0.9);
+}
+
+.gallery-viewport:active {
+    cursor: grabbing;
+}
+
+.gallery-wall-wrapper {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    /* Cosmic Drifting */
+    animation: cosmicDrift 120s ease-in-out infinite alternate;
+}
+@keyframes cosmicDrift {
+    0% { transform: scale(1) rotate(-1deg); }
+    100% { transform: scale(1.02) rotate(1deg); }
+}
+
+.gallery-wall {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 3000px; height: 2000px;
+    transform-origin: center center;
+    margin-left: -1500px;
+    margin-top: -1000px;
+    background-image: 
+      radial-gradient(var(--border-color) 1px, transparent 1px),
+      radial-gradient(var(--border-color) 1px, transparent 1px);
+    background-position: 0 0, 50px 50px;
+    background-size: 100px 100px;
+}
+[data-theme="dark"] .gallery-wall {
+    background-image: none; /* Remove harsh grid for universe aesthetic */
+}
+
+/* Stardust Background Particles */
+.stardust {
+    position: absolute;
+    background: var(--text-secondary);
+    border-radius: 50%;
+    opacity: 0.2;
+    pointer-events: none;
+    animation: twinkle 4s ease-in-out infinite alternate;
+}
+[data-theme="dark"] .stardust {
+    background: #fff;
+    opacity: 0.5;
+    box-shadow: 0 0 4px #fff, 0 0 15px var(--accent-color);
+}
+@keyframes twinkle {
+    0% { transform: scale(0.5); opacity: 0.1; }
+    100% { transform: scale(1.5); opacity: 0.8; }
+}
+
+/* Constellations */
+#constellation-canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0; 
+}
+.constellation-line {
+    stroke: var(--text-secondary);
+    stroke-width: 1.5;
+    opacity: 0.5;
+    transition: all 0.4s ease;
+}
+.constellation-line.active {
+    stroke: var(--accent-color);
+    stroke-width: 3;
+    opacity: 1;
+    filter: drop-shadow(0 0 8px var(--accent-color));
+}
+[data-theme="dark"] .constellation-line { stroke: #D4AF37; opacity: 0.4; }
+
+/* Interactive Flashlight */
+#flashlight {
+    position: fixed;
+    top: 0; left: 0;
+    width: 600px; height: 600px;
+    margin-left: -300px; margin-top: -300px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 998; 
+    background: radial-gradient(circle, rgba(203,163,101,0.15) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    will-change: transform, opacity;
+}
+[data-theme="dark"] #flashlight {
+    background: radial-gradient(circle, rgba(203,163,101,0.1) 0%, transparent 65%);
+}
+
+.gallery-frame {
+    position: absolute;
+    width: 380px;
+    background: var(--bg-color); /* Acts as the passepartout/matboard */
+    border: 12px solid #1a1715; /* Physical dark wooden frame */
+    border-radius: 2px;
+    padding: 3rem 2.5rem 2.5rem;
+    
+    /* 
+      1. Matboard padding (inset 0 0 0 20px) 
+      2. Fine bevel line (inset 0 0 0 21px) 
+      3. Drop shadow on page
+    */
+    box-shadow: 
+        inset 0 0 0 25px var(--bg-color), 
+        inset 0 0 0 26px var(--border-color),
+         inset 0 0 10px 26px rgba(0,0,0,0.02),
+        15px 25px 50px rgba(0,0,0,0.15);
+        
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.8s ease;
+    will-change: transform;
+    transform-origin: center center;
+}
+[data-theme="dark"] .gallery-frame { 
+    border-color: #0b0b0b; 
+    background: #111;
+    box-shadow: 
+        inset 0 0 0 20px #111,
+        inset 0 0 0 21px rgba(212, 175, 55, 0.2),
+        10px 15px 30px rgba(0,0,0,0.8);
+}
+
+.gallery-frame::after {
+    content: '';
+    position: absolute;
+    inset: -100px;
+    background: transparent;
+    z-index: -1;
+}
+
+.gallery-frame:hover {
+    transform: translate(-50%, -50%) rotate(0deg) scale(1.04) !important;
+    z-index: 100 !important;
+    box-shadow: 15px 25px 40px rgba(0,0,0,0.3);
+}
+[data-theme="dark"] .gallery-frame:hover {
+    box-shadow: 
+        inset 0 0 0 20px #111,
+        inset 0 0 0 21px rgba(212, 175, 55, 0.4),
+        15px 25px 60px rgba(0,0,0,0.9);
+}
+.gallery-frame-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+.gallery-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 600px;
+    background: var(--bg-color);
+    padding: 3rem;
+    border: 1px solid var(--border-color);
+    pointer-events: none;
+    z-index: 50;
+    box-shadow: 0 0 100px 50px var(--bg-color);
+}
+#fx-canvas {
+    position: absolute;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Theme Rooms */
+body.room-loneliness {
+    --bg-color: #0B1116;
+    --nav-bg: rgba(11, 17, 22, 0.8);
+    --text-primary: #C5D1D9;
+}
+body.room-dream {
+    --bg-color: #170B1A;
+    --nav-bg: rgba(23, 11, 26, 0.8);
+    --text-primary: #DABDE6;
+}
+body.room-life {
+    --bg-color: #1A130B;
+    --nav-bg: rgba(26, 19, 11, 0.8);
+    --text-primary: #E6D0BA;
+}
+body {
+    transition: background-color 1.5s ease, color 1.5s ease;
+}
+
+/* Immersive Fullscreen Mode */
+body.is-fullscreen .site-header,
+body.is-fullscreen .site-footer {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-20px);
+}
+body.is-fullscreen .site-footer {
+    transform: translateY(20px);
+}
+body.is-fullscreen .gallery-viewport {
+    height: 100vh;
+}
+.site-header, .site-footer {
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 /*=============================================================================

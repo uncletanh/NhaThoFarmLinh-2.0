@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
+    <script>const savedTheme = localStorage.getItem('theme');if(savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme', 'dark');}</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Poetry | Notebook</title>
@@ -120,10 +121,23 @@
         .read-toggle {
             font-family: var(--font-sans);
             font-size: 0.85rem;
-            color: var(--accent-color);
+            color: var(--text-primary);
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
             cursor: pointer;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: inline-block;
+            transition: var(--transition-smooth);
+        }
+        .read-toggle:hover {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -257,23 +271,88 @@
                 filtered.forEach(p => {
                     const tagHtml = p.tags ? p.tags.map(t => `<span class="tag">${t}</span>`).join('') : '';
                     
+                    const insightHtml = p.insight ? `
+                        <div class="curator-wrapper">
+                            <button class="curator-toggle" title="View Curator's Note">👁️‍🗨️</button>
+                            <div class="curator-note">${p.insight}</div>
+                        </div>
+                    ` : '';
+
                     const el = document.createElement('div');
-                    el.className = 'list-item';
+                    el.className = 'list-item fade-in visible';
                     el.id = p.id;
                     el.innerHTML = `
                         <div class="list-item-date">${p.date}</div>
                         <h2 class="list-item-title">${p.title}</h2>
                         <div class="tags" style="margin-bottom: 1rem;">${tagHtml}</div>
                         <p class="list-item-preview">${p.preview}</p>
+                        
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <button class="narration-btn" data-id="${p.id}" title="Listen to Author">
+                                <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                <span>Voice Note</span>
+                            </button>
+                            <button class="read-toggle">${readBtnText}</button>
+                        </div>
+                        
                         <div class="poem-content">${p.content.trim()}</div>
-                        <div class="read-toggle">${readBtnText}</div>
+                        ${insightHtml}
                     `;
                     
-                    // Toggle Read state inline
+                    // Button Logic: Handle both Hash Expanding and Zen Mode
                     el.querySelector('.read-toggle').addEventListener('click', (e) => {
-                        el.classList.toggle('reading');
-                        e.target.textContent = el.classList.contains('reading') ? collapseBtnText : readBtnText;
+                        if (el.classList.contains('reading')) {
+                            el.classList.remove('reading');
+                            e.target.textContent = readBtnText;
+                        } else {
+                            if (window.openZenMode) {
+                                window.openZenMode(p.title, p.content);
+                            }
+                        }
                     });
+
+                    // Toggle Curator Note
+                    const cToggle = el.querySelector('.curator-toggle');
+                    if (cToggle) {
+                        cToggle.addEventListener('click', () => {
+                            const note = el.querySelector('.curator-note');
+                            if(!note.classList.contains('visible')) {
+                                note.classList.add('visible');
+                                setTimeout(() => note.classList.add('fade-in-note'), 50);
+                            } else {
+                                note.classList.remove('fade-in-note');
+                                setTimeout(() => note.classList.remove('visible'), 400);
+                            }
+                        });
+                    }
+
+                    // Narration Audio Logic (Placeholder)
+                    const nBtn = el.querySelector('.narration-btn');
+                    if (nBtn) {
+                        nBtn.addEventListener('click', function() {
+                            const icon = this.querySelector('svg');
+                            const text = this.querySelector('span');
+                            
+                            if (this.classList.contains('playing')) {
+                                this.classList.remove('playing');
+                                icon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"></polygon>';
+                                text.textContent = 'Voice Note';
+                                // placeholder: audio.pause()
+                            } else {
+                                // Stop all others
+                                document.querySelectorAll('.narration-btn.playing').forEach(b => {
+                                    b.classList.remove('playing');
+                                    b.querySelector('svg').innerHTML = '<polygon points="5 3 19 12 5 21 5 3"></polygon>';
+                                    b.querySelector('span').textContent = 'Voice Note';
+                                });
+                                
+                                this.classList.add('playing');
+                                icon.innerHTML = '<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>';
+                                text.textContent = 'Playing...';
+                                // placeholder: let audio = new Audio('audio/track_'+p.id+'.mp3'); audio.play();
+                            }
+                        });
+                    }
 
                     poetryList.appendChild(el);
                 });

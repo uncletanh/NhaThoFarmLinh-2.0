@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
+    <script>const savedTheme = localStorage.getItem('theme');if(savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme', 'dark');}</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thoughts | Notebook</title>
@@ -36,11 +37,23 @@
         .read-toggle {
             font-family: var(--font-sans);
             font-size: 0.85rem;
-            color: var(--accent-color);
+            color: var(--text-primary);
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
             cursor: pointer;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
             display: inline-block;
+            transition: var(--transition-smooth);
+        }
+        .read-toggle:hover {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -80,6 +93,10 @@
     <main class="page-wrapper container">
         <h1 class="section-title" data-i18n="thoughtsCollectionTitle">Collected Thoughts</h1>
         
+        <div class="search-container" style="margin-bottom: 3rem;">
+            <input type="text" id="thoughts-search" class="search-input" placeholder="Search essays..." autocomplete="off">
+        </div>
+
         <div id="thoughts-list">
             <!-- Thoughts injected here -->
         </div>
@@ -95,30 +112,48 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const thoughtsList = document.getElementById('thoughts-list');
+            const searchInput = document.getElementById('thoughts-search');
+            let currentSearch = '';
+
+            searchInput.addEventListener('input', (e) => {
+                currentSearch = e.target.value.toLowerCase().trim();
+                renderThoughts();
+            });
 
             function renderThoughts() {
                 thoughtsList.innerHTML = '';
                 if (thoughts) {
-                    thoughts.forEach(t => {
+                    const filtered = thoughts.filter(t => {
+                        if(!currentSearch) return true;
+                        return t.title.toLowerCase().includes(currentSearch) || t.content.toLowerCase().includes(currentSearch);
+                    });
+
+                    filtered.forEach(t => {
                         const el = document.createElement('div');
-                        el.className = 'list-item';
+                        el.className = 'list-item fade-in visible';
                         el.id = t.id;
-                        
                         const readText = window.currentLangDict?.readEssay || 'Read Essay';
                         const collapseText = window.currentLangDict?.collapsePoem || 'Collapse';
-                        
+                        // Strip HTML tags from content for Zen mode since we use textContent
+                        const rawText = t.content.replace(/<[^>]*>?/gm, '');
+
                         el.innerHTML = `
                             <div class="list-item-date">${t.date}</div>
                             <h2 class="list-item-title">${t.title}</h2>
                             <p class="list-item-preview">${t.preview}</p>
                             <div class="thought-content">${t.content}</div>
-                            <div class="read-toggle">${readText}</div>
+                            <div><button class="read-toggle">${readText}</button></div>
                         `;
-                        
-                        // Toggle Read state
+                        // Button Logic: Handle both Hash Expanding and Zen Mode
                         el.querySelector('.read-toggle').addEventListener('click', (e) => {
-                            el.classList.toggle('reading');
-                            e.target.textContent = el.classList.contains('reading') ? collapseText : readText;
+                            if (el.classList.contains('reading')) {
+                                el.classList.remove('reading');
+                                e.target.textContent = readText;
+                            } else {
+                                if (window.openZenMode) {
+                                    window.openZenMode(t.title, rawText);
+                                }
+                            }
                         });
 
                         thoughtsList.appendChild(el);
@@ -142,9 +177,14 @@
                 setTimeout(() => {
                     const targetEl = document.getElementById(targetId);
                     if (targetEl) {
-                        targetEl.classList.add('reading');
-                        targetEl.querySelector('.read-toggle').textContent = 'Collapse';
-                        targetEl.scrollIntoView({ behavior: 'smooth' });
+                        if(window.openZenMode) {
+                            const t = thoughts.find(x => x.id === targetId);
+                            if(t) window.openZenMode(t.title, t.content.replace(/<[^>]*>?/gm, ''));
+                        } else {
+                            targetEl.classList.add('reading');
+                            targetEl.querySelector('.read-toggle').textContent = 'Collapse';
+                            targetEl.scrollIntoView({ behavior: 'smooth' });
+                        }
                     }
                 }, 100);
             }

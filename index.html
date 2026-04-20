@@ -2,6 +2,7 @@
 <html lang="en" data-theme="light">
 
 <head>
+    <script>const savedTheme = localStorage.getItem('theme');if(savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme', 'dark');}</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notebook & Poetry | A Literary Space</title>
@@ -14,6 +15,20 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Force strictly no-scroll and float footer on index */
+        /* Force strictly no-scroll and hide footer entirely on gallery wall */
+        body { overflow: hidden; }
+        .site-footer {
+            display: none !important;
+        }
+        .gallery-viewport {
+            height: 100vh !important; /* Take full space by default */
+        }
+        body.is-fullscreen .site-header {
+            display: none !important;
+        }
+    </style>
 
     <style>
         /* Home specific styles */
@@ -89,7 +104,8 @@
     <header class="site-header">
         <div class="nav-container">
             <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Menu">
-                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="1.5" fill="none"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <line x1="3" y1="12" x2="21" y2="12"></line>
                     <line x1="3" y1="6" x2="21" y2="6"></line>
                     <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -117,52 +133,36 @@
         </div>
     </header>
 
-    <main class="page-wrapper container">
+    <!-- Gallery Phase 2 -->
+    <main class="gallery-viewport" id="gallery-viewport">
+        <!-- Interactive Flashlight -->
+        <div id="flashlight"></div>
+        <div class="gallery-wall-wrapper">
+            <div id="parallax-bg" style="position:absolute; top:50%; left:50%; width:3000px; height:2000px; margin-left:-1500px; margin-top:-1000px; pointer-events:none;"></div>
+            <div class="gallery-wall" id="gallery-wall">
+                <svg id="constellation-canvas" style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events: none; overflow: visible;"></svg>
 
-        <!-- Hero Section -->
-        <section class="hero">
-            <div>
-                <h1 class="hero-quote" data-i18n="heroQuote">"I've never played for a draw in my life."</h1>
-                <div class="hero-author" data-i18n="heroAuthor">— Sir Alex Ferguson</div>
+            <!-- Center piece: Greeting & Quote -->
+            <div class="gallery-center">
+                <h2 id="dynamic-greeting"
+                    style="font-family: var(--font-sans); font-size: 1rem; color: var(--text-secondary); margin-bottom: 2rem; letter-spacing: 4px; text-transform: uppercase;">
+                </h2>
+                <h1 class="hero-quote" id="gallery-quote">"I've never played for a draw in my life."</h1>
+                <div class="hero-author">— Sir Alex Ferguson</div>
+                <p
+                    style="margin-top:2rem; font-family: var(--font-sans); font-size: 0.8rem; letter-spacing: 2px; color: var(--accent-color); ">
+                    DRAG TO EXPLORE THE GALLERY</p>
+                <button id="gallery-fs-btn" class="btn" style="margin-top: 1.5rem; pointer-events: auto; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+                    </svg>
+                    Immersive Mode
+                </button>
             </div>
-        </section>
 
-        <!-- Two Column Layout for Latest Content -->
-        <div class="section-grid">
-            <!-- Latest Poems -->
-            <section>
-                <h2 class="section-title" data-i18n="recentPoemsTitle">Recent Poems</h2>
-                <div id="latest-poems">
-                    <!-- Injected via JS -->
-                </div>
-                <a href="poetry.html" class="btn" data-i18n="viewAllPoetry">View All Poetry</a>
-            </section>
-
-            <!-- Latest Thoughts -->
-            <section>
-                <h2 class="section-title" data-i18n="latestThoughtsTitle">Latest Thoughts</h2>
-                <div id="latest-thoughts">
-                    <!-- Injected via JS -->
-                </div>
-                <a href="thoughts.html" class="btn" data-i18n="readAllEssays">Read All Essays</a>
-            </section>
+            <!-- JavaScript injects gallery-frame items here -->
+            </div>
         </div>
-
-        <!-- Quote of the Day -->
-        <section class="quote-card" id="qotd">
-            <p id="qotd-text">"Everything should be made as simple as possible, but not simpler."</p>
-            <span id="qotd-author">— Albert Einstein</span>
-        </section>
-
-        <!-- About Preview -->
-        <section style="text-align: center; max-width: 600px; margin: 0 auto 4rem auto;">
-            <h2 class="section-title" style="margin-bottom: 2rem;" data-i18n="aboutAuthorTitle">About the Author</h2>
-            <p data-i18n="indexAboutPara">I write to understand the world and myself. This digital space serves as a
-                quiet garden for my poetry,
-                essays, and collected fragments of thought.</p>
-            <a href="about.html" class="btn" data-i18n="moreAboutMeBtn">More About Me</a>
-        </section>
-
     </main>
 
     <footer class="site-footer">
@@ -177,44 +177,209 @@
     <script src="js/script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Populate latest poems (last 2)
-            const poemContainer = document.getElementById('latest-poems');
-            if (poems) {
-                const recentPoems = poems.slice(0, 2);
-                recentPoems.forEach(p => {
-                    poemContainer.innerHTML += `
-                        <a href="poetry.html#${p.id}" class="list-item">
-                            <div class="list-item-date">${p.date}</div>
-                            <h3 class="list-item-title">${p.title}</h3>
-                            <p class="list-item-preview">${p.preview}</p>
-                        </a>
-                    `;
-                });
-            }
-
-            // Populate latest thoughts (last 2)
-            const thoughtContainer = document.getElementById('latest-thoughts');
-            if (thoughts) {
-                const recentThoughts = thoughts.slice(0, 2);
-                recentThoughts.forEach(t => {
-                    thoughtContainer.innerHTML += `
-                        <a href="thoughts.html#${t.id}" class="list-item">
-                            <div class="list-item-date">${t.date}</div>
-                            <h3 class="list-item-title">${t.title}</h3>
-                            <p class="list-item-preview">${t.preview}</p>
-                        </a>
-                    `;
-                });
-            }
-
-            // Random Quote of the Day
+            // Random Quote of the Day in Center
             if (quotes && quotes.length > 0) {
-                const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-                document.getElementById('qotd-text').textContent = `"${randomQuote.text}"`;
-                document.getElementById('qotd-author').textContent = `— ${randomQuote.author}`;
+                const r = quotes[Math.floor(Math.random() * quotes.length)];
+                document.getElementById('gallery-quote').textContent = `"${r.text}"`;
+                // Author is hardcoded in HTML, so we should actually target author
+                const authorEl = document.querySelector('.gallery-center .hero-author');
+                if (authorEl) authorEl.textContent = `— ${r.author}`;
             }
-        });
-    </script>
-</body>
 
+            // Gallery Wall Injection Logic
+            initInteractiveWall();
+        });
+
+        function initInteractiveWall() {
+            const wall = document.getElementById('gallery-wall');
+            const parallaxBg = document.getElementById('parallax-bg');
+            if(!wall) return;
+
+            // Generate Stardust Background Particles
+            for(let i=0; i<150; i++) {
+                const star = document.createElement('div');
+                star.className = 'stardust';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                const size = Math.random() * 3 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.animationDelay = `${Math.random() * 4}s`;
+                star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                if (parallaxBg) parallaxBg.appendChild(star);
+            }
+
+            // Distribute poems optimally
+            let items = [];
+            if (typeof poems !== "undefined") {
+                // map them all
+                items = poems.map(p => ({ ...p, type: 'poetry' }));
+            }
+
+            // Calculate max bounds based on item count so the wall expands infinitely!
+            // Start at 400 to bring the newest poems into immediate view!
+            const maxRadius = 400 + (Math.sqrt(items.length) * 250);
+            
+            const wallWidth = Math.max(4000, Math.floor(maxRadius * 3.5));
+            const wallHeight = Math.max(3000, Math.floor(maxRadius * 2.5));
+            const centerX = wallWidth / 2;
+            const centerY = wallHeight / 2;
+
+            wall.style.width = wallWidth + 'px';
+            wall.style.height = wallHeight + 'px';
+            wall.style.marginLeft = -centerX + 'px';
+            wall.style.marginTop = -centerY + 'px';
+
+            const goldenAngle = 137.5 * (Math.PI / 180);
+
+            items.forEach((item, index) => {
+                const el = document.createElement('a');
+                el.href = `poetry.html#${item.id}`;
+                el.className = 'gallery-frame';
+                el.draggable = false; // Prevent native browser dragging
+
+                // Calculate position using organic spiral
+                const radius = 400 + (Math.sqrt(index) * 250); 
+                const angle = index * goldenAngle;
+
+                const x = centerX + Math.cos(angle) * (radius * 1.4);
+                const y = centerY + Math.sin(angle) * radius;
+
+                // The furthest items get scaled down
+                const sizeFactor = Math.max(0.6, 1.4 - (index * 0.03));
+                
+                // Store structural data for constellations later
+                item.x = x;
+                item.y = y;
+                item.sizeFactor = sizeFactor;
+
+                el.style.left = `${x}px`;
+                el.style.top = `${y}px`;
+                el.style.zIndex = Math.floor(100 - index); // Newer items overlap older ones
+
+                el.style.width = Math.floor(320 * sizeFactor) + 'px';
+                el.style.padding = (2 * sizeFactor) + 'rem';
+
+                // Rotation tangent to the circle for extra elegance
+                const rot = (angle * (180 / Math.PI)) + 90;
+                // Add tiny jitter to rotation so it's not perfectly mathematical
+                const jitterRot = rot + (Math.random() * 20 - 10);
+
+                el.style.setProperty('--base-rot', `${jitterRot}deg`);
+                el.style.setProperty('--raw-scale', sizeFactor); // Hand off for css DoF
+                el.style.transform = `translate(-50%, -50%) rotate(${jitterRot}deg)`;
+
+                const titleSize = (1.5 * sizeFactor).toFixed(2);
+                const textSize = (1 * sizeFactor).toFixed(2);
+
+                el.innerHTML = `
+                    <div style="font-family: var(--font-sans); font-size: 0.8rem; color: var(--accent-color); margin-bottom: 1rem; text-transform: uppercase;">POETRY</div>
+                    <h3 class="gallery-frame-title" style="font-size: ${titleSize}rem; margin-bottom: 1rem;">${item.title}</h3>
+                    <p class="list-item-preview" style="font-size: ${textSize}rem; line-height: 1.6; margin-bottom: 0;">${item.preview.substring(0, 100)}...</p>
+                `;
+
+                // Prevent click if we were dragging
+                el.addEventListener('click', (e) => {
+                    if (window.galleryHasDragged) {
+                        e.preventDefault();
+                    }
+                });
+
+                // Interactive Constellation Highlighting
+                el.addEventListener('mouseenter', () => {
+                    document.querySelectorAll(`.constellation-line.node-${index}`).forEach(line => {
+                        line.classList.add('active');
+                    });
+                });
+                el.addEventListener('mouseleave', () => {
+                    document.querySelectorAll(`.constellation-line.node-${index}`).forEach(line => {
+                        line.classList.remove('active');
+                    });
+                });
+
+                wall.appendChild(el);
+            });
+            
+            // Draw Constellations
+            const svgCanvas = document.getElementById('constellation-canvas');
+            if (svgCanvas) {
+                let svgHtml = '';
+                // For each point, find the 2 nearest neighbors to connect
+                for(let i = 0; i < items.length; i++) {
+                    let neighbors = [];
+                    for(let j = 0; j < items.length; j++) {
+                        if (i === j) continue;
+                        const dist = Math.hypot(items[i].x - items[j].x, items[i].y - items[j].y);
+                        neighbors.push({id: j, x: items[j].x, y: items[j].y, dist: dist});
+                    }
+                    neighbors.sort((a,b) => a.dist - b.dist);
+                    // Take nearest 2 neighbors to draw lines
+                    const connectTo = neighbors.slice(0, 2);
+                    
+                    connectTo.forEach(target => {
+                        // Coordinates need to be mapped to the 3000x2000 svg system
+                        // Center is 1500, 1000
+                        const x1 = items[i].x + 1500;
+                        const y1 = items[i].y + 1000;
+                        const x2 = target.x + 1500;
+                        const y2 = target.y + 1000;
+                        svgHtml += `<line class="constellation-line node-${i} node-${target.id}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"></line>`;
+                    });
+                }
+                svgCanvas.innerHTML = svgHtml;
+            }
+
+            // Flashlight tracking logic
+            const vp = document.getElementById('gallery-viewport');
+            const flash = document.getElementById('flashlight');
+            if(vp && flash) {
+                vp.addEventListener('mousemove', (e) => {
+                    flash.style.opacity = '1';
+                    flash.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+                });
+                vp.addEventListener('mouseleave', () => flash.style.opacity = '0');
+            }
+            
+            // Immersive Mode Button Logic
+            const fsBtn = document.getElementById('gallery-fs-btn');
+            if(fsBtn) {
+                fsBtn.addEventListener('click', () => {
+                    document.body.classList.toggle('is-fullscreen');
+                    if (document.body.classList.contains('is-fullscreen')) {
+                        fsBtn.innerHTML = `
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M8 3v3h-3m18-3v3h-3m0 18v-3h3M3 21v-3h3m2-10h8v8h-8z"/>
+                            </svg> Exit Immersive
+                        `;
+                        try { document.documentElement.requestFullscreen(); } catch(e){}
+                    } else {
+                        fsBtn.innerHTML = `
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+                            </svg> Immersive Mode
+                        `;
+                        try { document.exitFullscreen(); } catch(e){}
+                    }
+                });
+            }
+            
+            // Also listen if they press ESC to exit native fullscreen
+            document.addEventListener('fullscreenchange', () => {
+                if (!document.fullscreenElement) {
+                    document.body.classList.remove('is-fullscreen');
+                    if(fsBtn) {
+                        fsBtn.innerHTML = `
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+                            </svg> Immersive Mode
+                        `;
+                    }
+                }
+            });
+        }
+    </script>
+    
+    <!-- Phase 3 Easter Egg -->
+    <div id="easter-egg" style="position:fixed; bottom:15px; left:15px; width:4px; height:4px; background:var(--accent-color); border-radius:50%; opacity:0.2; cursor:pointer; z-index:9999; box-shadow:0 0 5px var(--accent-color); transition: opacity 0.3s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.2" onclick="if(window.openZenMode) window.openZenMode('✦ Bí Mật Đã Mở Khóa ✦', `Chúc mừng! Bạn nằm trong số rất ít những người tìm thấy mảng kí ức được giấu kín nhất của bảo tàng này. Cảm ơn sự tỉ mỉ của bạn.\n\nMời bạn đọc lại những dòng chữ khởi nguyên:\n\n---\n\nHôm nay tôi dạy em farm\nNgày mai tôi dạy em làm nhà thơ`)"></div>
+</body>
 </html>

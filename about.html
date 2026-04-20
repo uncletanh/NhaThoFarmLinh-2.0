@@ -2,6 +2,7 @@
 <html lang="en" data-theme="light">
 
 <head>
+    <script>const savedTheme = localStorage.getItem('theme');if(savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme', 'dark');}</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About | Notebook</title>
@@ -71,6 +72,46 @@
                 margin: 0 auto;
             }
         }
+
+        /* Guestbook Styles */
+        .guestbook-section {
+            margin-top: 5rem;
+            padding-top: 5rem;
+            border-top: 1px solid var(--border-color);
+        }
+        .guestbook-title {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        .guestbook-canvas-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background: var(--surface-color);
+            border: 1px dashed var(--accent-color);
+            cursor: crosshair;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .guestbook-controls {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .guestbook-clear {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .guestbook-clear:hover {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
     </style>
 </head>
 
@@ -135,6 +176,16 @@
                 </div>
             </div>
         </div>
+        <div class="guestbook-section fade-in">
+            <h2 class="guestbook-title">Guestbook: Leave Your Mark</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">A digital canvas to draw, sign, or write whatever is on your mind. This is saved locally in your browser.</p>
+            <div class="guestbook-canvas-container">
+                <canvas id="guestbook-canvas"></canvas>
+            </div>
+            <div class="guestbook-controls">
+                <button id="guestbook-clear" class="guestbook-clear">Clear Signature</button>
+            </div>
+        </div>
     </main>
 
     <footer class="site-footer">
@@ -143,6 +194,109 @@
 
     <script src="js/i18n.js"></script>
     <script src="js/script.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('guestbook-canvas');
+            const ctx = canvas.getContext('2d');
+            let isDrawing = false;
+            
+            // Resize canvas to fit container
+            function resizeCanvas() {
+                canvas.width = canvas.parentElement.clientWidth;
+                canvas.height = canvas.parentElement.clientHeight;
+                loadSignature(); // Restore after resize
+            }
+            window.addEventListener('resize', resizeCanvas);
+            
+            // Drawing settings
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            function updateColor() {
+                ctx.strokeStyle = document.documentElement.getAttribute('data-theme') === 'dark' ? '#eeeeee' : '#333333';
+            }
+            
+            // Re-update color if theme changes
+            document.getElementById('theme-toggle').addEventListener('click', () => {
+                setTimeout(updateColor, 50);
+            });
+
+            function startPosition(e) {
+                isDrawing = true;
+                draw(e);
+            }
+
+            function endPosition() {
+                isDrawing = false;
+                ctx.beginPath();
+                saveSignature();
+            }
+
+            function draw(e) {
+                if (!isDrawing) return;
+                
+                const rect = canvas.getBoundingClientRect();
+                let clientX = e.clientX;
+                let clientY = e.clientY;
+                
+                if (e.touches && e.touches.length > 0) {
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
+                    e.preventDefault(); // prevent scrolling
+                }
+                
+                const x = clientX - rect.left;
+                const y = clientY - rect.top;
+
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+            }
+
+            // Mouse events
+            canvas.addEventListener('mousedown', startPosition);
+            canvas.addEventListener('mouseup', endPosition);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseleave', endPosition);
+
+            // Touch events
+            canvas.addEventListener('touchstart', startPosition, {passive: false});
+            canvas.addEventListener('touchend', endPosition);
+            canvas.addEventListener('touchmove', draw, {passive: false});
+
+            // Save/Load Logic
+            const STORAGE_KEY = 'notebook_guestbook_sig';
+            function saveSignature() {
+                const dataURL = canvas.toDataURL();
+                localStorage.setItem(STORAGE_KEY, dataURL);
+            }
+            
+            function loadSignature() {
+                updateColor();
+                const dataURL = localStorage.getItem(STORAGE_KEY);
+                if (dataURL) {
+                    const img = new Image();
+                    img.src = dataURL;
+                    img.onload = () => {
+                        ctx.drawImage(img, 0, 0);
+                    };
+                }
+            }
+
+            // Clear button
+            document.getElementById('guestbook-clear').addEventListener('click', () => {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                localStorage.removeItem(STORAGE_KEY);
+            });
+
+            // Init
+            resizeCanvas();
+        });
+    </script>
 </body>
 
 </html>
