@@ -4,13 +4,13 @@
   GLOBAL DESIGN SYSTEM & VARIABLES
 =============================================================================*/
 :root {
-  /* Colors - Light Theme (Cream/Espresso & Gold) */
-  --bg-color: #FDFBF7;
-  --text-primary: #3B3024;
-  --text-secondary: #6B5C4E;
-  --accent-color: #CBA365;
-  --border-color: #E2DCD3;
-  --nav-bg: rgba(253, 251, 247, 0.8);
+  /* Colors - Clean Hangzhou Paper Tone (for standard pages) */
+  --bg-color: #F8F9F5; /* Extremely bright, fresh paper white with tiniest hint of green */
+  --text-primary: #152614; /* Deep Forest Pine */
+  --text-secondary: #425B3E; /* Muted Moss */
+  --accent-color: #B58C36; /* Golden Sunlight */
+  --border-color: #D3DDCF; /* Pale Vine */
+  --nav-bg: rgba(248, 249, 245, 0.85);
 
   /* Typography */
   --font-serif: 'Playfair Display', 'Lora', serif;
@@ -634,14 +634,14 @@ img {
   height: calc(100vh - var(--nav-height));
   overflow: hidden;
   cursor: grab;
-  background-color: var(--bg-color);
   touch-action: none;
-  /* Rich Hangzhou Meadow Mesh Gradient */
+  /* Deep Hangzhou Water Forest Vibe */
+  background-color: #3B5424; /* Deep rich forest moss */
   background-image: 
-      radial-gradient(at 0% 0%, rgba(176,211,162,0.8) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, rgba(220,230,170,0.6) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, rgba(188,217,166,0.8) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, rgba(227,242,206,0.9) 0px, transparent 50%);
+      radial-gradient(at 0% 0%, rgba(132, 184, 52, 0.5) 0px, transparent 60%),
+      radial-gradient(at 100% 0%, rgba(42, 66, 26, 0.8) 0px, transparent 60%),
+      radial-gradient(at 100% 100%, rgba(105, 147, 43, 0.6) 0px, transparent 60%),
+      radial-gradient(at 0% 100%, rgba(66, 50, 35, 0.7) 0px, transparent 60%);
   background-size: 200% 200%;
   animation: mistFlow 30s ease-in-out infinite alternate;
 }
@@ -794,18 +794,18 @@ img {
 .gallery-frame {
   position: absolute;
   width: 380px;
-  background: rgba(255, 255, 253, 0.95); /* Creamy solid paper */
+  background: #FFFDF9; /* Brilliant creamy white paper */
   
-  /* Symmetrical Elegant Leaf Shape for Light Mode */
-  border: 1px solid rgba(0,0,0,0.05);
+  /* Symmetrical Elegant Leaf/Petal Shape */
+  border: 4px solid var(--flower-color, #C29B4A); /* Solid, saturated flower border */
   border-radius: 4px 60px 4px 60px;
-  padding: 4rem 3rem;
-  text-align: center; /* Center text so it doesn't clip the corners */
+  padding: 3rem;
+  text-align: center; /* Center text so it sits beautifully within the curve */
 
-  /* Vibrant flower glow */
+  /* Vibrant, punchy external glow reflecting off the dark forest ground */
   box-shadow:
-    inset 0 0 50px var(--flower-color, rgba(255,255,255,0.7)),
-    0 15px 30px rgba(0, 0, 0, 0.08);
+    0 0 50px var(--flower-color, rgba(255,255,255,0.8)),
+    0 15px 35px rgba(0, 0, 0, 0.3);
 
   text-decoration: none;
   color: var(--text-primary);
