@@ -636,12 +636,12 @@ img {
   cursor: grab;
   background-color: var(--bg-color);
   touch-action: none;
-  /* Hangzhou Meadow Mesh Gradient */
+  /* Rich Hangzhou Meadow Mesh Gradient */
   background-image: 
-      radial-gradient(at 0% 0%, rgba(200,230,195,0.8) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, rgba(255,245,210,0.6) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, rgba(220,235,210,0.8) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, rgba(240,255,240,0.9) 0px, transparent 50%);
+      radial-gradient(at 0% 0%, rgba(176,211,162,0.8) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(220,230,170,0.6) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(188,217,166,0.8) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, rgba(227,242,206,0.9) 0px, transparent 50%);
   background-size: 200% 200%;
   animation: mistFlow 30s ease-in-out infinite alternate;
 }
@@ -676,47 +676,8 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-  /* Cosmic Drifting */
+/* Cosmic Drifting */
   animation: cosmicDrift 120s ease-in-out infinite alternate;
-}
-
-/* Hangzhou Hanging Willows (Liễu Rủ) */
-.gallery-wall-wrapper::before,
-.gallery-wall-wrapper::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  pointer-events: none;
-  background-size: contain;
-  background-repeat: no-repeat;
-  opacity: 0.8;
-  z-index: 10;
-  filter: drop-shadow(0 20px 20px rgba(0,0,0,0.05));
-  animation: willowSway 8s ease-in-out infinite alternate;
-  transform-origin: top center;
-}
-.gallery-wall-wrapper::before {
-  left: -20px;
-  width: 350px;
-  height: 550px;
-  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg"><path d="M-10,-10 Q30,50 10,180 Q35,160 5,80 Z" fill="rgba(100, 130, 90, 0.4)"/><path d="M0,-10 Q50,40 20,200 Q40,160 15,80 Z" fill="rgba(140, 170, 120, 0.5)"/><path d="M-20,-10 Q20,30 -5,140" stroke="rgba(80, 110, 70, 0.6)" stroke-width="2" fill="none"/></svg>');
-}
-.gallery-wall-wrapper::after {
-  right: -20px;
-  width: 450px;
-  height: 650px;
-  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg"><path d="M110,-10 Q70,60 90,220 Q60,180 95,80 Z" fill="rgba(100, 130, 90, 0.3)"/><path d="M100,-10 Q50,50 80,180 Q60,140 85,70 Z" fill="rgba(120, 150, 100, 0.4)"/></svg>');
-  animation-delay: -3s;
-}
-
-@keyframes willowSway {
-  0% { transform: rotate(-2deg); }
-  100% { transform: rotate(3deg); }
-}
-
-[data-theme="dark"] .gallery-wall-wrapper::before,
-[data-theme="dark"] .gallery-wall-wrapper::after {
-  display: none;
 }
 
 @keyframes cosmicDrift {
@@ -833,17 +794,18 @@ img {
 .gallery-frame {
   position: absolute;
   width: 380px;
-  background: var(--bg-color); /* Acts as the passepartout/matboard */
+  background: rgba(255, 255, 253, 0.95); /* Creamy solid paper */
   
-  /* CSS Flower Petal Shape for Forest Light Mode */
-  border: none;
-  border-radius: 50% 0 50% 50%;
-  padding: 3rem 2.5rem 2.5rem;
+  /* Symmetrical Elegant Leaf Shape for Light Mode */
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 4px 60px 4px 60px;
+  padding: 4rem 3rem;
+  text-align: center; /* Center text so it doesn't clip the corners */
 
-  /* Flower colored glowing shadow + soft drop shadow */
+  /* Vibrant flower glow */
   box-shadow:
-    inset 0 0 80px var(--flower-color, rgba(255,255,255,0.7)),
-    -5px 15px 30px rgba(0, 0, 0, 0.05);
+    inset 0 0 50px var(--flower-color, rgba(255,255,255,0.7)),
+    0 15px 30px rgba(0, 0, 0, 0.08);
 
   text-decoration: none;
   color: var(--text-primary);
@@ -856,6 +818,8 @@ img {
   border-radius: 2px;
   border: 12px solid #0b0b0b; /* Restore physical wooden frame */
   background: #111;
+  text-align: left; /* Restore left alignment for museum tags */
+  padding: 3rem 2.5rem 2.5rem;
   box-shadow:
     inset 0 0 0 20px #111,
     inset 0 0 0 21px rgba(212, 175, 55, 0.2),
