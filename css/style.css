@@ -4,13 +4,13 @@
   GLOBAL DESIGN SYSTEM & VARIABLES
 =============================================================================*/
 :root {
-  /* Colors - Clean Hangzhou Paper Tone (for standard pages) */
-  --bg-color: #EBF3E1; /* Mướt mắt tươi sáng */
-  --text-primary: #1F3820; /* Deep Forest Pine */
-  --text-secondary: #5C7A55; /* Muted Moss */
-  --accent-color: #FBB117; /* Golden Sunlight */
-  --border-color: #D3E0C8; /* Pale Vine */
-  --nav-bg: rgba(235, 243, 225, 0.9);
+  /* Colors - Deep Meadow Hangzhou Vibe */
+  --bg-color: #3A4A28; /* Deep thick grassy moss */
+  --text-primary: #EEF5E5; /* Revert text to light for deep background pages */
+  --text-secondary: #B9D2A4;
+  --accent-color: #F8D86A;
+  --border-color: #557039;
+  --nav-bg: rgba(58, 74, 40, 0.9);
 
   /* Typography */
   --font-serif: 'Playfair Display', 'Lora', serif;
@@ -635,13 +635,13 @@ img {
   overflow: hidden;
   cursor: grab;
   touch-action: none;
-  /* Fresh, bright duckweed green aura */
-  background-color: #CFE5B6; 
+  /* Deep Lush Meadow Aura */
+  background-color: #3A4A28; 
   background-image: 
-      radial-gradient(at 0% 0%, rgba(240, 250, 215, 0.8) 0px, transparent 60%),
-      radial-gradient(at 100% 0%, rgba(185, 215, 140, 0.6) 0px, transparent 60%),
-      radial-gradient(at 100% 100%, rgba(210, 240, 160, 0.5) 0px, transparent 60%),
-      radial-gradient(at 0% 100%, rgba(165, 210, 130, 0.7) 0px, transparent 60%);
+      radial-gradient(at 0% 0%, rgba(107, 142, 66, 0.6) 0px, transparent 65%),
+      radial-gradient(at 100% 0%, rgba(77, 110, 53, 0.7) 0px, transparent 65%),
+      radial-gradient(at 100% 100%, rgba(90, 122, 57, 0.5) 0px, transparent 60%),
+      radial-gradient(at 0% 100%, rgba(62, 86, 42, 0.8) 0px, transparent 65%);
   background-size: 200% 200%;
   animation: mistFlow 30s ease-in-out infinite alternate;
 }
@@ -791,22 +791,21 @@ img {
 .gallery-frame {
   position: absolute;
   width: 380px;
-  background: rgba(255, 255, 255, 0.85); /* Bright frosted glass paper */
-  backdrop-filter: blur(10px);
+  background: var(--flower-color, #E58B93); /* Flower colored card! */
   
-  /* Ultra-soft pebble/petal card, no stiff heavy borders */
-  border: 1px solid rgba(255, 255, 255, 1); 
+  /* Soft elegant pebbles, no borders */
+  border: none;
   border-radius: 40px;
   padding: 3.5rem 3rem;
-  text-align: center; /* Center text elegantly */
+  text-align: center;
 
-  /* Vibrant watercolor bloom glow, completely organic */
+  /* Solid flower glow */
   box-shadow:
-    0 10px 40px rgba(0, 0, 0, 0.05),
-    0 0 100px var(--flower-color, rgba(255,255,255,0.8));
+    0 10px 40px rgba(0, 0, 0, 0.2),
+    0 0 60px var(--flower-color, #E58B93);
 
   text-decoration: none;
-  color: var(--text-primary);
+  color: #1a110a; /* Dark text for high contrast on pastel flowers */
   transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.8s ease, border-radius 0.8s ease;
   will-change: transform;
   transform-origin: center center;
@@ -818,6 +817,7 @@ img {
   background: #111;
   text-align: left; /* Restore left alignment for museum tags */
   padding: 3rem 2.5rem 2.5rem;
+  color: #EAEAEA; /* Ensure text is light in dark mode */
   box-shadow:
     inset 0 0 0 20px #111,
     inset 0 0 0 21px rgba(212, 175, 55, 0.2),

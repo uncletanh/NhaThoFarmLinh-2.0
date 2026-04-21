@@ -14,7 +14,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="css/style.css?v=2.8">
+    <link rel="stylesheet" href="css/style.css?v=2.9">
     <style>
         /* Force strictly no-scroll and float footer on index */
         /* Force strictly no-scroll and hide footer entirely on gallery wall */
@@ -170,11 +170,11 @@
     </footer>
 
     <!-- Data and Scripts -->
-    <script src="js/dataPoem.js?v=2.8"></script>
-    <script src="js/dataThoughts.js?v=2.8"></script>
-    <script src="js/dataQuotes.js?v=2.8"></script>
-    <script src="js/i18n.js?v=2.8"></script>
-    <script src="js/script.js?v=2.8"></script>
+    <script src="js/dataPoem.js?v=2.9"></script>
+    <script src="js/dataThoughts.js?v=2.9"></script>
+    <script src="js/dataQuotes.js?v=2.9"></script>
+    <script src="js/i18n.js?v=2.9"></script>
+    <script src="js/script.js?v=2.9"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Random Quote of the Day in Center
@@ -232,14 +232,10 @@
 
             const goldenAngle = 137.5 * (Math.PI / 180);
 
-            // Vibrant Botanical Colors for Hangzhou Vibe
+            // Elegant Meadow Flowers (Just 2 colors)
             const flowerColors = [
-                '#FF4D6D', // Crimson Lotus
-                '#FF9F1C', // Golden Peach
-                '#7209B7', // Deep Iris
-                '#F48C06', // Autumn Chrysanthemum
-                '#06D6A0', // Emerald Leaf
-                '#4361EE'  // Royal Hydrangea
+                '#E58B93', // Wild Rose
+                '#E8B856', // Soft Sunflower
             ];
 
             items.forEach((item, index) => {
@@ -274,8 +270,10 @@
                 el.style.width = Math.floor(320 * sizeFactor) + 'px';
                 el.style.padding = (2 * sizeFactor) + 'rem';
 
-                // Keep frames mostly upright so text stays perfectly inside the beautiful leaf shapes!
-                const jitterRot = Math.random() * 10 - 5; // Gentle tilt of ±5 degrees
+                // Restore tangential rotation for the beautiful chaotic scatter (crucial for Dark Mode!)
+                const rot = (angle * (180 / Math.PI)) + 90;
+                // Add tiny jitter to rotation so it's not perfectly mathematical
+                const jitterRot = rot + (Math.random() * 20 - 10);
 
                 el.style.setProperty('--base-rot', `${jitterRot}deg`);
                 el.style.setProperty('--raw-scale', sizeFactor); // Hand off for css DoF
