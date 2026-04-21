@@ -145,12 +145,12 @@
             <!-- Center piece: Greeting & Quote -->
             <div class="gallery-center">
                 <h2 id="dynamic-greeting"
-                    style="font-family: var(--font-sans); font-size: 1rem; color: var(--text-secondary); margin-bottom: 2rem; letter-spacing: 4px; text-transform: uppercase;">
+                    style="font-family: var(--font-sans); font-size: 1rem; margin-bottom: 2rem; letter-spacing: 4px; text-transform: uppercase; color: #4A7A28; font-weight: bold;">
                 </h2>
                 <h1 class="hero-quote" id="gallery-quote">"I've never played for a draw in my life."</h1>
-                <div class="hero-author">— Sir Alex Ferguson</div>
+                <div class="hero-author" style="color: #4A7A28; font-weight: bold; margin-top: 1rem;">— Sir Alex Ferguson</div>
                 <p
-                    style="margin-top:2rem; font-family: var(--font-sans); font-size: 0.8rem; letter-spacing: 2px; color: var(--accent-color); ">
+                    style="margin-top:2rem; font-family: var(--font-sans); font-size: 0.8rem; letter-spacing: 2px; color: #4A7A28; font-weight: bold;">
                     DRAG TO EXPLORE THE GALLERY</p>
                 <button id="gallery-fs-btn" class="btn" style="margin-top: 1.5rem; pointer-events: auto; display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -232,11 +232,9 @@
 
             const goldenAngle = 137.5 * (Math.PI / 180);
 
-            // Elegant Meadow Flowers (Just 2 colors)
-            const flowerColors = [
-                '#E58B93', // Wild Rose
-                '#E8B856', // Soft Sunflower
-            ];
+            // Clean Architecture: Inject both light & dark variables
+            const pastelColors = ['#FFC0CB', '#FFDAB9', '#E2F0CB', '#FFB7B2', '#FFE4B5'];
+            const neonColors = ['#06b6d4', '#a855f7', '#fbbf24', '#f43f5e', '#34d399']; // Cyan, purple, gold, rose, emerald
 
             items.forEach((item, index) => {
                 const el = document.createElement('a');
@@ -244,9 +242,9 @@
                 el.className = 'gallery-frame';
                 el.draggable = false; // Prevent native browser dragging
 
-                // Assign flower color
-                const fColor = flowerColors[index % flowerColors.length];
-                el.style.setProperty('--flower-color', fColor);
+                // Inject Custom Variables
+                el.style.setProperty('--pastel-color', pastelColors[index % pastelColors.length]);
+                el.style.setProperty('--neon-color', neonColors[index % neonColors.length]);
 
                 // Calculate position using organic spiral
                 const radius = 400 + (Math.sqrt(index) * 250); 
@@ -295,49 +293,66 @@
                     }
                 });
 
-                // Interactive Constellation Highlighting
+                // Interactive Focus State (Requirement 3)
                 el.addEventListener('mouseenter', () => {
-                    document.querySelectorAll(`.constellation-line.node-${index}`).forEach(line => {
-                        line.classList.add('active');
-                    });
+                    const vp = document.getElementById('gallery-viewport');
+                    if(vp) vp.classList.add('is-focusing');
+                    el.classList.add('focused-node');
                 });
+                
                 el.addEventListener('mouseleave', () => {
-                    document.querySelectorAll(`.constellation-line.node-${index}`).forEach(line => {
-                        line.classList.remove('active');
-                    });
+                    const vp = document.getElementById('gallery-viewport');
+                    if(vp) vp.classList.remove('is-focusing');
+                    el.classList.remove('focused-node');
                 });
 
                 wall.appendChild(el);
             });
             
-            // Draw Constellations
-            const svgCanvas = document.getElementById('constellation-canvas');
-            if (svgCanvas) {
-                let svgHtml = '';
-                // For each point, find the 2 nearest neighbors to connect
-                for(let i = 0; i < items.length; i++) {
-                    let neighbors = [];
-                    for(let j = 0; j < items.length; j++) {
-                        if (i === j) continue;
-                        const dist = Math.hypot(items[i].x - items[j].x, items[i].y - items[j].y);
-                        neighbors.push({id: j, x: items[j].x, y: items[j].y, dist: dist});
+            // Draw Dynamic Bezier Curves with Debounced Resize (Requirement 2 & 4)
+            function drawConnections() {
+                const svgCanvas = document.getElementById('constellation-canvas');
+                if (svgCanvas) {
+                    let svgHtml = '';
+                    for(let i = 0; i < items.length; i++) {
+                        let neighbors = [];
+                        for(let j = 0; j < items.length; j++) {
+                            if (i === j) continue;
+                            const dist = Math.hypot(items[i].x - items[j].x, items[i].y - items[j].y);
+                            neighbors.push({id: j, x: items[j].x, y: items[j].y, dist: dist});
+                        }
+                        neighbors.sort((a,b) => a.dist - b.dist);
+                        const connectTo = neighbors.slice(0, 2);
+                        
+                        connectTo.forEach(target => {
+                            const x1 = items[i].x + 1500;
+                            const y1 = items[i].y + 1000;
+                            const x2 = target.x + 1500;
+                            const y2 = target.y + 1000;
+                            
+                            // Bezier Curve Logic
+                            const dx = x2 - x1;
+                            const ctrlX1 = x1 + dx * 0.5;
+                            const ctrlY1 = y1;
+                            const ctrlX2 = x1 + dx * 0.5;
+                            const ctrlY2 = y2;
+                            
+                            svgHtml += `<path class="constellation-path" d="M ${x1} ${y1} C ${ctrlX1} ${ctrlY1}, ${ctrlX2} ${ctrlY2}, ${x2} ${y2}"></path>`;
+                        });
                     }
-                    neighbors.sort((a,b) => a.dist - b.dist);
-                    // Take nearest 2 neighbors to draw lines
-                    const connectTo = neighbors.slice(0, 2);
-                    
-                    connectTo.forEach(target => {
-                        // Coordinates need to be mapped to the 3000x2000 svg system
-                        // Center is 1500, 1000
-                        const x1 = items[i].x + 1500;
-                        const y1 = items[i].y + 1000;
-                        const x2 = target.x + 1500;
-                        const y2 = target.y + 1000;
-                        svgHtml += `<line class="constellation-line node-${i} node-${target.id}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"></line>`;
-                    });
+                    svgCanvas.innerHTML = svgHtml;
                 }
-                svgCanvas.innerHTML = svgHtml;
             }
+            
+            drawConnections();
+            
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    drawConnections();
+                }, 250);
+            });
 
             // Flashlight tracking logic
             const vp = document.getElementById('gallery-viewport');

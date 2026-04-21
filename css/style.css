@@ -4,13 +4,14 @@
   GLOBAL DESIGN SYSTEM & VARIABLES
 =============================================================================*/
 :root {
-  /* Colors - Deep Meadow Hangzhou Vibe */
-  --bg-color: #3A4A28; /* Deep thick grassy moss */
-  --text-primary: #EEF5E5; /* Revert text to light for deep background pages */
-  --text-secondary: #B9D2A4;
-  --accent-color: #F8D86A;
-  --border-color: #557039;
-  --nav-bg: rgba(58, 74, 40, 0.9);
+  /* Colors - Soft Organic Pastel */
+  --bg-color: #F8F9FA; /* light cream base */
+  --text-primary: #2C3E50; /* Needs darker text for light nodes */
+  --text-secondary: #34495E;
+  --accent-color: #E67E22;
+  --flower-color: #FFB7B2; /* Pastel soft rose */
+  --border-color: #BDC3C7;
+  --nav-bg: rgba(248, 249, 250, 0.9);
 
   /* Typography */
   --font-serif: 'Playfair Display', 'Lora', serif;
@@ -25,13 +26,13 @@
 }
 
 [data-theme="dark"] {
-  /* Colors - Dark Theme (Obsidian & Gold) */
-  --bg-color: #0A0A0A;
-  --text-primary: #F0EAE1;
-  --text-secondary: #A39B91;
-  --accent-color: #D4AF37;
-  --border-color: #2A2A2A;
-  --nav-bg: rgba(10, 10, 10, 0.8);
+  /* Colors - Night Garden / Bioluminescent Constellation */
+  --bg-color: #0f172a; /* Deep midnight blue */
+  --text-primary: #f8fafc; /* High contrast off-white */
+  --text-secondary: #94a3b8;
+  --accent-color: #06b6d4; /* Glow cyan default */
+  --border-color: rgba(255,255,255,0.1);
+  --nav-bg: rgba(15, 23, 42, 0.8);
 }
 
 /*=============================================================================
@@ -67,10 +68,11 @@ body::after {
   z-index: 9999;
   pointer-events: none;
   background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noise)"/%3E%3C/svg%3E');
-  opacity: 0.05;
+  display: none; /* Completely removed in light mode to fix haziness! */
 }
 
 [data-theme="dark"] body::after {
+  display: block;
   opacity: 0.03;
 }
 
@@ -635,13 +637,12 @@ img {
   overflow: hidden;
   cursor: grab;
   touch-action: none;
-  /* Deep Lush Meadow Aura */
-  background-color: #3A4A28; 
+  /* Soft Deep Gradient - Light cream, pale mint, soft teal */
+  background-color: #F9F3EA; /* Light Cream */
   background-image: 
-      radial-gradient(at 0% 0%, rgba(107, 142, 66, 0.6) 0px, transparent 65%),
-      radial-gradient(at 100% 0%, rgba(77, 110, 53, 0.7) 0px, transparent 65%),
-      radial-gradient(at 100% 100%, rgba(90, 122, 57, 0.5) 0px, transparent 60%),
-      radial-gradient(at 0% 100%, rgba(62, 86, 42, 0.8) 0px, transparent 65%);
+      radial-gradient(circle at 20% 30%, rgba(186, 230, 215, 0.6) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(118, 195, 190, 0.5) 0%, transparent 60%),
+      radial-gradient(circle at 50% 50%, rgba(253, 244, 227, 0.8) 0%, transparent 60%);
   background-size: 200% 200%;
   animation: mistFlow 30s ease-in-out infinite alternate;
 }
@@ -650,8 +651,8 @@ img {
   100% { background-position: 100% 100%; }
 }
 [data-theme="dark"] .gallery-viewport {
-  background-color: var(--bg-color); /* Restore dark theme background */
-  background-image: none; /* Dark mode keeps pure dark background */
+  background-color: var(--bg-color);
+  background-image: radial-gradient(circle at 50% 50%, #1e293b 0%, #0f172a 70%, #000 100%);
 }
 
 .gallery-viewport::after {
@@ -659,7 +660,7 @@ img {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.1);
+  box-shadow: none; /* Completely removed muddy inner shadow */
   z-index: 999;
 }
 
@@ -748,11 +749,28 @@ img {
   z-index: 0;
 }
 
-.constellation-line {
-  stroke: var(--text-secondary);
-  stroke-width: 1.5;
-  opacity: 0.5;
-  transition: all 0.4s ease;
+.constellation-path {
+  fill: none;
+  stroke: #76C3BE; /* soft teal */
+  stroke-width: 3;
+  opacity: 0.2;
+  transition: opacity 0.5s ease;
+}
+
+/* Interactivity (Focus Hover State) */
+.gallery-viewport.is-focusing .gallery-frame:not(.focused-node) {
+  opacity: 0.2 !important;
+}
+
+.gallery-viewport.is-focusing .constellation-path {
+  opacity: 0.05 !important;
+}
+
+.gallery-center {
+  transition: opacity 0.5s ease;
+}
+.gallery-viewport.is-focusing .gallery-center {
+  opacity: 1 !important; /* Keep center quote visible */
 }
 
 .constellation-line.active {
@@ -762,9 +780,15 @@ img {
   filter: drop-shadow(0 0 8px var(--accent-color));
 }
 
-[data-theme="dark"] .constellation-line {
-  stroke: #D4AF37;
-  opacity: 0.4;
+[data-theme="dark"] .constellation-path {
+  stroke: #06b6d4; /* Glowing cyan */
+  opacity: 0.4 !important;
+  filter: drop-shadow(0 0 6px #06b6d4); /* Glow effect */
+}
+
+[data-theme="dark"] .gallery-viewport.is-focusing .constellation-path {
+  opacity: 0.1 !important; /* Dim heavily in focus state */
+  filter: none;
 }
 
 /* Interactive Flashlight */
@@ -790,39 +814,40 @@ img {
 }
 
 .gallery-frame {
+  --active-flower: var(--pastel-color);
   position: absolute;
   width: 380px;
-  background: var(--flower-color, #E58B93); /* Flower colored card! */
+  background: var(--active-flower); 
   
-  /* Soft elegant pebbles, no borders */
+  /* Soft Organic Shapes */
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
   border: none;
-  border-radius: 40px;
   padding: 3.5rem 3rem;
   text-align: center;
 
-  /* Solid flower glow */
-  box-shadow:
-    0 10px 40px rgba(0, 0, 0, 0.2),
-    0 0 60px var(--flower-color, #E58B93);
+  /* Diffuse Gentle Glow */
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.05),
+    inset 0 0 30px rgba(255, 255, 255, 0.4);
 
   text-decoration: none;
   color: #1a110a; /* Dark text for high contrast on pastel flowers */
-  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.8s ease, border-radius 0.8s ease;
-  will-change: transform;
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.8s ease, border-radius 0.8s ease, opacity 0.5s ease;
+  will-change: transform, opacity;
   transform-origin: center center;
 }
 
 [data-theme="dark"] .gallery-frame {
-  border-radius: 2px;
-  border: 12px solid #0b0b0b; /* Restore physical wooden frame */
-  background: #111;
-  text-align: left; /* Restore left alignment for museum tags */
-  padding: 3rem 2.5rem 2.5rem;
-  color: #EAEAEA; /* Ensure text is light in dark mode */
-  box-shadow:
-    inset 0 0 0 20px #111,
-    inset 0 0 0 21px rgba(212, 175, 55, 0.2),
-    10px 15px 30px rgba(0, 0, 0, 0.8);
+  --active-flower: var(--neon-color);
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; /* Keep organic shape */
+  border: 1px solid var(--active-flower); /* Neon thin border */
+  background: rgba(255, 255, 255, 0.05); /* Semi-transparent dark */
+  text-align: center;
+  padding: 3.5rem 3rem;
+  color: var(--text-primary); /* High contrast */
+  box-shadow: 
+    0 0 30px var(--active-flower),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
 }
 
 .gallery-frame::after {
@@ -840,10 +865,9 @@ img {
 }
 
 [data-theme="dark"] .gallery-frame:hover {
-  box-shadow:
-    inset 0 0 0 20px #111,
-    inset 0 0 0 21px rgba(212, 175, 55, 0.4),
-    15px 25px 60px rgba(0, 0, 0, 0.9);
+  box-shadow: 
+    0 0 50px var(--active-flower),
+    inset 0 0 30px rgba(255, 255, 255, 0.1);
 }
 
 .gallery-frame-title {
@@ -853,6 +877,14 @@ img {
   color: var(--text-primary);
 }
 
+[data-theme="dark"] .gallery-frame-title {
+  color: var(--active-flower); /* Neon title */
+}
+
+[data-theme="dark"] .list-item-preview {
+  color: var(--text-primary); /* Ultra clear readable text */
+}
+
 .gallery-center {
   position: absolute;
   top: 50%;
@@ -860,12 +892,43 @@ img {
   transform: translate(-50%, -50%);
   text-align: center;
   width: 600px;
-  background: var(--bg-color);
-  padding: 3rem;
-  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.95); /* Eye-catching bright glass */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 4rem;
+  border-radius: 30px;
+  border: 4px solid var(--flower-color);
   pointer-events: none;
   z-index: 50;
-  box-shadow: 0 0 100px 50px var(--bg-color);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2), 0 0 80px rgba(255, 255, 255, 0.6);
+}
+
+.gallery-center .btn {
+  color: #4A7A28 !important;
+  border-color: #4A7A28 !important;
+  font-weight: bold;
+}
+
+.gallery-center .hero-quote {
+  color: var(--flower-color); /* Vibrant red for quote text */
+  font-weight: 700;
+  font-size: 2.8rem;
+}
+
+[data-theme="dark"] .gallery-center {
+  background: #e2e8f0; /* Lunar Core: warm off-white / soft gray */
+  border: none;
+  box-shadow: 0 0 200px 80px rgba(226, 232, 240, 0.25); /* Huge warm radial halo */
+  border-radius: 30px;
+  padding: 4rem;
+}
+
+[data-theme="dark"] .gallery-center .hero-quote,
+[data-theme="dark"] .gallery-center .hero-author,
+[data-theme="dark"] .gallery-center p,
+[data-theme="dark"] .gallery-center h2 {
+  color: #0f172a !important; /* Charcoal dark for maximum contrast */
+  font-weight: 700;
 }
 
 #fx-canvas {
