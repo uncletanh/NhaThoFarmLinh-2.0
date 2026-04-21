@@ -1,6 +1,6 @@
 let poems = [
     {
-        title: "Người cô đơn nhất cuộc đời",
+        title: "Cô Độc",
         date: "2026-04-20",
         tags: ["loneliness", "sadness", "life"],
         preview: "Người cô đơn nhất cuộc đời / Chẳng một ai rủ đi chơi cuối tuần...",
@@ -26,7 +26,7 @@ Hết xuân, hết cả tháng ngày
 Chỉ còn nỗi nhớ vẫn đầy trong tim`
     },
     {
-        title: "Trời nóng quá chẳng cần gì",
+        title: "Trốn Hạ",
         date: "2026-04-07",
         tags: ["life", "work", "funny", "summer"],
         preview: "Trời nóng quá chẳng cần gì / Ba mươi sáu độ ừ thì cũng to...",
@@ -51,7 +51,7 @@ Muốn đi tránh nóng? Quý Châu
 Muốn tìm hạnh phúc đi đâu bây giờ?`
     },
     {
-        title: "Hỏi Gương",
+        title: "Đối Gương",
         date: "2026-03-10",
         tags: ["love", "reflection", "poem"],
         preview: "Một cuộc trò chuyện với chiếc gương, khi trái tim không biết nói cùng ai.",
@@ -81,7 +81,7 @@ Gương kia, hãy nói cho ta,
 Mất bao lâu nữa để mà bên em?`
     },
     {
-        title: "Tình em như hoa",
+        title: "Tình Hoa",
         date: "2025-09-04",
         tags: ["love", "nature"],
         preview: "Tình em như hoa / Nở rộ tối ngày...",
@@ -99,7 +99,7 @@ Hoa nằm trong hoa
 Tay nằm trong tay`
     },
     {
-        title: "Hạnh phúc nên quên viết thơ",
+        title: "Nghỉ Ngơi",
         date: "2025-03-31",
         tags: ["life", "reflection"],
         preview: "Hạnh phúc nên quên viết thơ / Hàng đêm mệt quá chẳng mơ tí nào...",
@@ -109,7 +109,7 @@ Chẳng hay dạo này em sao
 Còn tôi thì có thế nào, kệ tôi`
     },
     {
-        title: "Hương len vào gió",
+        title: "Hương Gió",
         date: "2025-03-19",
         tags: ["nature", "love"],
         preview: "Hương len vào gió mỏng manh / Nhẹ như tơ khói, chòng chành giấc mơ...",
@@ -123,7 +123,7 @@ Gió đưa nhắc chuyện xa vời
 Lặng im chợt thấy mắt ngời sáng soi.`
     },
     {
-        title: "Nhà thơ cầm bút",
+        title: "Cầm Bút",
         date: "2025-03-11",
         tags: ["sadness", "writing"],
         preview: "Nhà thơ cầm bút trên tay / Viết lên trang giấy hôm nay buồn đời...",
@@ -137,7 +137,7 @@ Ngòi bút run rẩy, hồn mơ
 Viết hoài chỉ thấy bơ vơ cõi lòng.`
     },
     {
-        title: "Nhà thơ ngốc",
+        title: "Gã Ngốc",
         date: "2025-02-24",
         tags: ["love", "foolish"],
         preview: "Mình thật lòng thích người ta, / Câu này sáu chữ, sao mà buồn ghê.",
@@ -168,7 +168,7 @@ Người cứ chống mặt lên xem
 Nhà thơ ngốc nghếch sẽ đem nàng về`
     },
     {
-        title: "Chỉ muốn được gặp em ngay",
+        title: "Muốn Gặp",
         date: "2025-02-23",
         tags: ["love", "longing"],
         preview: "Chỉ muốn được gặp em ngay / Lò xo nén chặt lâu ngày bật tung...",
@@ -193,7 +193,7 @@ Bước chân lạc lõng chơi vơi,
 Lang thang độc bóng giữa trời bao la.`
     },
     {
-        title: "Mình nói chuyện lại được không",
+        title: "Nói Chuyện",
         date: "2025-02-22",
         tags: ["love", "regret"],
         preview: "Mình nói chuyện lại được không / Vẫn gặp em trong giấc nồng hàng đêm...",
@@ -208,7 +208,7 @@ Miss em từ thuở biết đi
 Last line không biết viết gì nên thôi`
     },
     {
-        title: "Kỉ niệm về em màu xanh",
+        title: "Màu Xanh",
         date: "2025-02-21",
         tags: ["memory", "funny"],
         preview: "Kỉ niệm về em màu xanh / Một bát rau sống để dành cho em...",
@@ -218,7 +218,7 @@ Nhìn rau em bảo em thèm
 Bật cười em nói chắc em già rồi`
     },
     {
-        title: "Vừa ăn vừa sợ tăng cân",
+        title: "Tăng Cân",
         date: "2025-02-20",
         tags: ["life", "food", "funny"],
         preview: "Vừa ăn vừa sợ tăng cân / Sợ ta béo quá chẳng cần ai ôm...",
@@ -243,7 +243,7 @@ Cân nặng nghịch với chiều cao
 Thôi thì kệ xác, miễn sao yêu đời!`
     },
     {
-        title: "Tự nhiên thấy thèm ly trà",
+        title: "Ly Trà",
         date: "2025-02-19",
         tags: ["life", "reflection"],
         preview: "Tự nhiên thấy thèm ly trà / Bày đặt hãm nước xong pha thêm gừng...",
@@ -258,7 +258,7 @@ Ngày xuân lủi thủi một mình
 Hương trà thoang thoảng bóng hình người xưa`
     },
     {
-        title: "Ly cà phê còn nửa tách",
+        title: "Nửa Tách",
         date: "2025-02-19",
         tags: ["life", "gaming"],
         preview: "Ly cà phê còn nửa tách / Đánh cờ thua sao lại trách do game...",
@@ -268,7 +268,7 @@ Giá mà được gối đùi mềm
 Nằm xem youtube luyện thêm nhiều bài`
     },
     {
-        title: "Tối nào anh cũng về muộn",
+        title: "Về Muộn",
         date: "2025-02-19",
         tags: ["life", "memory"],
         preview: "Tối nào anh cũng về muộn / Đêm nào anh cũng luôn luôn một mình...",
@@ -288,7 +288,7 @@ Kỉ niệm như những hạt mưa
 Đọng vương trên lá đong đưa dạt dào`
     },
     {
-        title: "Học sinh mình cưng quá trời",
+        title: "Trò Cưng",
         date: "2025-02-19",
         tags: ["life", "teaching"],
         preview: "Học sinh mình cưng quá trời / Giờ học cứ nói cứ chơi kệ thầy...",
@@ -298,7 +298,7 @@ Học giỏi như tao đi bay
 Tao cho nói chuyện cả ngày lẫn đêm`
     },
     {
-        title: "Nắng mưa thì chẳng kéo dài",
+        title: "Nắng Mưa",
         date: "2025-02-19",
         tags: ["love", "loneliness"],
         preview: "Nắng mưa thì chẳng kéo dài / Mà sao cứ nhớ em hoài chẳng quên...",
@@ -308,7 +308,7 @@ Mà sao cứ nhớ em hoài chẳng quên
 Dù lạnh hay ấm vẫn nên một mình`
     },
     {
-        title: "Hôm qua tôi dạy em farm",
+        title: "Dạy Farm",
         date: "2025-02-18",
         tags: ["love", "gaming"],
         preview: "Hôm qua tôi dạy em farm / Hôm nay tôi dạy em làm nhà thơ...",
@@ -318,7 +318,7 @@ Ngày mai tôi dạy em cờ
 Ngày sau tôi sẽ ngồi sờ má em`
     },
     {
-        title: "Nhà thơ đi làm",
+        title: "Đi Làm",
         date: "2025-02-17",
         tags: ["life", "work"],
         preview: "Lâu nay nhà thơ rảnh đời / Viết nhăng viết cuội chờ thời gian trôi...",
@@ -358,7 +358,7 @@ Thơ còn một chút rong chơi
 Giữa bao vội vã vẫn ngời sắc hương.`
     },
     {
-        title: "Đêm nay sóng sánh men say",
+        title: "Men Say",
         date: "2025-02-15",
         tags: ["loneliness", "sadness"],
         preview: "Đêm nay sóng sánh men say / Nhìn trăng ta thấy lòng đầy ngổn ngang...",
@@ -372,7 +372,7 @@ Chỉ gặp trong những giấc mơ
 Người ta cự tuyệt, bây giờ ra sao?`
     },
     {
-        title: "Cờ thủ nhân dân Nguyễn Tiến Anh",
+        title: "Leo Rank",
         date: "2025-02-15",
         tags: ["gaming", "life"],
         preview: "Cờ thủ nhân dân Nguyễn Tiến Anh / Ngày đêm thức trắng để leo rank...",
@@ -382,7 +382,7 @@ Dành hơn ba tháng lên cao thủ
 Hạnh phúc đắp chăn ngủ ngon lành`
     },
     {
-        title: "Lâu lâu thấy ấn Gia Đình",
+        title: "Ấn Quý",
         date: "2025-02-11",
         tags: ["gaming", "funny"],
         preview: "Lâu lâu thấy ấn Gia Đình / Nhà thơ farm lính hết mình mà chơi...",
@@ -392,7 +392,7 @@ Jinx 3 bay thẳng lên trời
 Đáp tên lửa xuống lìa đời chuột con`
     },
     {
-        title: "Món ăn và Nỗi nhớ",
+        title: "Món Ăn",
         date: "2025-02-10",
         tags: ["food", "love", "sadness"],
         preview: "Hôm nay được đi ăn mì / Không ngon miệng lắm bởi vì nhớ ai...",
@@ -439,7 +439,7 @@ Thịt chả rau dưa chưa xài
 Bánh mì ngon quá nhớ ai bây giờ`
     },
     {
-        title: "Say trong giấc mộng đêm đông",
+        title: "Đêm Đông",
         date: "2025-02-08",
         tags: ["love", "loneliness"],
         preview: "Say trong giấc mộng đêm đông / Đắp chăn ngủ nướng mặn nồng mình ta...",
@@ -449,7 +449,7 @@ Chẳng đâu ấm áp bằng nhà
 Chẳng đâu lạnh lẽo như là tim em💙`
     },
     {
-        title: "Mỗi đêm là giấc mộng dài",
+        title: "Mộng Dài",
         date: "2025-02-04",
         tags: ["love", "sadness"],
         preview: "Mỗi đêm là giấc mộng dài / Tưởng quên rồi đấy bi hài tình yêu...",
@@ -459,7 +459,7 @@ Thế nên chạ muốn ngủ nhiều
 Mong chờ hạnh phúc là điều viển vông`
     },
     {
-        title: "Mình nói chuyện lại được không",
+        title: "Nói Chuyện",
         date: "2025-02-04",
         tags: ["love", "regret"],
         preview: "Mình nói chuyện lại được không / Nhưng mà tôi muốn làm chồng em cơ...",
@@ -477,7 +477,7 @@ Tìm em trong những giấc mơ
 Lạc vào trong những đợi chờ nhớ thương`
     },
     {
-        title: "Đêm nay bất hạnh vẫn còn dài",
+        title: "Bất Hạnh",
         date: "2025-02-04",
         tags: ["sadness", "funny"],
         preview: "Đêm nay bất hạnh vẫn còn dài / Ngồi trên hố xí đợi ngày mai...",
@@ -487,7 +487,7 @@ Ruột gan phô hết cho em thấy
 Tim tôi em định bán cho ai`
     },
     {
-        title: "Thực sự đã thấm mệt",
+        title: "Thấm Mệt",
         date: "2025-01-18",
         tags: ["exhaustion"],
         preview: "Thực sự đã thấm mệt / Nhắm mắt ngủ k vào...",
@@ -497,7 +497,7 @@ Trời thương cho con chết
 Không ngủ thì sống sao`
     },
     {
-        title: "Tụt xuống kim cương bốn",
+        title: "Kim Cương Bốn",
         date: "2025-01-18",
         tags: ["gaming", "funny"],
         preview: "Tụt xuống kim cương bốn / Chán nản vãi cả nồn...",
@@ -507,7 +507,7 @@ Chắc mình k trình độ
 Chuyển sang pickleball`
     },
     {
-        title: "Lướt Youtube lúc 4h sáng",
+        title: "4h Sáng",
         date: "2025-01-18",
         tags: ["sadness", "life"],
         preview: "Lướt Youtube lúc 4h sáng / Thật buồn chán vì chẳng còn lại gì...",
@@ -517,7 +517,7 @@ Tốc độ sản xuất video chậm hơn tốc độ chán
 Nhà thơ không ngủ được vì nôn khan`
     },
     {
-        title: "Còn lưu luyến chuyện từ năm qua",
+        title: "Thơ Thẩn",
         date: "2025-01-18",
         tags: ["love", "memory"],
         preview: "Còn lưu luyến chuyện từ năm qua / Tâm trí tôi được gửi đi bệnh viện...",
@@ -527,7 +527,7 @@ Lòng thầm ước em không xuất hiện
 Nhưng có thì vui điên`
     },
     {
-        title: "Đêm chơi cờ",
+        title: "Đêm Cờ",
         date: "2025-01-11",
         tags: ["gaming", "funny", "love"],
         preview: "Trắng đen hay trắng đêm / Anh chẳng bớt hay thêm...",
@@ -597,7 +597,7 @@ Tớ nhớ Bống ra phết🫵
 Không chữ nào là điêu.`
     },
     {
-        title: "Cậu dạo này thế nào?",
+        title: "Nhớ Cậu",
         date: "2025-01-09",
         tags: ["friendship", "memory"],
         preview: "Cậu dạo này thế nào? / Đêm có còn gật gù...",
@@ -643,7 +643,7 @@ Thôi thì tớ hẹn vợ,
 Khi khác tử tế hơn ❤️.`
     },
     {
-        title: "Ngủ liền 12 tiếng",
+        title: "12 Tiếng",
         date: "2025-01-07",
         tags: ["sadness", "loneliness", "sleep"],
         preview: "Ngủ liền 12 tiếng / Em chán nản hoá điên...",
@@ -677,7 +677,7 @@ Thà rằng là bị ngáo
 Hơn tỉnh ở chốn này`
     },
     {
-        title: "Nếu như Tanh đau khổ",
+        title: "Đau Khổ",
         date: "2025-01-06",
         tags: ["encouragement", "sadness"],
         preview: "Nếu như Tanh đau khổ / Đừng tự làm mình đau...",
@@ -699,7 +699,7 @@ Chàng trai tự an ủi
 Chẳng biết bao giờ vui🤣`
     },
     {
-        title: "Trả lại hết cho tôi",
+        title: "Đòi Lại",
         date: "2025-01-06",
         tags: ["sadness", "despair"],
         preview: "Trả lại hết cho tôi / Không thì tôi reset...",
@@ -737,7 +737,7 @@ Cho tôi lại cảm giác
 Sống hạnh phúc ra sao`
     },
     {
-        title: "Ngàn năm kết mộng tri ân",
+        title: "Tri Ân",
         date: "2025-01-04",
         tags: ["love", "solitude"],
         preview: "Ngàn năm kết mộng tri ân, / Giai tân đi với mỹ nhân chơi cờ...",
@@ -752,7 +752,7 @@ Tìm đâu ánh mắt chan hòa,
 Để câu thơ thắm như hoa giữa trời.`
     },
     {
-        title: "Trời mưa nên không có em",
+        title: "Trời Mưa",
         date: "2024-12-09",
         tags: ["love", "rain", "sadness"],
         preview: "Trời mưa nên không có em / Là ngày thiếu nắng, buồn tênh lặng thầm...",
@@ -762,7 +762,7 @@ Anh ngồi đợi gió ghé thăm
 Mong mưa mau ngớt, để dầm nắng đông`
     },
     {
-        title: "Ngập lụt",
+        title: "Ngập Lụt",
         date: "2024-08-14",
         tags: ["life", "funny", "love"],
         preview: "Trang khoe Trang đỗ visa / Tôi khoe nước ngập ngã ba Hải Xồm...",
@@ -784,7 +784,7 @@ Ngập lụt cũng viết ra thơ
 Nhà thơ farm lính đợi chờ tình yêu`
     },
     {
-        title: "Vô ngủ",
+        title: "Vô Ngủ",
         date: "2024-08-06",
         tags: ["funny", "life", "love", "sadness"],
         preview: "Người thường thì ngủ từ khuya / Bất thường thì ngủ đến khuya từ chiều...",
@@ -823,7 +823,7 @@ Chứ không phải vì trái tim
 Nhớ thương em quá nên tìm cơn say`
     },
     {
-        title: "Ngọc trong dòng nước mát xanh",
+        title: "Ngọc Xanh",
         date: "2024-07-14",
         tags: ["love"],
         preview: "Ngọc trong dòng nước mát xanh / Ngọc trong đôi mắt Tanh dành cho Trâm...",
@@ -831,7 +831,7 @@ Nhớ thương em quá nên tìm cơn say`
 Ngọc trong đôi mắt Tanh dành cho Trâm`
     },
     {
-        title: "Đang vui thì đứt dây đàn",
+        title: "Đứt Dây",
         date: "2024-07-12",
         tags: ["sadness", "love"],
         preview: "Đang vui thì đứt dây đàn / Đang buôn ríu rít thì nàng rời đi...",
@@ -841,7 +841,7 @@ Lửa tình nàng cũng mang đi
 Chàng trai ở lại lấy gì tương tư`
     },
     {
-        title: "Bất bình với một cuộc sống",
+        title: "Bất Bình",
         date: "2024-07-07",
         tags: ["life", "funny"],
         preview: "Bất bình với một cuộc sống bình thường / Tôi thà đi hóng chuyện ở Bình Dương...",
@@ -851,7 +851,7 @@ Thà tí tởn nhắn tin với gái lạ
 Còn hơn phải sống qua ngày chán chường.`
     },
     {
-        title: "Lúc rảnh thì anh bị vô tri",
+        title: "Vô Tri",
         date: "2024-07-07",
         tags: ["life", "work"],
         preview: "Lúc rảnh thì anh bị vô tri / Lúc bận thì không chơi được rồi...",
@@ -861,7 +861,7 @@ Lúc làm thì anh làm không nghỉ
 Lúc rảnh thì chán chết đi thôi...`
     },
     {
-        title: "Cờ đỏ",
+        title: "Cờ Đỏ",
         date: "2024-06-18",
         tags: ["funny", "love"],
         preview: "được gọi là cờ đỏ / thật hạnh phúc biết bao...",
@@ -871,7 +871,7 @@ một chàng trai cờ đỏ
 cô ấy né thế nào`
     },
     {
-        title: "Ôi quả mận",
+        title: "Quả Mận",
         date: "2024-06-07",
         tags: ["food", "love", "funny"],
         preview: "Ôi quả mận chín mịa mất rồi / Ăn vào ngọt chết mịa đi thôi...",
@@ -881,7 +881,7 @@ Nói thích Ngọt là lời nói dối
 Nói thích em là lời đầu môi`
     },
     {
-        title: "Mai nay ông đi",
+        title: "Ông Đi",
         date: "2024-05-12",
         tags: ["life", "farewell"],
         preview: "Mai nay ông đi theo bà ấy / Lạc vào rừng đầy nắng với cây...",
@@ -891,7 +891,7 @@ Lạc vào rừng đầy nắng với cây
 Không ai biết cũng chẳng ai hay.`
     },
     {
-        title: "Tớ nhớ rằng, ngày ấy",
+        title: "Ngày Ấy",
         date: "2024-01-24",
         tags: ["memory", "school", "love"],
         preview: "Tớ ước rằng, ngày ấy... / Tớ nhớ rằng, ngày ấy...",
@@ -930,7 +930,7 @@ Hoặc thời gian tua ngược
 Để tìm lại phút đầu.`
     },
     {
-        title: "Tớ mơ rằng ngày đó",
+        title: "Mơ Chuyện Cũ",
         date: "2024-01-19",
         tags: ["dream", "love"],
         preview: "Tớ mơ rằng ngày đó / Được sánh bước bên cậu...",
@@ -940,7 +940,7 @@ Lén giấu đi hạnh phúc
 Tỉnh dậy chẳng thấy đâu.`
     },
     {
-        title: "Tuổi hai mươi lang thang",
+        title: "Lang Thang",
         date: "2024-01-17",
         tags: ["life", "love"],
         preview: "Tuổi hai mươi gì mà kì quá / Lang thang đi dưới cơn mưa lạnh...",
@@ -950,7 +950,7 @@ Một mình tớ ngao du trăm ngả
 Nhưng mà tụi mình không cách xa`
     },
     {
-        title: "Sướng nhất là nửa đêm ăn cóc",
+        title: "Ăn Cóc",
         date: "2023-12-11",
         tags: ["food", "funny", "life"],
         preview: "Sướng nhất là nửa đêm ăn cóc / Hộp cóc chua tôi tự đi mua...",
@@ -960,7 +960,7 @@ Cóc lắc kĩ muối mặn đường ngọt
 Dạ dày đau mà miệng sướng hơn vua.`
     },
     {
-        title: "Dặn lòng rằng đây là lần cuối",
+        title: "Lần Cuối",
         date: "2023-12-04",
         tags: ["funny", "life"],
         preview: "Dặn lòng rằng đây là lần cuối / Mà cứ lỡ tay tiêu rồi xài...",
@@ -970,7 +970,7 @@ Sức khỏe thì càng ngày càng đuối
 Nhà thơ chắc không còn ngày mai`
     },
     {
-        title: "Nửa đêm không ngủ",
+        title: "Không Ngủ",
         date: "2023-12-02",
         tags: ["funny", "reflection"],
         preview: "Nửa đêm không ngủ là ngốc nghếch / Em tưởng mình hiểu hết cuộc đời...",
@@ -980,7 +980,7 @@ Giống như dưới giếng có con ếch
 Tưởng khôn mà lại hóa dở hơi.`
     },
     {
-        title: "Nhà thơ farm lính",
+        title: "Farm Lính",
         date: "2023-12-02",
         tags: ["writing"],
         preview: "Vương trong đôi mắt em một chút / Là giọt long lanh như sương mai...",
@@ -990,7 +990,7 @@ Nhà thơ farm lính lại cầm bút
 Khi ông cảm thấy cần viết bài.`
     },
     {
-        title: "Hôm nay John lạc mất rồi",
+        title: "Mất John",
         date: "2023-12-02",
         tags: ["sadness"],
         preview: "Hôm nay John lạc mất rồi! / Nhìn quanh chẳng thấy mảnh đồi thường qua...",
@@ -1000,7 +1000,7 @@ Nơi đây chỉ toàn là hoa
 Vài ba tiếng khóc nơi xa vọng về.`
     },
     {
-        title: "Tuổi hai mươi kì quá",
+        title: "Tuổi 20",
         date: "2023-11-12",
         tags: ["life", "love"],
         preview: "Tuổi hai mươi gì mà kì quá / Chẳng tìm ra ánh mắt giống em...",
@@ -1010,7 +1010,7 @@ Rồi sao được vuốt ve gò má
 Và thơm lên một đôi môi mềm.`
     },
     {
-        title: "Lửa cháy trong tim",
+        title: "Lửa Tim",
         date: "2023-11-12",
         tags: ["love", "youth"],
         preview: "Lửa cháy trong tim vào đầu đông / Mười tám đôi mươi một màu hồng...",
@@ -1020,7 +1020,7 @@ Yêu em anh sống trong ngang trái
 Yêu anh thì lên xe anh lai.`
     },
     {
-        title: "Ngoại lệ của anh",
+        title: "Ngoại Lệ",
         date: "2023-11-09",
         tags: ["love", "food"],
         preview: "Em là ngoại lệ của anh / Chẳng ai hai rưỡi lại canh rời nhà...",
@@ -1030,7 +1030,7 @@ Chẳng ai hai rưỡi lại canh rời nhà
 Mang cho cô gái người mà anh thương.`
     },
     {
-        title: "Tao đi mid",
+        title: "Đi Mid",
         date: "2023-11-09",
         tags: ["gaming", "funny"],
         preview: "Tao đi mid toàn full sách / Mày bị hành xong đi mách mẹ cha...",
@@ -1040,7 +1040,7 @@ Cái thằng tiền kiếm chưa ra
 Farm xe hụt hết làm ba mẹ buồn`
     },
     {
-        title: "Kìa, em thấy gì trong đôi mắt",
+        title: "Mắt Ngắm Sao",
         date: "2023-11-03",
         tags: ["love", "funny"],
         preview: "Kìa, em thấy gì trong đôi mắt / À, em đang ngắm một bầu trời sao...",
@@ -1050,7 +1050,7 @@ Vậy, chắc em nên đi nhỏ mắt
 Bởi, toàn mây nắng chứ làm gì có sao nào?`
     },
     {
-        title: "Đừng cố bên nhau",
+        title: "Tuyệt Tình",
         date: "2023-11-01",
         tags: ["love", "farewell"],
         preview: "Nàng ơi đừng cố bên nhau / Nếu số đã định thì mau ra về...",
@@ -1060,7 +1060,7 @@ Nếu số đã định thì mau ra về.
 Có duyên mình sẽ đuề huề sớm mai.`
     },
     {
-        title: "Anh đây mới 6 tuổi thôi",
+        title: "6 Tuổi",
         date: "2023-10-18",
         tags: ["love", "funny"],
         preview: "Anh đây mới 6 tuổi thôi / Cộng xong phép toán lại ngồi nhớ Linh...",
@@ -1070,7 +1070,7 @@ Nhỏ con ngồi viết thơ tình
 Văn hay nhưng chẳng đủ trình bên em.`
     },
     {
-        title: "Vì nàng là nhất trên đời",
+        title: "Vì Nàng",
         date: "2023-10-18",
         tags: ["love", "writing"],
         preview: "Vì nàng là nhất trên đời / Nên anh không muốn mình rời xa nhau...",
@@ -1084,7 +1084,7 @@ Du hành trong những giấc mơ
 Biết bao hạnh phúc trông chờ vào em.`
     },
     {
-        title: "Hôm nay tôi dạy em farm",
+        title: "Kèm Farm",
         date: "2023-10-16",
         tags: ["gaming", "love"],
         preview: "Hôm nay tôi dạy em farm / Ngày mai tôi dạy em làm nhà thơ...",
@@ -1095,26 +1095,80 @@ Song song với đó là chờ đợi em.`
     }
 ];
 
-// Automatically inject a default curator's note for any poem that doesn't have one
-const insightTemplates = [
-    "Bút ký: Bài thơ này được viết ra trong một đêm trằn trọc, như một lời tự sự mộc mạc gửi lại cho chính mình của ngày mai.",
-    "Bút ký: Một góc nhìn trầm ngâm về sự trôi chảy của thời gian, nơi quá khứ và hiện tại giao thoa qua từng vần điệu.",
-    "Bút ký: Cảm hứng đến từ những sự việc rất đỗi bình thường, biến cái tẻ nhạt của cuộc đời thành những vần thơ đầy ngẫm nghĩ.",
-    "Bút ký: Những con chữ là cách duy nhất để tác giả đối thoại thẳng thắn với sự xáo động sâu thẳm bên trong tâm hồn.",
-    "Bút ký: Tác phẩm mang một chút vị đắng của sự hoài niệm, gửi gắm những tâm tư chưa bao giờ dám nói thành lời.",
-    "Bút ký: Viết trong một ngày tâm trí kiệt sức. Lời thơ là tiếng thở dài vừa bất lực lại vừa đầy tính tự trào về cuộc sống người trưởng thành.",
-    "Bút ký: Một khoảnh khắc đứng chững lại giữa dòng đời hối hả, nhìn lại chặng đường tuổi trẻ với vô vàn những ngây ngô và tiếc nuối.",
-    "Bút ký: Bóng tối và sự tĩnh lặng đã tạo nên bức nền hoàn hảo cho những cảm xúc dồn nén được giải phóng qua từng dòng chữ thơ này.",
-    "Bút ký: Ra đời từ một cơn mưa rào bất chợt, bài thơ mang vệt nước lấp lánh của những kỷ niệm buồn nhưng tĩnh lặng và êm đềm.",
-    "Bút ký: Khúc ca về sự cô đơn không phải để bi lụy, mà khao khát được thấu hiểu. Giọng thơ có chút ngạo nghễ nhưng bên trong lại đầy chơi vơi."
-];
+const specificInsights = {
+    "Cô Độc": "Một tiếng thở dài cô quạnh khi nhận ra sự tĩnh lặng đã trở thành thói quen, mượn cớ ngắm mưa để che giấu một nỗi nhớ khôn tả dâng trào.",
+    "Trốn Hạ": "Cái nóng oi bức của mùa hè thủ đô trở thành cái cớ để trút bỏ áp lực mưu sinh, thèm khát những chuyến đi thanh lọc nhưng cũng đành mắc kẹt.",
+    "Đối Gương": "Cuộc đối thoại nội tâm đầy tuyệt vọng với chiếc gương vô tri, nơi trái tim đang loạn nhịp tự giằng xé giữa hy vọng và nỗi lo sợ tổn thương rơi vỡ.",
+    "Tình Hoa": "Tình yêu thầm lặng được ví như đóa hoa trường tồn không quản ngại bốn mùa, khẽ khàng nhưng mãnh liệt đến độ hoa nằm trong hoa.",
+    "Nghỉ Ngơi": "Khi cuộc sống bận rộn guồng quay, những vần thơ bỗng chốc bị lãng quên, mệt nhoài dẫu tự nhủ lòng 'kệ tôi' nhưng vẫn đau đáu hỏi thăm.",
+    "Hương Gió": "Khoảnh khắc đắm chìm lãng mạn như sương khói, khi một chút hương tóc ai vương lại đã khiến cả tuổi thanh xuân rơi vào một bầu tương tư.",
+    "Cầm Bút": "Mực chưa kịp đậm mà hồn đã bơ vơ. Sự bế tắc tột độ của một tâm hồn yếu đuối mang nặng những tâm tư không thể giải bày lên trang giấy trắng.",
+    "Gã Ngốc": "Lời tự trào đầy chua xót về kẻ làm thơ mang lòng si tình nhưng lại nhút nhát giấu lẹm, chỉ dám lén lút chờ đợi hạnh phúc chắp vá trong mơ.",
+    "Muốn Gặp": "Nỗi khát khao bùng cháy mãnh liệt như chiếc lò xo bị nén chặt, khi bóng dáng người ấy dường như đã tan biến vĩnh viễn giữa đất trời sương khói.",
+    "Nói Chuyện": "Cảm giác nuối tiếc bủa vây nghẹt thở sau một cuộc chia ly, chỉ mong thời gian đảo lộn vòng quay trở về thời thơ ấu để trốn khỏi hiện thực u uất.",
+    "Màu Xanh": "Ký ức nhạt nhoà về một bát rau sống màu xanh, một nét chấm phá lướt qua vừa hài hước lầy lội vừa gợi một nỗi buồn tủi vu vơ.",
+    "Tăng Cân": "Sự mâu thuẫn bi hài của một tâm hồn đam mê ẩm thực mãnh liệt nhưng lại bất an với cái cân, khép lại bằng châm ngôn 'kệ xác, nhậu đã'.",
+    "Ly Trà": "Chỉ một tách trà gừng hãm vội giữa ngày lạnh cũng đủ làm sống lại nguyên vẹn dáng hình người xưa tĩnh lặng giữa mịt mờ mưa rơi.",
+    "Nửa Tách": "Sự phân tâm ngốc nghếch giữa ván cờ nhân phẩm, dùng game gủng làm trò bao biện cho khát khao thực thà cháy bỏng về một hơi ấm vỗ về.",
+    "Về Muộn": "Thói quen sinh hoạt vô chừng vỡ nát che lấp đi khoảng trống lạnh lẽo của căn phòng, nơi những kỷ niệm đọng lại mong manh như hạt mưa trên lá.",
+    "Trò Cưng": "Chút bất lực đẫm chất ngáo ngơ của người làm giáo viên khi phải thỏa hiệp trơ trẽn trước những trò quậy phá ngoan cố nhưng dễ thương của học sinh.",
+    "Nắng Mưa": "Khẳng định đanh thép về thứ nỗi nhớ dai dẳng vượt mặt quy luật vô thường của tạo hóa tự nhiên, để cái tĩnh lặng đêm đông len lỏi buốt thấu tâm can.",
+    "Dạy Farm": "Một quá trình 'rắc thính' tinh xảo trải dài từ thế giới ảo cho tới góc khuất làm thơ hiện thực, hướng tới đích đến cuối gò má của người thương.",
+    "Đi Làm": "Gác lại những mộng tưởng viển vông để lao vào guồng quay kiếm tiền, nhưng dẫu còng lưng đến đâu đi nữa thì nhịp thơ vẫn âm ỉ đập cùng sự sống đời thường.",
+    "Men Say": "Bóng tối cùng cực bị kích thích bởi hơi men, nhìn vầng trăng trơ trọi mà liên tưởng đến sự hoang tàn trong cõi lòng khi gánh chịu sự cự tuyệt từ tình yâu.",
+    "Leo Rank": "Phút giây thăng hoa bùng nổ của thánh leo rank Đấu Trường Chân Lý sau hơn ba tháng dồn hết tâm huyết, ăn mừng bằng một giấc ngủ ngon vùi.",
+    "Ấn Quý": "Sự bung xõa đầy tính bạo lực giải trí khi vồ được ấn Gia Đình vào tay, biến trận game thành một màn tàn sát đầy xả stress.",
+    "Món Ăn": "Bức tranh 6 mảnh liên kết 6 loại thức ăn quen thuộc (Mì, Phở, Gà...) với thứ dư vị thèm thuồng mặn đắng không có cách nào gọi tên vì lỡ nhớ một người.",
+    "Đêm Đông": "Sự thức tỉnh tàn nhẫn len lỏi sau một giấc ngủ bị nuông chiều quá trớn, chăn gối dẫu ấm áp đến dường nào cũng chưa bao giờ đọ lại sự đóng băng vĩnh viễn ở trái tim em.",
+    "Mộng Dài": "Tuyệt vọng lên gân, ép buộc bản thân phải tỉnh táo thừa nhận thứ tình yêu đang thao thức nuôi dưỡng là một huyễn hoặc điên rồ.",
+    "Nói Chuyện": "Sự tủi thân vỡ òa không kìm được nữa đi liền với những lời trách cứ tuyệt vọng vì đối phương cứ mãi gieo vào tâm trí sự vương vấn cắm rễ xé rách lồng ngực qua hàng đêm.",
+    "Bất Hạnh": "Nghệ thuật 'thơ bồn cầu' trào lộng châm biếm chính bản thân mình, khi đang phơi gan ruột ra thì phát hiện người kia chuẩn bị đem tim mình đi ban phát tình thương cho thằng khác.",
+    "Thấm Mệt": "Sự kiệt quệ hoàn toàn kéo tụt mọi bản năng sinh tồn, lời cầu xin sự xót thương cuối cùng của cơ thể trước cái lẩn quẩn thiếu ngủ triền miên.",
+    "Kim Cương Bốn": "Tiếng kêu gào phẫn nộ cùng cực do chuỗi thua tuột dốc không phanh, dẫn tới quyết định nhảy thuyền chuyển sang bộ môn pickleball mang đầy tính thương mại giải sầu.",
+    "4h Sáng": "Bi kịch trầm kha của một chứng mất ngủ kinh niên, cái chán nản cuộn sâu vào ruột gan đến mức vắt ra những nhịp nôn khan cay xè mũi họng.",
+    "Thơ Thẩn": "Đẩy lý trí đi nằm viện tâm thần chỉ để chạy trốn sự thật đáng nguyền rủa, phủ nhận mọi mộng tưởng tái ngộ vì biết trái tim chắc chắn sẽ lại nổi điên hạnh phúc.",
+    "Đêm Cờ": "Án văn dài lê thê đặc quánh chất 'nghiện' kể về những trận đấu TFT xào đồ tấu hài, nhưng càng khuya càng để lọt ra khe hở của sự nhớ nhung ám ảnh cái bóng hình tên Bống.",
+    "Nhớ Cậu": "Một lá thư đầy dỗi hờn, trách móc vu vơ nhưng ngập tràn hoài niệm của ngày thanh xuân, gửi thẳng cho partner một thời để gợi lại niềm vui khờ dại bị bóp nát trong giông bão cuộc đời trưởng thành.",
+    "12 Tiếng": "Chấp nhận khóa chặt giác quan trong giấc ngủ dài li bì hòng tự sát lâm sàng, chôn vùi cảm giác đau đớn đến tắt thở khi chứng kiến em rẽ bước và nhắm mắt lại để khỏi phải nhìn.",
+    "Đau Khổ": "Sự an ủi tự huyễn hoặc xót xa, mượn lốt người thứ ba vỗ về bản thân hãy gượng dậy vì nỗi nhục nhã đang bóp méo cả những giọt nước mắt chưa kịp rơi.",
+    "Đòi Lại": "Cơn phát điên dội ngược, gào thét đòi format lại vạn vật, đập tan thế giới và khát máu muốn hủy hoại chính sinh mạng này do vỡ lở tiếc nuối tột độ chuyện đã qua.",
+    "Tri Ân": "Cái nhìn chạnh lòng ganh tị đầy oán thán của một cõi cô đơn khi chứng kiến xung quanh trai gáivào đôi ấm cúng, còn mình thì bị bỏ rơi hóa kiếp hóa thạch chờ đợi.",
+    "Trời Mưa": "Bốn câu lục bát cô đọng nỗi buồn man mác của chuỗi vắng lặng, lấy hạt mưa làm ẩn dụ giấu đi nước mắt của một ngày nắng chưa bao giờ ló rạng dẫu đợi qua muôn trùng.",
+    "Ngập Lụt": "Cái phông bạt ngập lụt lầy lội bi tráng bị lấy ra miêu tả trào phúng để giấu nhẹm đi thứ tâm tư rên rỉ nhớ nhung điên cuồng réo tên người cũ hằng đêm bất chấp chướng ngại.",
+    "Vô Ngủ": "Phép đảo lộn nghịch lý của chu kì làm người, tự giễu cợt sự tha hóa thần kinh và kết liễu bằng một điệu cười đầy trắc trở khi ngọn núi nỗi buồn chìm nghỉm trong thâm tâm.",
 
-poems.forEach((p, index) => {
-    if (!p.insight) {
-        // Create a pseudo-random seed consistently based on the poem's title
-        const charCodeSum = p.title.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0);
-        const templateIndex = (charCodeSum + index) % insightTemplates.length;
-        p.insight = insightTemplates[templateIndex];
+    "Ngọc Xanh": "Ánh nhìn trong veo mát lành chứa đựng thứ tình cảm ngầm chẳng thể che giấu.",
+    "Đứt Dây": "Tiếng thở dài đầy bất lực khi trò chuyện đang vào guồng thì đột ngột đứt gánh.",
+    "Bất Bình": "Khát khao thoát khỏi cái bình lặng nhàm chán để đi tìm những thứ 'drama' phá vỡ quy củ thường nhật.",
+    "Vô Tri": "Trạng thái ngẩn ngơ của một cái máy làm việc, hễ rảnh là lú lẫn không có điểm tựa.",
+    "Cờ Đỏ": "Châm biếm hài hước về kiểu người mang 'red flag' trong mối quan hệ, đáng sợ nhưng vẫn tỏ vẻ tự hào.",
+    "Quả Mận": "Một sự thật phũ phàng như vị chua quả mận: chớ bao giờ tin vào những lời đầu môi.",
+    "Ông Đi": "Bóng lưng cô đơn đi về phương xa không để lại dấu tích, như một lời từ biệt khuất dần.",
+    "Ngày Ấy": "Hoài niệm trong vắt của tuổi học trò, những rung động ngây ngô khi người ấy nghịch tóc.",
+    "Mơ Chuyện Cũ": "Nỗi nhớ quá quắt đan xen giấc mơ không thể với tới, lén giấu niềm vui trước khi tỉnh mộng vỡ tan.",
+    "Lang Thang": "Lời thì thầm yếu ớt lang thang dưới làn mưa hai mươi tuổi để gột rửa nỗi buồn.",
+    "Ăn Cóc": "Thứ hạnh phúc nhỏ nhoi đầy xót xa: ăn một hộp cóc chua lúc nửa đêm cho quên đi đời.",
+    "Lần Cuối": "Sự dằn vặt vì thói quen phung phí, đi cùng nỗi lo thân tàn ma dại trong tương lai.",
+    "Không Ngủ": "Tiếng cười tự giễu mỉa mai, nhận ra bấy lâu nay chẳng khác ếch ngồi đáy giếng.",
+    "Farm Lính": "Thủ thuật chơi chữ của một tay cày game tìm tới áng văn làm điểm lặng cuối ngày.",
+    "Mất John": "Sự mất mát đột ngột ở góc đồi quen, để lại khoảng trống u buồn chỉ tiếng khóc rền rĩ.",
+    "Tuổi 20": "Cảm giác nghẹt thở tìm trong đám đông sự an ủi ở đôi mắt người thương năm hai mươi.",
+    "Lửa Tim": "Máu nóng sục sôi của thanh niên yêu một màu hồng chói lọi, ngông cuồng mời lên xe lai.",
+    "Ngoại Lệ": "Trái quy luật tự nhiên, nửa đêm sẵn sàng lóc cóc chỉ để mua món ăn người ấy thèm.",
+    "Đi Mid": "Một bài mắng chửi hả hê vì chiến thắng đối thủ đi mid trong game, gáy to xua buồn bực.",
+    "Mắt Ngắm Sao": "Sự thính vớ vẩn nhưng dễ thương, chọc phá khi em đang ngẩn ngơ với những suy mộng hão.",
+    "Tuyệt Tình": "Dứt khoát đoạn tuyệt nếu duyên đã tận, không cho bản thân thảm hại bu bám lê thê.",
+    "6 Tuổi": "Hoài niệm quay ngược về trẻ thơ lúc chỉ vừa sáu tuổi nhưng trí não đã chật chội vì yêu Linh.",
+    "Vì Nàng": "Tấm chân tình chân chất chẳng đong đếm, sẵn sàng đợi trong mơ nếu ngoài đời trắc trở.",
+    "Kèm Farm": "Bước đệm hoàn hảo để gài bẫy dạy farm hôm nay, để mai rủ rê dạy làm luôn nhà thơ.",
+};
+
+// Add explicit insights
+poems.forEach(p => {
+    if (specificInsights[p.title]) {
+        p.insight = specificInsights[p.title];
+    } else if (!p.insight) {
+        p.insight = "Bút ký: Một góc nhìn trầm ngâm về sự trôi chảy của thời gian, một lời tự sự ẩn mình giấu kín sau lớp vỏ bọc những vần thơ đầy ngẫm nghĩ...";
     }
 });
 

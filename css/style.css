@@ -389,15 +389,31 @@ img {
   background: radial-gradient(circle at center, rgba(253, 251, 247, 0.98), rgba(245, 240, 230, 1));
   z-index: 10000;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.4s ease;
+  transform: scale(1.05); /* Scale down transition */
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
   overflow-y: auto;
   overflow-x: hidden;
   padding: 6rem 2rem;
-  will-change: opacity;
+  will-change: opacity, transform;
+}
+
+/* Paper texture */
+.zen-overlay::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23n)" opacity="0.05"/%3E%3C/svg%3E');
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: -1;
+}
+
+[data-theme="dark"] .zen-overlay::before {
+  opacity: 0.2;
 }
 
 [data-theme="dark"] .zen-overlay {
@@ -407,6 +423,7 @@ img {
 .zen-overlay.active {
   opacity: 1;
   pointer-events: all;
+  transform: scale(1); /* Completed scale down */
 }
 
 .zen-content {
@@ -419,21 +436,39 @@ img {
   position: fixed;
   top: 2rem;
   left: 3rem;
-  right: auto;
   background: transparent;
   border: none;
-  font-size: 3rem;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   color: var(--text-primary);
-  opacity: 0.5;
+  opacity: 0.6;
   cursor: pointer;
   transition: all 0.3s ease;
   z-index: 10001;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .zen-close:hover {
   color: var(--accent-color);
   opacity: 1;
-  transform: scale(1.1);
+  transform: translateX(-5px); /* Slide slightly */
+}
+
+/* Progress Bar */
+.zen-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background-color: var(--accent-color);
+  width: 0%;
+  z-index: 10002;
+  transition: width 0.1s ease;
+  pointer-events: none;
 }
 
 .zen-poem-title {
@@ -447,15 +482,58 @@ img {
   z-index: 9999;
 }
 
+.zen-date {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-style: italic;
+  opacity: 0.6;
+  text-align: center;
+  margin-bottom: 2rem;
+  margin-top: -1rem;
+  width: 100%;
+}
+
+.zen-insight-note {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  opacity: 0.8;
+  text-align: center;
+  max-width: 500px;
+  margin: 4rem auto 2rem;
+  padding-top: 2rem;
+  border-top: 1px dashed var(--border-color);
+  color: var(--text-primary);
+}
+
 .zen-poem-body {
   font-family: var(--font-serif);
   font-size: 1.3rem;
-  line-height: Math.max(2, 2.5);
-  white-space: pre-line;
+  line-height: 2.2;
   color: var(--text-primary);
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the stanzas blocks */
+  max-width: 650px; /* Optimal reading column */
+  margin: 0 auto;
   position: relative;
   z-index: 9999;
+}
+
+.poem-stanza {
+  margin-bottom: 2.5rem;
+  transition: opacity 0.5s ease;
+  opacity: 1; /* Default state */
+  width: 100%;
+  text-align: center; /* Revert to center align */
+}
+
+.poem-line {
+  margin-bottom: 0px; /* Keep stanza grouped closely */
+}
+
+.poem-line.bat-line {
+  /* Removed padding for pure centering */
 }
 
 /* Narration Button (Poetry.html) */

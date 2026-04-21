@@ -180,9 +180,13 @@ function initGreeting() {
 function initZenMode() {
     if(!document.getElementById('zen-overlay')) {
         const zenHTML = `
+        <div id="zen-progress" class="zen-progress-bar"></div>
         <div id="zen-overlay" class="zen-overlay">
             <div id="zen-spotlight" class="zen-spotlight"></div>
-            <button id="zen-close" class="zen-close">×</button>
+            <button id="zen-close" class="zen-close">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                TRỞ VỀ VŨ TRỤ
+            </button>
             <div class="zen-content">
                 <h2 id="zen-title" class="zen-poem-title"></h2>
                 <div id="zen-body" class="zen-poem-body"></div>
@@ -214,7 +218,35 @@ function initZenMode() {
     // Make it available globally for other scripts (like poetry.html to trigger)
     window.openZenMode = function(title, content) {
         document.getElementById('zen-title').textContent = title;
-        document.getElementById('zen-body').textContent = content;
+        
+        let poemMeta = null;
+        if (typeof poems !== 'undefined') {
+            poemMeta = poems.find(p => p.title === title) || poems.find(p => p.content.includes(content.substring(0, 20)));
+        }
+
+        let dateHtml = '';
+        if (poemMeta && poemMeta.date) {
+            const dateObj = new Date(poemMeta.date);
+            if (!isNaN(dateObj)) {
+                dateHtml = `<div class="zen-date">Hà Nội, ngày ${dateObj.getDate()} tháng ${dateObj.getMonth() + 1} năm ${dateObj.getFullYear()}</div>`;
+            }
+        }
+        
+        // Semantic Parsing cho Lục Bát và Khổ Thơ
+        const stanzas = content.split(/\n\s*\n/);
+        let htmlContext = dateHtml;
+        
+        stanzas.forEach(stanza => {
+            if(!stanza.trim()) return;
+            const lines = stanza.trim().split('\n').map(line => {
+                const words = line.trim().split(' ').filter(w => w.trim().length > 0);
+                const isBat = words.length > 6;
+                return `<div class="poem-line ${isBat ? 'bat-line' : ''}">${line}</div>`;
+            }).join('');
+            htmlContext += `<div class="poem-stanza">${lines}</div>`;
+        });
+        
+        document.getElementById('zen-body').innerHTML = htmlContext;
         
         let sig = document.getElementById('zen-signature');
         if (!sig) {
@@ -227,7 +259,41 @@ function initZenMode() {
 
         zenOverlay.classList.add('active');
         document.body.style.overflow = 'hidden'; // Hide main scroll
+        zenOverlay.scrollTop = 0; // Reset scroll when opening
+        
+        // Trigger scroll event manually once to set initial fade states
+        setTimeout(() => triggerScrollFocus(zenOverlay), 100);
     };
+
+    // Scroll Logic: Thanh Tiến Trình & Hiệu ứng Focus
+    const triggerScrollFocus = (overlay) => {
+        // ProgressBar
+        const scrollableDist = Math.max(1, overlay.scrollHeight - overlay.clientHeight);
+        const scrollPercent = overlay.scrollTop / scrollableDist;
+        document.getElementById('zen-progress').style.width = (scrollPercent * 100) + '%';
+        
+        // Reading Focus
+        const stanzas = document.querySelectorAll('.poem-stanza');
+        // Vị trí giữa view
+        const viewCenter = window.innerHeight / 2.5; 
+        
+        stanzas.forEach(stanza => {
+            const rect = stanza.getBoundingClientRect();
+            const stanzaCenter = rect.top + (rect.height / 2);
+            const dist = Math.abs(viewCenter - stanzaCenter);
+            
+            // Nếu cách tâm quá 45% chiều cao màn hình thì bắt đầu mờ
+            if (dist > window.innerHeight * 0.45) {
+                stanza.style.opacity = '0.3';
+            } else {
+                stanza.style.opacity = '1';
+            }
+        });
+    };
+
+    zenOverlay.addEventListener('scroll', () => {
+        triggerScrollFocus(zenOverlay);
+    });
 }
 
 // Cinematic Intercept
