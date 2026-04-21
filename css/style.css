@@ -650,6 +650,7 @@ img {
   100% { background-position: 100% 100%; }
 }
 [data-theme="dark"] .gallery-viewport {
+  background-color: var(--bg-color); /* Restore dark theme background */
   background-image: none; /* Dark mode keeps pure dark background */
 }
 
