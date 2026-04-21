@@ -4,13 +4,13 @@
   GLOBAL DESIGN SYSTEM & VARIABLES
 =============================================================================*/
 :root {
-  /* Colors - Forest Light Theme (Sage Green, Deep Pine & Sunbeam Gold) */
-  --bg-color: #E8EBE4; /* Soft Sage Green */
-  --text-primary: #1A3622; /* Deep Forest Pine */
-  --text-secondary: #4A6650; /* Muted Moss */
-  --accent-color: #C29B4A; /* Sunbeam Gold/Firefly */
-  --border-color: #C9D6C3; /* Pale Vine */
-  --nav-bg: rgba(232, 235, 228, 0.85);
+  /* Colors - Light Theme (Cream/Espresso & Gold) */
+  --bg-color: #FDFBF7;
+  --text-primary: #3B3024;
+  --text-secondary: #6B5C4E;
+  --accent-color: #CBA365;
+  --border-color: #E2DCD3;
+  --nav-bg: rgba(253, 251, 247, 0.8);
 
   /* Typography */
   --font-serif: 'Playfair Display', 'Lora', serif;
@@ -60,7 +60,10 @@ body {
 body::after {
   content: "";
   position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: 9999;
   pointer-events: none;
   background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noise)"/%3E%3C/svg%3E');
@@ -71,7 +74,12 @@ body::after {
   opacity: 0.03;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-serif);
   font-weight: 400;
   line-height: 1.3;
@@ -282,9 +290,17 @@ img {
   transform: translateY(0);
 }
 
-.delay-1 { transition-delay: 0.1s; }
-.delay-2 { transition-delay: 0.2s; }
-.delay-3 { transition-delay: 0.3s; }
+.delay-1 {
+  transition-delay: 0.1s;
+}
+
+.delay-2 {
+  transition-delay: 0.2s;
+}
+
+.delay-3 {
+  transition-delay: 0.3s;
+}
 
 /* Cards / List Items (Typography Art Style) */
 .list-item {
@@ -335,7 +351,8 @@ img {
   color: var(--text-primary);
 }
 
-.poem-content, .thought-content {
+.poem-content,
+.thought-content {
   display: none;
 }
 
@@ -363,7 +380,10 @@ img {
 /* Zen Mode Enhancements */
 .zen-overlay {
   position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   background: radial-gradient(circle at center, rgba(253, 251, 247, 0.98), rgba(245, 240, 230, 1));
   z-index: 10000;
   display: flex;
@@ -377,6 +397,7 @@ img {
   padding: 6rem 2rem;
   will-change: opacity;
 }
+
 [data-theme="dark"] .zen-overlay {
   background: radial-gradient(circle at center, rgba(20, 20, 20, 0.98), rgba(5, 5, 5, 1));
 }
@@ -453,15 +474,19 @@ img {
   transition: all 0.3s ease;
   margin-top: 1rem;
 }
+
 .narration-btn:hover {
   background: var(--accent-color);
   color: #fff;
   border-color: var(--accent-color);
 }
+
 .narration-btn svg {
-  width: 16px; height: 16px;
+  width: 16px;
+  height: 16px;
   fill: currentColor;
 }
+
 .narration-btn.playing {
   background: var(--accent-color);
   color: #fff;
@@ -483,13 +508,17 @@ img {
   opacity: 0.9;
   padding: 0 1rem;
 }
+
 .zen-overlay.active .signature-wrap {
   animation: revealSignature 2.5s ease-in-out forwards;
   animation-delay: 0.5s;
   clip-path: inset(0 100% 0 0);
 }
+
 @keyframes revealSignature {
-  to { clip-path: inset(0 0 0 0); }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
 }
 
 /* Audio Player Floating Button */
@@ -511,36 +540,49 @@ img {
   transition: var(--transition-smooth);
   backdrop-filter: blur(10px);
 }
+
 .audio-toggle:hover {
   border-color: var(--accent-color);
   color: var(--accent-color);
   transform: scale(1.05);
 }
+
 .audio-toggle.is-playing {
   animation: spin 8s linear infinite;
   border-color: var(--accent-color);
 }
-@keyframes spin { 100% { transform: rotate(360deg); } }
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
 /* Curator's Notes */
 .curator-wrapper {
   margin-top: 1.5rem;
 }
+
 .curator-toggle {
   background: transparent;
   border: 1px solid var(--border-color);
   color: var(--text-secondary);
   border-radius: 50%;
-  width: 40px; height: 40px;
-  display: inline-flex; justify-content: center; align-items: center;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   transition: var(--transition-smooth);
 }
+
 .curator-toggle:hover {
   color: var(--accent-color);
   border-color: var(--accent-color);
   transform: scale(1.1);
 }
+
 .curator-note {
   max-width: 600px;
   margin-top: 1rem;
@@ -555,9 +597,11 @@ img {
   opacity: 0;
   transition: opacity 0.4s ease;
 }
+
 .curator-note.visible {
   display: block;
 }
+
 .curator-note.fade-in-note {
   opacity: 1;
 }
@@ -585,240 +629,334 @@ img {
   PHASE 2: GALLERY WALL & ROOMS
 =============================================================================*/
 .gallery-viewport {
-    position: relative;
-    width: 100vw;
-    height: calc(100vh - var(--nav-height));
-    overflow: hidden;
-    cursor: grab;
-    background-color: var(--bg-color);
-    touch-action: none; /* Prevent iOS Safari tab UI pop on pinch */
+  position: relative;
+  width: 100vw;
+  height: calc(100vh - var(--nav-height));
+  overflow: hidden;
+  cursor: grab;
+  background-color: var(--bg-color);
+  touch-action: none;
+  /* Hangzhou Meadow Mesh Gradient */
+  background-image: 
+      radial-gradient(at 0% 0%, rgba(200,230,195,0.8) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(255,245,210,0.6) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(220,235,210,0.8) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, rgba(240,255,240,0.9) 0px, transparent 50%);
+  background-size: 200% 200%;
+  animation: mistFlow 30s ease-in-out infinite alternate;
 }
+@keyframes mistFlow {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
+[data-theme="dark"] .gallery-viewport {
+  background-image: none; /* Dark mode keeps pure dark background */
+}
+
 .gallery-viewport::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    box-shadow: inset 0 0 150px rgba(0,0,0,0.1);
-    z-index: 999;
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.1);
+  z-index: 999;
 }
+
 [data-theme="dark"] .gallery-viewport::after {
-    box-shadow: inset 0 0 300px rgba(0,0,0,0.9);
+  box-shadow: inset 0 0 300px rgba(0, 0, 0, 0.9);
 }
 
 .gallery-viewport:active {
-    cursor: grabbing;
+  cursor: grabbing;
 }
 
 .gallery-wall-wrapper {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    /* Cosmic Drifting */
-    animation: cosmicDrift 120s ease-in-out infinite alternate;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Cosmic Drifting */
+  animation: cosmicDrift 120s ease-in-out infinite alternate;
 }
+
+/* Hangzhou Hanging Willows (Liễu Rủ) */
+.gallery-wall-wrapper::before,
+.gallery-wall-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  pointer-events: none;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.8;
+  z-index: 10;
+  filter: drop-shadow(0 20px 20px rgba(0,0,0,0.05));
+  animation: willowSway 8s ease-in-out infinite alternate;
+  transform-origin: top center;
+}
+.gallery-wall-wrapper::before {
+  left: -20px;
+  width: 350px;
+  height: 550px;
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg"><path d="M-10,-10 Q30,50 10,180 Q35,160 5,80 Z" fill="rgba(100, 130, 90, 0.4)"/><path d="M0,-10 Q50,40 20,200 Q40,160 15,80 Z" fill="rgba(140, 170, 120, 0.5)"/><path d="M-20,-10 Q20,30 -5,140" stroke="rgba(80, 110, 70, 0.6)" stroke-width="2" fill="none"/></svg>');
+}
+.gallery-wall-wrapper::after {
+  right: -20px;
+  width: 450px;
+  height: 650px;
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg"><path d="M110,-10 Q70,60 90,220 Q60,180 95,80 Z" fill="rgba(100, 130, 90, 0.3)"/><path d="M100,-10 Q50,50 80,180 Q60,140 85,70 Z" fill="rgba(120, 150, 100, 0.4)"/></svg>');
+  animation-delay: -3s;
+}
+
+@keyframes willowSway {
+  0% { transform: rotate(-2deg); }
+  100% { transform: rotate(3deg); }
+}
+
+[data-theme="dark"] .gallery-wall-wrapper::before,
+[data-theme="dark"] .gallery-wall-wrapper::after {
+  display: none;
+}
+
 @keyframes cosmicDrift {
-    0% { transform: scale(1) rotate(-1deg); }
-    100% { transform: scale(1.02) rotate(1deg); }
+  0% {
+    transform: scale(1) rotate(-1deg);
+  }
+
+  100% {
+    transform: scale(1.02) rotate(1deg);
+  }
 }
 
 .gallery-wall {
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 3000px; height: 2000px;
-    transform-origin: center center;
-    margin-left: -1500px;
-    margin-top: -1000px;
-    background-image: 
-      radial-gradient(var(--border-color) 1px, transparent 1px),
-      radial-gradient(var(--border-color) 1px, transparent 1px);
-    background-position: 0 0, 50px 50px;
-    background-size: 100px 100px;
-}
-[data-theme="dark"] .gallery-wall {
-    background-image: none; /* Remove harsh grid for universe aesthetic */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 3000px;
+  height: 2000px;
+  transform-origin: center center;
+  margin-left: -1500px;
+  margin-top: -1000px;
+  background-image:
+    radial-gradient(var(--border-color) 1px, transparent 1px),
+    radial-gradient(var(--border-color) 1px, transparent 1px);
+  background-position: 0 0, 50px 50px;
+  background-size: 100px 100px;
 }
 
-/* Stardust Background Particles (Fireflies for Light Mode) */
+[data-theme="dark"] .gallery-wall {
+  background-image: none;
+  /* Remove harsh grid for universe aesthetic */
+}
+
+/* Stardust Background Particles */
 .stardust {
-    position: absolute;
-    background: rgba(194, 255, 102, 0.6); /* Yellow-green firefly */
-    box-shadow: 0 0 4px rgba(194, 255, 102, 0.8), 0 0 12px rgba(194, 255, 102, 0.4);
-    border-radius: 50%;
-    pointer-events: none;
-    animation: fireflyTwinkle 4s ease-in-out infinite alternate;
+  position: absolute;
+  background: var(--text-secondary);
+  border-radius: 50%;
+  opacity: 0.2;
+  pointer-events: none;
+  animation: twinkle 4s ease-in-out infinite alternate;
 }
+
 [data-theme="dark"] .stardust {
-    background: #fff;
-    opacity: 0.5;
-    box-shadow: 0 0 4px #fff, 0 0 15px var(--accent-color);
-    animation: twinkle 4s ease-in-out infinite alternate;
+  background: #fff;
+  opacity: 0.5;
+  box-shadow: 0 0 4px #fff, 0 0 15px var(--accent-color);
 }
-@keyframes fireflyTwinkle {
-    0% { transform: scale(0.5) translate(0, 0); opacity: 0.1; }
-    50% { transform: scale(1.2) translate(-5px, -5px); opacity: 0.9; }
-    100% { transform: scale(0.8) translate(5px, 5px); opacity: 0.3; }
-}
+
 @keyframes twinkle {
-    0% { transform: scale(0.5); opacity: 0.1; }
-    100% { transform: scale(1.5); opacity: 0.8; }
+  0% {
+    transform: scale(0.5);
+    opacity: 0.1;
+  }
+
+  100% {
+    transform: scale(1.5);
+    opacity: 0.8;
+  }
 }
 
 /* Constellations */
 #constellation-canvas {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
 }
-.constellation-line {
-    stroke: var(--text-secondary);
-    stroke-width: 1.5;
-    opacity: 0.5;
-    transition: all 0.4s ease;
-}
-.constellation-line.active {
-    stroke: var(--accent-color);
-    stroke-width: 3;
-    opacity: 1;
-    filter: drop-shadow(0 0 8px var(--accent-color));
-}
-[data-theme="dark"] .constellation-line { stroke: #D4AF37; opacity: 0.4; }
 
-/* Interactive Flashlight (Disabled in Forest Mode) */
-#flashlight {
-    display: none;
+.constellation-line {
+  stroke: var(--text-secondary);
+  stroke-width: 1.5;
+  opacity: 0.5;
+  transition: all 0.4s ease;
 }
+
+.constellation-line.active {
+  stroke: var(--accent-color);
+  stroke-width: 3;
+  opacity: 1;
+  filter: drop-shadow(0 0 8px var(--accent-color));
+}
+
+[data-theme="dark"] .constellation-line {
+  stroke: #D4AF37;
+  opacity: 0.4;
+}
+
+/* Interactive Flashlight */
+#flashlight {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 600px;
+  height: 600px;
+  margin-left: -300px;
+  margin-top: -300px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 998;
+  background: radial-gradient(circle, rgba(203, 163, 101, 0.15) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  will-change: transform, opacity;
+}
+
 [data-theme="dark"] #flashlight {
-    display: block;
-    position: fixed;
-    top: 0; left: 0;
-    width: 600px; height: 600px;
-    margin-left: -300px; margin-top: -300px;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 998; 
-    background: radial-gradient(circle, rgba(203,163,101,0.1) 0%, transparent 65%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    will-change: transform, opacity;
+  background: radial-gradient(circle, rgba(203, 163, 101, 0.1) 0%, transparent 65%);
 }
 
 .gallery-frame {
-    position: absolute;
-    width: 380px;
-    background: var(--bg-color); /* Acts as the passepartout/matboard */
-    border: 12px solid #283025; /* Physical dark wooden/pine frame */
-    border-radius: 2px;
-    padding: 3rem 2.5rem 2.5rem;
-    
-    /* 
-      1. Matboard padding (inset 0 0 0 20px) 
-      2. Fine bevel line (inset 0 0 0 21px) 
-      3. Drop shadow on page
-    */
-    box-shadow: 
-        inset 0 0 0 25px var(--bg-color), 
-        inset 0 0 0 26px var(--border-color),
-         inset 0 0 10px 26px rgba(0,0,0,0.02),
-        15px 25px 50px rgba(0,0,0,0.15);
-        
-    text-decoration: none;
-    color: var(--text-primary);
-    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.8s ease;
-    will-change: transform;
-    transform-origin: center center;
+  position: absolute;
+  width: 380px;
+  background: var(--bg-color); /* Acts as the passepartout/matboard */
+  
+  /* CSS Flower Petal Shape for Forest Light Mode */
+  border: none;
+  border-radius: 50% 0 50% 50%;
+  padding: 3rem 2.5rem 2.5rem;
+
+  /* Flower colored glowing shadow + soft drop shadow */
+  box-shadow:
+    inset 0 0 80px var(--flower-color, rgba(255,255,255,0.7)),
+    -5px 15px 30px rgba(0, 0, 0, 0.05);
+
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.8s ease, border-radius 0.8s ease;
+  will-change: transform;
+  transform-origin: center center;
 }
-[data-theme="dark"] .gallery-frame { 
-    border-color: #0b0b0b; 
-    background: #111;
-    box-shadow: 
-        inset 0 0 0 20px #111,
-        inset 0 0 0 21px rgba(212, 175, 55, 0.2),
-        10px 15px 30px rgba(0,0,0,0.8);
+
+[data-theme="dark"] .gallery-frame {
+  border-radius: 2px;
+  border: 12px solid #0b0b0b; /* Restore physical wooden frame */
+  background: #111;
+  box-shadow:
+    inset 0 0 0 20px #111,
+    inset 0 0 0 21px rgba(212, 175, 55, 0.2),
+    10px 15px 30px rgba(0, 0, 0, 0.8);
 }
 
 .gallery-frame::after {
-    content: '';
-    position: absolute;
-    inset: -100px;
-    background: transparent;
-    z-index: -1;
+  content: '';
+  position: absolute;
+  inset: -100px;
+  background: transparent;
+  z-index: -1;
 }
 
 .gallery-frame:hover {
-    transform: translate(-50%, -50%) rotate(0deg) scale(1.04) !important;
-    z-index: 100 !important;
-    box-shadow: 15px 25px 40px rgba(0,0,0,0.3);
+  transform: translate(-50%, -50%) rotate(0deg) scale(1.04) !important;
+  z-index: 100 !important;
+  box-shadow: 15px 25px 40px rgba(0, 0, 0, 0.3);
 }
+
 [data-theme="dark"] .gallery-frame:hover {
-    box-shadow: 
-        inset 0 0 0 20px #111,
-        inset 0 0 0 21px rgba(212, 175, 55, 0.4),
-        15px 25px 60px rgba(0,0,0,0.9);
+  box-shadow:
+    inset 0 0 0 20px #111,
+    inset 0 0 0 21px rgba(212, 175, 55, 0.4),
+    15px 25px 60px rgba(0, 0, 0, 0.9);
 }
+
 .gallery-frame-title {
-    font-family: var(--font-serif);
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: var(--text-primary);
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
 }
+
 .gallery-center {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    width: 600px;
-    background: var(--bg-color);
-    padding: 3rem;
-    border: 1px solid var(--border-color);
-    pointer-events: none;
-    z-index: 50;
-    box-shadow: 0 0 100px 50px var(--bg-color);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 600px;
+  background: var(--bg-color);
+  padding: 3rem;
+  border: 1px solid var(--border-color);
+  pointer-events: none;
+  z-index: 50;
+  box-shadow: 0 0 100px 50px var(--bg-color);
 }
+
 #fx-canvas {
-    position: absolute;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    pointer-events: none;
-    z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
 }
 
 /* Theme Rooms */
 body.room-loneliness {
-    --bg-color: #0B1116;
-    --nav-bg: rgba(11, 17, 22, 0.8);
-    --text-primary: #C5D1D9;
+  --bg-color: #0B1116;
+  --nav-bg: rgba(11, 17, 22, 0.8);
+  --text-primary: #C5D1D9;
 }
+
 body.room-dream {
-    --bg-color: #170B1A;
-    --nav-bg: rgba(23, 11, 26, 0.8);
-    --text-primary: #DABDE6;
+  --bg-color: #170B1A;
+  --nav-bg: rgba(23, 11, 26, 0.8);
+  --text-primary: #DABDE6;
 }
+
 body.room-life {
-    --bg-color: #1A130B;
-    --nav-bg: rgba(26, 19, 11, 0.8);
-    --text-primary: #E6D0BA;
+  --bg-color: #1A130B;
+  --nav-bg: rgba(26, 19, 11, 0.8);
+  --text-primary: #E6D0BA;
 }
+
 body {
-    transition: background-color 1.5s ease, color 1.5s ease;
+  transition: background-color 1.5s ease, color 1.5s ease;
 }
 
 /* Immersive Fullscreen Mode */
 body.is-fullscreen .site-header,
 body.is-fullscreen .site-footer {
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-20px);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-20px);
 }
+
 body.is-fullscreen .site-footer {
-    transform: translateY(20px);
+  transform: translateY(20px);
 }
+
 body.is-fullscreen .gallery-viewport {
-    height: 100vh;
+  height: 100vh;
 }
-.site-header, .site-footer {
-    transition: opacity 0.5s ease, transform 0.5s ease;
+
+.site-header,
+.site-footer {
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 /*=============================================================================
@@ -840,7 +978,8 @@ body.is-fullscreen .gallery-viewport {
   }
 
   .nav-container {
-    position: static; /* Let brand absolute position base on site-header */
+    position: static;
+    /* Let brand absolute position base on site-header */
     flex-direction: row;
     padding: 0 1.5rem;
     justify-content: space-between;
@@ -877,8 +1016,8 @@ body.is-fullscreen .gallery-viewport {
     margin: 0;
     gap: 0;
     justify-content: flex-start;
-    display: none; 
-    box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+    display: none;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
   }
 
   .site-nav.open {
@@ -904,7 +1043,7 @@ body.is-fullscreen .gallery-viewport {
     width: auto;
     justify-content: flex-end;
   }
-  
+
   .container {
     padding: 0 1.5rem;
   }
@@ -914,41 +1053,44 @@ body.is-fullscreen .gallery-viewport {
   }
 
   /* --- Cinematic Mobile Overrides --- */
-  
+
   /* Disable mouse-tracking flashlight entirely on mobile */
   #flashlight {
-      display: none !important;
+    display: none !important;
   }
 
   /* Scale down the center intro hub */
   .gallery-center {
-      width: 90% !important;
-      padding: 1.5rem !important;
+    width: 90% !important;
+    padding: 1.5rem !important;
   }
+
   .hero-quote {
-      font-size: 1.6rem;
+    font-size: 1.6rem;
   }
 
   /* Scale down the physical museum frames and font sizes */
   .gallery-frame {
-      width: 250px !important;
-      padding: 1.5rem 1rem 1rem !important;
-      border-width: 6px !important;
-      box-shadow: 
-          inset 0 0 0 10px var(--bg-color), 
-          inset 0 0 0 11px var(--border-color),
-          inset 0 0 5px 11px rgba(0,0,0,0.02),
-          5px 10px 20px rgba(0,0,0,0.15) !important;
+    width: 250px !important;
+    padding: 1.5rem 1rem 1rem !important;
+    border-width: 6px !important;
+    box-shadow:
+      inset 0 0 0 10px var(--bg-color),
+      inset 0 0 0 11px var(--border-color),
+      inset 0 0 5px 11px rgba(0, 0, 0, 0.02),
+      5px 10px 20px rgba(0, 0, 0, 0.15) !important;
   }
+
   [data-theme="dark"] .gallery-frame {
-      box-shadow: 
-          inset 0 0 0 10px #111,
-          inset 0 0 0 11px rgba(212, 175, 55, 0.2),
-          5px 10px 20px rgba(0,0,0,0.8) !important;
+    box-shadow:
+      inset 0 0 0 10px #111,
+      inset 0 0 0 11px rgba(212, 175, 55, 0.2),
+      5px 10px 20px rgba(0, 0, 0, 0.8) !important;
   }
 
   /* Force hover effects to be a gentle tap animation and don't scale wildly out of bounds */
-  .gallery-frame:hover, .gallery-frame:active {
-      transform: translate(-50%, -50%) rotate(0deg) scale(1.02) !important;
+  .gallery-frame:hover,
+  .gallery-frame:active {
+    transform: translate(-50%, -50%) rotate(0deg) scale(1.02) !important;
   }
 }
