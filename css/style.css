@@ -5,12 +5,12 @@
 =============================================================================*/
 :root {
   /* Colors - Clean Hangzhou Paper Tone (for standard pages) */
-  --bg-color: #F8F9F5; /* Extremely bright, fresh paper white with tiniest hint of green */
-  --text-primary: #152614; /* Deep Forest Pine */
-  --text-secondary: #425B3E; /* Muted Moss */
-  --accent-color: #B58C36; /* Golden Sunlight */
-  --border-color: #D3DDCF; /* Pale Vine */
-  --nav-bg: rgba(248, 249, 245, 0.85);
+  --bg-color: #EBF3E1; /* Mướt mắt tươi sáng */
+  --text-primary: #1F3820; /* Deep Forest Pine */
+  --text-secondary: #5C7A55; /* Muted Moss */
+  --accent-color: #FBB117; /* Golden Sunlight */
+  --border-color: #D3E0C8; /* Pale Vine */
+  --nav-bg: rgba(235, 243, 225, 0.9);
 
   /* Typography */
   --font-serif: 'Playfair Display', 'Lora', serif;
@@ -635,13 +635,13 @@ img {
   overflow: hidden;
   cursor: grab;
   touch-action: none;
-  /* Deep Hangzhou Water Forest Vibe */
-  background-color: #3B5424; /* Deep rich forest moss */
+  /* Fresh, bright duckweed green aura */
+  background-color: #CFE5B6; 
   background-image: 
-      radial-gradient(at 0% 0%, rgba(132, 184, 52, 0.5) 0px, transparent 60%),
-      radial-gradient(at 100% 0%, rgba(42, 66, 26, 0.8) 0px, transparent 60%),
-      radial-gradient(at 100% 100%, rgba(105, 147, 43, 0.6) 0px, transparent 60%),
-      radial-gradient(at 0% 100%, rgba(66, 50, 35, 0.7) 0px, transparent 60%);
+      radial-gradient(at 0% 0%, rgba(240, 250, 215, 0.8) 0px, transparent 60%),
+      radial-gradient(at 100% 0%, rgba(185, 215, 140, 0.6) 0px, transparent 60%),
+      radial-gradient(at 100% 100%, rgba(210, 240, 160, 0.5) 0px, transparent 60%),
+      radial-gradient(at 0% 100%, rgba(165, 210, 130, 0.7) 0px, transparent 60%);
   background-size: 200% 200%;
   animation: mistFlow 30s ease-in-out infinite alternate;
 }
@@ -699,11 +699,8 @@ img {
   transform-origin: center center;
   margin-left: -1500px;
   margin-top: -1000px;
-  background-image:
-    radial-gradient(var(--border-color) 1px, transparent 1px),
-    radial-gradient(var(--border-color) 1px, transparent 1px);
-  background-position: 0 0, 50px 50px;
-  background-size: 100px 100px;
+  margin-top: -1000px;
+  /* Grid removed to avoid confusing with fireflies and stiff look */
 }
 
 [data-theme="dark"] .gallery-wall {
@@ -794,18 +791,19 @@ img {
 .gallery-frame {
   position: absolute;
   width: 380px;
-  background: #FFFDF9; /* Brilliant creamy white paper */
+  background: rgba(255, 255, 255, 0.85); /* Bright frosted glass paper */
+  backdrop-filter: blur(10px);
   
-  /* Symmetrical Elegant Leaf/Petal Shape */
-  border: 4px solid var(--flower-color, #C29B4A); /* Solid, saturated flower border */
-  border-radius: 4px 60px 4px 60px;
-  padding: 3rem;
-  text-align: center; /* Center text so it sits beautifully within the curve */
+  /* Ultra-soft pebble/petal card, no stiff heavy borders */
+  border: 1px solid rgba(255, 255, 255, 1); 
+  border-radius: 40px;
+  padding: 3.5rem 3rem;
+  text-align: center; /* Center text elegantly */
 
-  /* Vibrant, punchy external glow reflecting off the dark forest ground */
+  /* Vibrant watercolor bloom glow, completely organic */
   box-shadow:
-    0 0 50px var(--flower-color, rgba(255,255,255,0.8)),
-    0 15px 35px rgba(0, 0, 0, 0.3);
+    0 10px 40px rgba(0, 0, 0, 0.05),
+    0 0 100px var(--flower-color, rgba(255,255,255,0.8));
 
   text-decoration: none;
   color: var(--text-primary);
