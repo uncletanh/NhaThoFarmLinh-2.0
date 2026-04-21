@@ -4,13 +4,13 @@
   GLOBAL DESIGN SYSTEM & VARIABLES
 =============================================================================*/
 :root {
-  /* Colors - Light Theme (Cream/Espresso & Gold) */
-  --bg-color: #FDFBF7;
-  --text-primary: #3B3024;
-  --text-secondary: #6B5C4E;
-  --accent-color: #CBA365;
-  --border-color: #E2DCD3;
-  --nav-bg: rgba(253, 251, 247, 0.8);
+  /* Colors - Forest Light Theme (Sage Green, Deep Pine & Sunbeam Gold) */
+  --bg-color: #E8EBE4; /* Soft Sage Green */
+  --text-primary: #1A3622; /* Deep Forest Pine */
+  --text-secondary: #4A6650; /* Muted Moss */
+  --accent-color: #C29B4A; /* Sunbeam Gold/Firefly */
+  --border-color: #C9D6C3; /* Pale Vine */
+  --nav-bg: rgba(232, 235, 228, 0.85);
 
   /* Typography */
   --font-serif: 'Playfair Display', 'Lora', serif;
@@ -638,19 +638,25 @@ img {
     background-image: none; /* Remove harsh grid for universe aesthetic */
 }
 
-/* Stardust Background Particles */
+/* Stardust Background Particles (Fireflies for Light Mode) */
 .stardust {
     position: absolute;
-    background: var(--text-secondary);
+    background: rgba(194, 255, 102, 0.6); /* Yellow-green firefly */
+    box-shadow: 0 0 4px rgba(194, 255, 102, 0.8), 0 0 12px rgba(194, 255, 102, 0.4);
     border-radius: 50%;
-    opacity: 0.2;
     pointer-events: none;
-    animation: twinkle 4s ease-in-out infinite alternate;
+    animation: fireflyTwinkle 4s ease-in-out infinite alternate;
 }
 [data-theme="dark"] .stardust {
     background: #fff;
     opacity: 0.5;
     box-shadow: 0 0 4px #fff, 0 0 15px var(--accent-color);
+    animation: twinkle 4s ease-in-out infinite alternate;
+}
+@keyframes fireflyTwinkle {
+    0% { transform: scale(0.5) translate(0, 0); opacity: 0.1; }
+    50% { transform: scale(1.2) translate(-5px, -5px); opacity: 0.9; }
+    100% { transform: scale(0.8) translate(5px, 5px); opacity: 0.3; }
 }
 @keyframes twinkle {
     0% { transform: scale(0.5); opacity: 0.1; }
@@ -680,8 +686,12 @@ img {
 }
 [data-theme="dark"] .constellation-line { stroke: #D4AF37; opacity: 0.4; }
 
-/* Interactive Flashlight */
+/* Interactive Flashlight (Disabled in Forest Mode) */
 #flashlight {
+    display: none;
+}
+[data-theme="dark"] #flashlight {
+    display: block;
     position: fixed;
     top: 0; left: 0;
     width: 600px; height: 600px;
@@ -689,20 +699,17 @@ img {
     border-radius: 50%;
     pointer-events: none;
     z-index: 998; 
-    background: radial-gradient(circle, rgba(203,163,101,0.15) 0%, transparent 60%);
+    background: radial-gradient(circle, rgba(203,163,101,0.1) 0%, transparent 65%);
     opacity: 0;
     transition: opacity 0.3s ease;
     will-change: transform, opacity;
-}
-[data-theme="dark"] #flashlight {
-    background: radial-gradient(circle, rgba(203,163,101,0.1) 0%, transparent 65%);
 }
 
 .gallery-frame {
     position: absolute;
     width: 380px;
     background: var(--bg-color); /* Acts as the passepartout/matboard */
-    border: 12px solid #1a1715; /* Physical dark wooden frame */
+    border: 12px solid #283025; /* Physical dark wooden/pine frame */
     border-radius: 2px;
     padding: 3rem 2.5rem 2.5rem;
     
