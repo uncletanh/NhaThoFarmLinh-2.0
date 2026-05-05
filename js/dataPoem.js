@@ -1,5 +1,35 @@
 let poems = [
     {
+        title: "Mùa Hoa Tô Châu",
+        date: "2026-05-04",
+        tags: ["love", "spring", "waiting", "flowers"],
+        preview: "Thích mùa hoa ở Tô Châu / Tình này biết giấu vào đâu bây giờ...",
+        content: `Thích mùa hoa ở Tô Châu
+Tình này biết giấu vào đâu bây giờ
+Dẫu cho chỉ một giấc mơ
+Ta đây nhất định sẽ chờ trổ hoa
+
+Ngày xuân mưa thuận gió hoà
+Trời xanh mát mẻ đơm hoa tưng bừng
+Mang nỗi nhớ nặng trên lưng
+Người đang nơi đó có từng mong ta?
+
+Cánh hoa rơi trước hiên nhà
+Mỗi cơn gió thoảng lại là nhớ thương
+Nếu người còn chút vấn vương
+Xin cho ta biết con đường vào tim
+
+Dẫu đêm phố đã lặng im
+Tên em vẫn giấu trong tim mỗi ngày
+Hoa kia nở thắm nơi đây
+Tình này lại thắm trong ngày chia xa
+
+Đợi hoa rơi xuống hiên nhà
+Cũng như đợi bóng người xa quay về
+Xuân kia vang vọng lời thề
+Chỉ mong người đến, hoa về cùng xuân`
+    },
+    {
         title: "Cô Độc",
         date: "2026-04-20",
         tags: ["loneliness", "sadness", "life"],
