@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollHeader();
     initMobileMenu();
     initScrollReveal();
-    initAudio();
+
     initGreeting();
     initZenMode();
     initCinematicTransitions();
@@ -132,37 +132,6 @@ function initScrollReveal() {
     }, 150);
 }
 
-// Global Audio Logic
-function initAudio() {
-    if(!document.getElementById('ambient-audio')) {
-        // Free Lofi track
-        const audioSrc = "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf589.mp3"; 
-        const audioHTML = `
-        <audio id="ambient-audio" loop src="${audioSrc}"></audio>
-        <button id="audio-toggle" class="audio-toggle" aria-label="Toggle Music" style="display:none;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
-        </button>`;
-        document.body.insertAdjacentHTML('beforeend', audioHTML);
-        setTimeout(() => {
-            const btn = document.getElementById('audio-toggle');
-            if(btn) btn.style.display = 'flex';
-        }, 500);
-    }
-
-    const audio = document.getElementById('ambient-audio');
-    const toggle = document.getElementById('audio-toggle');
-    if(audio) audio.volume = 0.35; // Increased volume
-
-    toggle?.addEventListener('click', () => {
-        if(audio.paused) {
-            audio.play();
-            toggle.classList.add('is-playing');
-        } else {
-            audio.pause();
-            toggle.classList.remove('is-playing');
-        }
-    });
-}
 
 // Greeting Logic
 function initGreeting() {

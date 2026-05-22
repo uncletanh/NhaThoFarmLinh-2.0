@@ -5,6 +5,7 @@ const translations = {
         navPoetry: "Poetry",
         navThoughts: "Thoughts",
         navQuotes: "Quotes",
+        navMusic: "Music",
         navArchive: "Archive",
         navAbout: "About",
 
@@ -57,6 +58,7 @@ const translations = {
         navPoetry: "Thơ",
         navThoughts: "Tản văn",
         navQuotes: "Trích dẫn",
+        navMusic: "Nhạc",
         navArchive: "Lưu trữ",
         navAbout: "Về tôi",
 
