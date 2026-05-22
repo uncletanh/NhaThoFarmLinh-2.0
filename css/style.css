@@ -1347,19 +1347,21 @@ body.pip-mode #time-total {
 }
 .lyric-line {
   font-family: var(--font-sans);
-  font-size: 1.1rem;
+  font-size: 1.3rem;
+  font-weight: 500;
   color: var(--text-primary);
   opacity: 0.3;
   text-align: center;
   margin: 0;
   transition: all 0.3s ease;
   cursor: pointer;
+  transform: scale(0.85);
+  transform-origin: center center;
 }
 .lyric-line.active {
   color: var(--text-primary);
   opacity: 1;
-  font-size: 1.3rem;
-  font-weight: 500;
+  transform: scale(1);
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .lyric-line:hover {

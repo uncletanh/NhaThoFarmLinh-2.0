@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderPlaylist() {
         playlistContainer.innerHTML = musicPlaylist.map((track, i) => `
             <div class="playlist-row ${i === currentTrackIndex ? 'active' : ''}" data-index="${i}">
-                ${track.cover ? `<img src="${track.cover}" class="playlist-row-thumb" alt="Cover">` : `<div class="playlist-row-thumb" style="background:#555"></div>`}
+                ${track.cover ? `<img src="${track.cover}" class="playlist-row-thumb" alt="Cover" loading="lazy" decoding="async">` : `<div class="playlist-row-thumb" style="background:#555"></div>`}
                 <div class="playlist-row-info">
                     <span class="playlist-row-title">${track.title}</span>
                 </div>
@@ -334,6 +334,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         loadLyrics(track);
+
+        // Preload next track's cover to eliminate delay
+        const nextTrack = musicPlaylist[getNextTrackIndex()];
+        if (nextTrack && nextTrack.cover) {
+            const img = new Image();
+            img.src = nextTrack.cover;
+        }
     }
 
     function playTrack() {
