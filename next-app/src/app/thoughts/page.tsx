@@ -1,18 +1,29 @@
 'use client';
 
-import { useState } from 'react';
-import { thoughts } from '@/data/dataThoughts';
+import { useState, useEffect } from 'react';
+import { supabase } from '@/../utils/supabase/client';
 import { Search } from 'lucide-react';
 
 export default function ThoughtsPage() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [thoughts, setThoughts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const filteredThoughts = thoughts?.filter(t => {
+  useEffect(() => {
+    const fetchThoughts = async () => {
+      const { data } = await supabase.from('thoughts').select('*').order('created_at', { ascending: false });
+      if (data) setThoughts(data);
+      setLoading(false);
+    };
+    fetchThoughts();
+  }, []);
+
+  const filteredThoughts = thoughts.filter(t => {
     const term = searchTerm.toLowerCase();
     return term === '' || 
       t.title.toLowerCase().includes(term) || 
       t.content.toLowerCase().includes(term);
-  }) || [];
+  });
 
   return (
     <main className="page-wrapper container mx-auto px-4">
@@ -30,7 +41,9 @@ export default function ThoughtsPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {filteredThoughts.length === 0 ? (
+        {loading ? (
+          <p className="text-[var(--text-secondary)] col-span-full text-center py-10 animate-pulse">Loading thoughts...</p>
+        ) : filteredThoughts.length === 0 ? (
           <p className="text-[var(--text-secondary)] col-span-full text-center py-10">No thoughts found.</p>
         ) : (
           filteredThoughts.map(t => (
