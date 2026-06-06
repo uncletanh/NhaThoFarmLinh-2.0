@@ -33,10 +33,10 @@ async function migrate() {
   for (const track of musicPlaylist) {
     const { error } = await supabase.from('music_tracks').insert([{
       title: track.title,
-      artist: track.artist,
+      artist: (track as any).artist || 'Nhà Thơ Farm Lính',
       cover_url: track.cover,
       src_url: track.src,
-      lyrics_url: track.lyrics
+      lyrics_url: (track as any).lrc || null
     }]);
     if (error) console.error('Error inserting track:', error.message);
   }
