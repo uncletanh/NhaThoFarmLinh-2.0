@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/../utils/supabase/client';
 import { Search } from 'lucide-react';
+import Link from 'next/link';
 
 export default function ThoughtsPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -50,9 +51,12 @@ export default function ThoughtsPage() {
             <article key={t.id} className="p-8 border border-[var(--border-color)] bg-[var(--nav-bg)] rounded-2xl hover:shadow-lg hover:border-[var(--accent-color)] transition-all">
               <div className="text-sm text-[var(--text-secondary)] mb-3">{t.date}</div>
               <h2 className="text-2xl font-bold font-serif mb-4 text-[var(--text-primary)]">{t.title}</h2>
-              <div className="opacity-80 leading-relaxed font-sans text-sm whitespace-pre-line text-[var(--text-primary)]">
+              <div className="opacity-80 leading-relaxed font-sans text-sm whitespace-pre-line text-[var(--text-primary)] line-clamp-4">
                 {t.content}
               </div>
+              <Link href={`/thoughts/${t.id}`} className="inline-block mt-6 text-xs font-bold text-[var(--accent-color)] hover:underline uppercase tracking-widest">
+                Đọc tiếp ⟶
+              </Link>
             </article>
           ))
         )}
