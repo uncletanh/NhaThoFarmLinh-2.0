@@ -28,17 +28,6 @@ export default function AdminQuotesEdit({ params }: { params: Promise<{ id: stri
     fetchQuote();
   }, [resolvedParams.id]);
 
-  useEffect(() => {
-    fetchQuotes();
-  }, []);
-
-  const fetchQuotes = async () => {
-    setLoading(true);
-    const { data, error } = await supabase.from('quotes').select('*').order('created_at', { ascending: false });
-    if (!error && data) setQuotes(data);
-    setLoading(false);
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
