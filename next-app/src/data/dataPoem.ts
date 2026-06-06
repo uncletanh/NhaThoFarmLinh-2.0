@@ -1157,8 +1157,7 @@ export const specificInsights = {
     "Ấn Quý": "Sự bung xõa đầy tính bạo lực giải trí khi vồ được ấn Gia Đình vào tay, biến trận game thành một màn tàn sát đầy xả stress.",
     "Món Ăn": "Bức tranh 6 mảnh liên kết 6 loại thức ăn quen thuộc (Mì, Phở, Gà...) với thứ dư vị thèm thuồng mặn đắng không có cách nào gọi tên vì lỡ nhớ một người.",
     "Đêm Đông": "Sự thức tỉnh tàn nhẫn len lỏi sau một giấc ngủ bị nuông chiều quá trớn, chăn gối dẫu ấm áp đến dường nào cũng chưa bao giờ đọ lại sự đóng băng vĩnh viễn ở trái tim em.",
-    "Mộng Dài": "Tuyệt vọng lên gân, ép buộc bản thân phải tỉnh táo thừa nhận thứ tình yêu đang thao thức nuôi dưỡng là một huyễn hoặc điên rồ.",
-    "Nói Chuyện": "Sự tủi thân vỡ òa không kìm được nữa đi liền với những lời trách cứ tuyệt vọng vì đối phương cứ mãi gieo vào tâm trí sự vương vấn cắm rễ xé rách lồng ngực qua hàng đêm.",
+        "Mộng Dài": "Tuyệt vọng lên gân, ép buộc bản thân phải tỉnh táo thừa nhận thứ tình yêu đang thao thức nuôi dưỡng là một huyễn hoặc điên rồ.",
     "Bất Hạnh": "Nghệ thuật 'thơ bồn cầu' trào lộng châm biếm chính bản thân mình, khi đang phơi gan ruột ra thì phát hiện người kia chuẩn bị đem tim mình đi ban phát tình thương cho thằng khác.",
     "Thấm Mệt": "Sự kiệt quệ hoàn toàn kéo tụt mọi bản năng sinh tồn, lời cầu xin sự xót thương cuối cùng của cơ thể trước cái lẩn quẩn thiếu ngủ triền miên.",
     "Kim Cương Bốn": "Tiếng kêu gào phẫn nộ cùng cực do chuỗi thua tuột dốc không phanh, dẫn tới quyết định nhảy thuyền chuyển sang bộ môn pickleball mang đầy tính thương mại giải sầu.",
@@ -1202,8 +1201,8 @@ export const specificInsights = {
 
 // Add explicit insights
 poems.forEach(p => {
-    if (specificInsights[p.title]) {
-        p.insight = specificInsights[p.title];
+    if (specificInsights[p.title as keyof typeof specificInsights]) {
+        p.insight = specificInsights[p.title as keyof typeof specificInsights];
     } else if (!p.insight) {
         p.insight = "Bút ký: Một góc nhìn trầm ngâm về sự trôi chảy của thời gian, một lời tự sự ẩn mình giấu kín sau lớp vỏ bọc những vần thơ đầy ngẫm nghĩ...";
     }

@@ -45,7 +45,7 @@ export default function PoetryDetailPage({ params }: { params: Promise<{ id: str
           <div className="text-sm font-sans uppercase tracking-widest text-[var(--text-secondary)] mb-4">{poem.date}</div>
           <h1 className="text-4xl md:text-5xl font-serif text-[var(--text-primary)] leading-tight mb-6">{poem.title}</h1>
           <div className="flex flex-wrap justify-center gap-2">
-            {poem.tags?.map(t => (
+            {poem.tags?.map((t: string) => (
               <span key={t} className="text-xs uppercase px-3 py-1 bg-[var(--bg-color)] rounded-full border border-[var(--border-color)] text-[var(--text-secondary)]">{t}</span>
             ))}
           </div>

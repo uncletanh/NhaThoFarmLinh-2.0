@@ -25,9 +25,10 @@ export default function MusicPage() {
     if (!imgRef.current || !currentTrack) return;
     const img = imgRef.current;
     
-    const extractColor = () => {
+    const extractColor = async () => {
       try {
-        const color = getColor(img);
+        const color = await getColor(img) as any;
+        if (!color) return;
         document.documentElement.style.setProperty('--ambient-color', `rgb(${color[0]}, ${color[1]}, ${color[2]})`);
         document.body.style.background = `radial-gradient(circle at 50% 0%, rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.15) 0%, var(--bg-color) 70%)`;
       } catch (e) {
