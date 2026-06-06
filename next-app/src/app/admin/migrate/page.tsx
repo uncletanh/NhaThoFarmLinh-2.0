@@ -16,7 +16,7 @@ export default function MigratePage() {
     const checkUser = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        router.push('/admin');
+        router.push('/login');
       } else {
         setUser(user);
       }

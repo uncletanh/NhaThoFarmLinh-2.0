@@ -14,7 +14,7 @@ export default function AdminDashboard() {
     const checkUser = async () => {
       const { data: { user }, error } = await supabase.auth.getUser();
       if (error || !user) {
-        router.push('/admin');
+        router.push('/login');
       } else {
         setUser(user);
       }
@@ -24,7 +24,7 @@ export default function AdminDashboard() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    router.push('/admin');
+    router.push('/login');
   };
 
   if (!user) return <div className="p-10 text-center">Loading...</div>;
