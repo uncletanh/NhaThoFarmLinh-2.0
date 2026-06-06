@@ -11,8 +11,8 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 // We need to import the data using require since it's TS, or we can just read the file.
 // Since it's a TS file with ES modules, let's use dynamic import or ts-node.
-import { poems } from '../src/data/dataPoem.ts';
-import { musicPlaylist } from '../src/data/dataMusic.ts';
+import { poems } from '../src/data/dataPoem';
+import { musicPlaylist } from '../src/data/dataMusic';
 
 async function migrate() {
   console.log('Migrating poems...');
