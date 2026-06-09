@@ -131,7 +131,7 @@ export default function MusicPage() {
 
   // Sync Lyrics Auto-Scroll
   useEffect(() => {
-    if (!showLyrics || lyrics.length === 0 || !lyricsContainerRef.current) return;
+    if (activeTab !== 'lyrics' || lyrics.length === 0 || !lyricsContainerRef.current) return;
     
     // Find active line
     const activeIndex = lyrics.findIndex((l, i) => {
@@ -145,7 +145,7 @@ export default function MusicPage() {
         activeEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     }
-  }, [currentTime, showLyrics, lyrics]);
+  }, [currentTime, activeTab, lyrics]);
 
   if (!currentTrack) {
     return (
