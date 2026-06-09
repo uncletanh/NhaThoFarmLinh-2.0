@@ -3,25 +3,52 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/../utils/supabase/client';
 import Link from 'next/link';
-import { Pencil, Trash2, Plus, ArrowLeft } from 'lucide-react';
+import { Pencil, Trash2, Plus, ArrowLeft, Search, Eye, EyeOff } from 'lucide-react';
 
 export default function AdminMusicList() {
   const [tracks, setTracks] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Search and Filter states
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterStatus, setFilterStatus] = useState('all'); // all, public, private
+  const [sortOrder, setSortOrder] = useState('newest'); // newest, oldest
+
   useEffect(() => {
     fetchTracks();
-  }, []);
+  }, [searchTerm, filterStatus, sortOrder]);
 
   const fetchTracks = async () => {
     setLoading(true);
-    const { data, error } = await supabase
-      .from('music_tracks')
-      .select('id, title, artist, src_url, created_at')
-      .order('created_at', { ascending: false });
+    let query = supabase.from('music_tracks').select('id, title, artist, src_url, created_at, is_public');
+
+    // Filter by search term
+    if (searchTerm) {
+      query = query.or(`title.ilike.%${searchTerm}%,artist.ilike.%${searchTerm}%`);
+    }
+
+    // Filter by status
+    if (filterStatus === 'public') {
+      query = query.eq('is_public', true);
+    } else if (filterStatus === 'private') {
+      query = query.eq('is_public', false);
+    }
+
+    // Sort
+    query = query.order('created_at', { ascending: sortOrder === 'oldest' });
     
+    const { data, error } = await query;
     if (data) setTracks(data);
     setLoading(false);
+  };
+
+  const handleToggleStatus = async (id: string, currentStatus: boolean) => {
+    const { error } = await supabase.from('music_tracks').update({ is_public: !currentStatus }).eq('id', id);
+    if (error) {
+      alert('Error updating status: ' + error.message);
+    } else {
+      setTracks(tracks.map(t => t.id === id ? { ...t, is_public: !currentStatus } : t));
+    }
   };
 
   const handleDelete = async (id: string, title: string, srcUrl: string) => {
@@ -63,6 +90,39 @@ export default function AdminMusicList() {
         </Link>
       </div>
 
+      {/* Toolbar: Search, Filter, Sort */}
+      <div className="flex flex-col md:flex-row gap-4 mb-8">
+        <div className="relative flex-grow">
+          <input 
+            type="text" 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full p-3 pl-10 border border-gray-200 bg-white text-neutral-800 rounded-sm focus:outline-none focus:border-neutral-400 text-sm"
+            placeholder="Search by title or artist..."
+          />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+        </div>
+        
+        <select 
+          value={filterStatus} 
+          onChange={(e) => setFilterStatus(e.target.value)}
+          className="p-3 border border-gray-200 bg-white text-neutral-800 rounded-sm focus:outline-none focus:border-neutral-400 font-sans text-xs uppercase tracking-widest min-w-[150px]"
+        >
+          <option value="all">All Status</option>
+          <option value="public">Public</option>
+          <option value="private">Hidden</option>
+        </select>
+
+        <select 
+          value={sortOrder} 
+          onChange={(e) => setSortOrder(e.target.value)}
+          className="p-3 border border-gray-200 bg-white text-neutral-800 rounded-sm focus:outline-none focus:border-neutral-400 font-sans text-xs uppercase tracking-widest min-w-[150px]"
+        >
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+        </select>
+      </div>
+
       <div className="bg-white border border-gray-200 rounded-sm overflow-hidden">
         <table className="w-full text-left border-collapse">
           <thead>
@@ -84,10 +144,20 @@ export default function AdminMusicList() {
               tracks.map(track => (
                 <tr key={track.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
                   <td className="p-4">
-                    <div className="font-serif text-lg text-neutral-800 mb-1">{track.title}</div>
+                    <div className="font-serif text-lg text-neutral-800 mb-1 flex items-center gap-2">
+                      {track.title}
+                      {!track.is_public && <span className="px-2 py-0.5 bg-gray-100 text-gray-500 rounded-sm text-[10px] font-sans uppercase tracking-widest">Hidden</span>}
+                    </div>
                     <div className="text-sm text-gray-500 font-sans uppercase tracking-widest">{track.artist}</div>
                   </td>
                   <td className="p-4 flex items-center justify-end gap-2">
+                    <button 
+                      onClick={() => handleToggleStatus(track.id, track.is_public)}
+                      className={`p-2 transition-colors border border-transparent rounded-sm ${track.is_public ? 'text-gray-400 hover:text-blue-600 hover:border-blue-200 hover:bg-blue-50' : 'text-amber-500 hover:text-gray-400 hover:border-gray-200 hover:bg-gray-50'}`}
+                      title={track.is_public ? "Hide Track" : "Publish Track"}
+                    >
+                      {track.is_public ? <Eye size={16} /> : <EyeOff size={16} />}
+                    </button>
                     <Link 
                       href={`/admin/dashboard/music/edit/${track.id}`}
                       className="p-2 text-gray-400 hover:text-amber-600 transition-colors border border-transparent hover:border-amber-200 rounded-sm bg-transparent hover:bg-amber-50"

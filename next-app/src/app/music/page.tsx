@@ -164,7 +164,7 @@ export default function MusicPage() {
         {/* Left: Artwork & Controls */}
         <div className={`flex flex-col items-center w-full max-w-md transition-all ${showLyrics ? 'md:w-1/2' : 'md:w-full'}`}>
           
-          <div className="relative w-[300px] h-[300px] md:w-[400px] md:h-[400px] mb-8 group rounded-full">
+          <div className="relative w-64 h-64 sm:w-[300px] sm:h-[300px] md:w-[400px] md:h-[400px] mb-8 group rounded-full">
             <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none opacity-50"></canvas>
             <img 
               ref={imgRef}

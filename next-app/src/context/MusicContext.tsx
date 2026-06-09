@@ -51,7 +51,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const fetchMusic = async () => {
-      const { data, error } = await supabase.from('music_tracks').select('*').order('created_at', { ascending: false });
+      const { data, error } = await supabase.from('music_tracks').select('*').eq('is_public', true).order('created_at', { ascending: false });
       if (!error && data) {
         // Map Supabase schema to local Track schema
         const mappedPlaylist: Track[] = data.map(t => ({
