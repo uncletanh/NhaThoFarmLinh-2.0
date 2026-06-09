@@ -288,7 +288,6 @@ export default function MusicPage() {
 
         </div>
       </div>
-      </div>
     </main>
   );
 }
