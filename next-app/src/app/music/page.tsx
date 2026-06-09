@@ -2,14 +2,14 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useMusic } from '@/context/MusicContext';
-import { Play, Pause, SkipForward, SkipBack, Shuffle, Repeat, Volume2, Mic2 } from 'lucide-react';
+import { Play, Pause, SkipForward, SkipBack, Shuffle, Repeat, Volume2, Mic2, ListMusic, VolumeX } from 'lucide-react';
 import { getColor } from 'colorthief';
 
 export default function MusicPage() {
-  const { currentTrack, isPlaying, currentTime, duration, volume, togglePlay, nextTrack, prevTrack, seek, setVolume, analyserRef } = useMusic();
+  const { currentTrack, currentTrackIndex, playlist, playTrack, isPlaying, currentTime, duration, volume, togglePlay, nextTrack, prevTrack, seek, setVolume, analyserRef } = useMusic();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
-  const [showLyrics, setShowLyrics] = useState(false);
+  const [activeTab, setActiveTab] = useState<'playlist' | 'lyrics'>('playlist');
   const [lyrics, setLyrics] = useState<{ time: number; text: string }[]>([]);
   const lyricsContainerRef = useRef<HTMLDivElement>(null);
 
@@ -159,10 +159,10 @@ export default function MusicPage() {
     <main className="page-content flex flex-col items-center justify-center min-h-[calc(100vh-80px)] p-4 md:p-10 relative overflow-hidden transition-all duration-700">
       
       {/* Immersive Layout Container */}
-      <div className={`w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 transition-all ${showLyrics ? 'items-start' : 'items-center'}`}>
+      <div className={`w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 transition-all items-start`}>
         
         {/* Left: Artwork & Controls */}
-        <div className={`flex flex-col items-center w-full max-w-md transition-all ${showLyrics ? 'md:w-1/2' : 'md:w-full'}`}>
+        <div className={`flex flex-col items-center w-full max-w-md transition-all md:w-1/2`}>
           
           <div className="relative w-64 h-64 sm:w-[300px] sm:h-[300px] md:w-[400px] md:h-[400px] mb-8 group rounded-full">
             <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none opacity-50"></canvas>
@@ -170,7 +170,6 @@ export default function MusicPage() {
               ref={imgRef}
               src={currentTrack.cover} 
               alt={currentTrack.title} 
-              crossOrigin="anonymous"
               className={`absolute inset-6 w-[calc(100%-48px)] h-[calc(100%-48px)] object-cover rounded-full shadow-2xl transition-transform duration-[10000ms] ease-linear ${isPlaying ? 'rotate-[360deg]' : ''}`}
               style={{ animation: isPlaying ? 'spin 20s linear infinite' : 'none' }}
             />
@@ -210,7 +209,7 @@ export default function MusicPage() {
 
           <div className="w-full flex items-center justify-between px-4 opacity-70 hover:opacity-100 transition-opacity">
             <div className="flex items-center gap-3 w-1/3">
-              <Volume2 size={16} className="text-[var(--text-secondary)]" />
+              {volume === 0 ? <VolumeX size={16} className="text-[var(--text-secondary)]" /> : <Volume2 size={16} className="text-[var(--text-secondary)]" />}
               <input 
                 type="range" 
                 min="0" max="100" 
@@ -219,37 +218,76 @@ export default function MusicPage() {
                 className="w-full h-1 bg-[var(--border-color)] rounded-full appearance-none cursor-pointer"
               />
             </div>
-            <button 
-              onClick={() => setShowLyrics(!showLyrics)}
-              className={`p-2 rounded-full transition-colors ${showLyrics ? 'bg-[var(--accent-color)] text-[var(--bg-color)]' : 'text-[var(--text-secondary)] hover:text-[var(--accent-color)]'}`}
-              title="Toggle Live Lyrics"
-            >
-              <Mic2 size={20} />
-            </button>
+            <div className="flex gap-4">
+              <button 
+                onClick={() => setActiveTab('playlist')}
+                className={`p-2 rounded-full transition-colors ${activeTab === 'playlist' ? 'bg-[var(--accent-color)] text-[var(--bg-color)]' : 'text-[var(--text-secondary)] hover:text-[var(--accent-color)]'}`}
+                title="View Playlist"
+              >
+                <ListMusic size={20} />
+              </button>
+              <button 
+                onClick={() => setActiveTab('lyrics')}
+                className={`p-2 rounded-full transition-colors ${activeTab === 'lyrics' ? 'bg-[var(--accent-color)] text-[var(--bg-color)]' : 'text-[var(--text-secondary)] hover:text-[var(--accent-color)]'}`}
+                title="View Lyrics"
+              >
+                <Mic2 size={20} />
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Right: Live Lyrics */}
-        <div className={`w-full md:w-1/2 h-[600px] overflow-y-auto scrollbar-hide relative transition-all duration-700 ${showLyrics ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20 hidden md:block md:w-0'}`}>
-          <div ref={lyricsContainerRef} className="py-[300px] flex flex-col gap-6 text-center md:text-left pr-4">
-            {lyrics.length > 0 ? lyrics.map((l, i) => {
-              const nextLine = lyrics[i + 1];
-              const isActive = currentTime >= l.time && (!nextLine || currentTime < nextLine.time);
-              return (
-                <p 
-                  key={i} 
-                  className={`text-2xl md:text-4xl font-serif font-bold transition-all duration-500 cursor-pointer ${isActive ? 'text-[var(--accent-color)] scale-110 origin-left' : 'text-[var(--text-secondary)] opacity-40 hover:opacity-80'}`}
-                  onClick={() => seek(l.time)}
-                >
-                  {l.text || '...'}
-                </p>
-              );
-            }) : (
-              <p className="text-[var(--text-secondary)] italic">Lời bài hát đang được cập nhật...</p>
-            )}
+        {/* Right: Playlist or Lyrics */}
+        <div className={`w-full md:w-1/2 h-[600px] overflow-y-auto scrollbar-hide relative transition-all duration-700`}>
+          
+          {/* Playlist Tab */}
+          <div className={`flex flex-col gap-2 pr-4 transition-all duration-500 absolute inset-0 ${activeTab === 'playlist' ? 'opacity-100 translate-x-0 pointer-events-auto' : 'opacity-0 translate-x-10 pointer-events-none'}`}>
+            <h2 className="text-xl font-serif font-bold text-[var(--text-primary)] mb-4">Playlist</h2>
+            {playlist.map((track, idx) => (
+              <div 
+                key={track.id} 
+                onClick={() => playTrack(idx)}
+                className={`flex items-center gap-4 p-3 rounded-md cursor-pointer transition-colors ${currentTrackIndex === idx ? 'bg-[var(--accent-color)] text-[var(--bg-color)]' : 'hover:bg-[var(--border-color)] text-[var(--text-primary)]'}`}
+              >
+                <img src={track.cover || '/logo.png'} alt={track.title} className="w-12 h-12 object-cover rounded-sm shadow-sm" />
+                <div className="flex-1 overflow-hidden">
+                  <div className={`font-bold font-serif truncate ${currentTrackIndex === idx ? 'text-[var(--bg-color)]' : ''}`}>{track.title}</div>
+                  <div className={`text-xs uppercase tracking-widest truncate ${currentTrackIndex === idx ? 'text-[var(--bg-color)] opacity-80' : 'text-[var(--text-secondary)]'}`}>{track.artist}</div>
+                </div>
+                {currentTrackIndex === idx && isPlaying && (
+                  <div className="flex gap-1 h-4 items-end">
+                    <div className="w-1 bg-[var(--bg-color)] animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                    <div className="w-1 bg-[var(--bg-color)] animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                    <div className="w-1 bg-[var(--bg-color)] animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
-        </div>
 
+          {/* Lyrics Tab */}
+          <div className={`transition-all duration-500 absolute inset-0 ${activeTab === 'lyrics' ? 'opacity-100 translate-x-0 pointer-events-auto' : 'opacity-0 translate-x-10 pointer-events-none'}`}>
+            <div ref={lyricsContainerRef} className="py-[250px] flex flex-col gap-6 text-center md:text-left pr-4">
+              {lyrics.length > 0 ? lyrics.map((l, i) => {
+                const nextLine = lyrics[i + 1];
+                const isActive = currentTime >= l.time && (!nextLine || currentTime < nextLine.time);
+                return (
+                  <p 
+                    key={i} 
+                    className={`text-2xl md:text-4xl font-serif font-bold transition-all duration-500 cursor-pointer ${isActive ? 'text-[var(--accent-color)] scale-110 origin-left' : 'text-[var(--text-secondary)] opacity-40 hover:opacity-80'}`}
+                    onClick={() => seek(l.time)}
+                  >
+                    {l.text || '...'}
+                  </p>
+                );
+              }) : (
+                <p className="text-[var(--text-secondary)] italic text-center md:text-left">Lời bài hát đang được cập nhật...</p>
+              )}
+            </div>
+          </div>
+
+        </div>
+      </div>
       </div>
     </main>
   );

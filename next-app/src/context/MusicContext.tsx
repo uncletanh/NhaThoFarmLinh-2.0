@@ -23,9 +23,11 @@ interface MusicContextType {
   togglePlay: () => void;
   nextTrack: () => void;
   prevTrack: () => void;
+  playTrack: (index: number) => void;
   seek: (time: number) => void;
   setVolume: (vol: number) => void;
   toggleCrossfade: () => void;
+  playlist: Track[];
   audioRef: React.RefObject<HTMLAudioElement | null>;
   audioContextRef: React.RefObject<AudioContext | null>;
   analyserRef: React.RefObject<AnalyserNode | null>;
@@ -148,6 +150,13 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     setIsPlaying(true);
   };
 
+  const playTrack = (index: number) => {
+    if (index >= 0 && index < playlist.length) {
+      setCurrentTrackIndex(index);
+      setIsPlaying(true);
+    }
+  };
+
   const seek = (time: number) => {
     if (audioRef.current) {
       audioRef.current.currentTime = time;
@@ -177,11 +186,11 @@ export function MusicProvider({ children }: { children: ReactNode }) {
   return (
     <MusicContext.Provider value={{
       isPlaying, currentTrackIndex, currentTrack, currentTime, duration, volume, isCrossfade,
-      togglePlay, nextTrack, prevTrack, seek, setVolume, toggleCrossfade,
-      audioRef, audioContextRef, analyserRef
+      togglePlay, nextTrack, prevTrack, playTrack, seek, setVolume, toggleCrossfade,
+      audioRef, audioContextRef, analyserRef, playlist
     }}>
       {children}
-      <audio ref={audioRef} crossOrigin="anonymous" preload="auto" />
+      <audio ref={audioRef} preload="auto" />
     </MusicContext.Provider>
   );
 }
