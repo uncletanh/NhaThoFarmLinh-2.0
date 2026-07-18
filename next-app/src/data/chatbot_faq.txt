@@ -1,0 +1,47 @@
+Q: Trang web này là gì?
+A: Chào mừng bạn đến với Nhà Thơ Farm Lính! Đây là không gian tĩnh lặng dành cho những tâm hồn đồng điệu, nơi lưu giữ những vần thơ, tản văn, trích dẫn và những bản nhạc do chính Uncle Tanh (Nguyễn Tiến Anh) sáng tác và sưu tầm.
+
+Q: Uncle Tanh là ai?
+A: Uncle Tanh tên thật là Nguyễn Tiến Anh. Anh là một lập trình viên với tâm hồn mộng mơ, thích làm thơ, viết tản văn và sáng tác nhạc. 
+
+Q: Tại sao lại gọi là "Nhà Thơ Farm Lính"?
+A: "Farm lính" là một thuật ngữ quen thuộc trong các tựa game MOBA (như Liên Minh Huyền Thoại) chỉ việc tiêu diệt lính để kiếm vàng. Cái tên "Nhà Thơ Farm Lính" thể hiện hai khía cạnh con người của tác giả: một tâm hồn lãng mạn, bay bổng của "Nhà thơ", kết hợp với sự thực tế, đôi khi có chút tinh nghịch và đam mê game của một người trẻ.
+
+Q: Nguồn cảm hứng cho những bài thơ và bài hát trên trang web đến từ đâu?
+A: Nguồn cảm hứng chủ yếu đến từ những chiêm nghiệm trong cuộc sống hàng ngày, những câu chuyện tình yêu, những nỗi buồn man mác hay đơn giản là một buổi chiều mưa. Mọi cảm xúc chân thật nhất đều được Uncle Tanh gửi gắm vào từng con chữ và nốt nhạc.
+
+Q: Các bản nhạc trên trang web có phải do Uncle Tanh tự sáng tác không?
+A: Đúng vậy! Rất nhiều bản nhạc trên trang web được Uncle Tanh chắp bút cả phần lời lẫn phần nhạc. Bạn có thể nghe thử bài "2,478 Kilometers of Wind" hay "Flowers of Suzhou" để cảm nhận nhé.
+
+Q: Làm sao để đọc thơ trên trang web?
+A: Bạn có thể nhấn vào mục "POETRY" (Thơ) trên thanh điều hướng ở đầu trang. Tại đó, các bài thơ được sắp xếp gọn gàng, bạn chỉ cần click vào bài mình thích để đọc.
+
+Q: Mục "THOUGHTS" (Suy nghĩ) chứa những nội dung gì?
+A: Nếu như Thơ mang tính vần điệu, thì "THOUGHTS" là nơi lưu giữ những bài tản văn dài hơn, những dòng suy nghĩ miên man, nhật ký hay những chiêm nghiệm sâu sắc của tác giả về cuộc đời.
+
+Q: Mục "QUOTES" (Trích dẫn) dùng để làm gì?
+A: Nơi đây tổng hợp những câu nói hay, những trích dẫn truyền cảm hứng mà Uncle Tanh tâm đắc nhất từ sách báo, phim ảnh hoặc do chính anh đúc kết ra.
+
+Q: Làm sao để nghe nhạc?
+A: Bạn hãy truy cập vào mục "MUSIC" trên thanh điều hướng. Tại đó sẽ có một trình phát nhạc đĩa than cổ điển và danh sách các bản nhạc (Playlist) bên phải. Chọn bài bạn thích và tận hưởng nhé!
+
+Q: Trang web có chế độ nền tối (Dark Mode) không?
+A: Có chứ! Bạn có thể nhấn vào biểu tượng Mặt trăng / Mặt trời trên thanh điều hướng (góc trên bên phải) để chuyển đổi qua lại giữa chế độ sáng và tối, giúp bảo vệ mắt khi đọc thơ vào ban đêm.
+
+Q: Tôi có thể copy hoặc chia sẻ thơ của Uncle Tanh đi nơi khác được không?
+A: Rất hoan nghênh bạn chia sẻ cái đẹp đến với mọi người! Tuy nhiên, khi trích dẫn hoặc đăng tải lại, bạn nhớ ghi rõ nguồn "Nhà Thơ Farm Lính - Uncle Tanh" để tôn trọng quyền tác giả nhé.
+
+Q: Khách tham quan có thể để lại bình luận trên các bài thơ không?
+A: Hiện tại trang web chưa mở tính năng bình luận công khai để giữ cho không gian đọc được yên tĩnh nhất. Nếu bạn có sự đồng cảm sâu sắc, hãy nhắn tin trực tiếp cho tác giả nhé.
+
+Q: Tôi có thể đăng ký tài khoản trên trang web này không?
+A: Trang web hiện tại hoạt động dưới dạng blog cá nhân nên không mở tính năng đăng ký tài khoản cho khách. Nút "Đăng nhập" chỉ dành riêng cho Admin (Uncle Tanh) để quản lý và đăng bài mới.
+
+Q: Tác giả có thường xuyên cập nhật bài mới không?
+A: Có! Cảm xúc thì luôn tuôn trào, nên Uncle Tanh vẫn thường xuyên cập nhật thơ, tản văn và nhạc mới lên trang. Bạn hãy thỉnh thoảng ghé thăm để không bỏ lỡ những tác phẩm mới nhất nhé.
+
+Q: Tôi có thể liên hệ với tác giả bằng cách nào?
+A: Bạn có thể tìm thấy thông tin liên hệ của Uncle Tanh ở trang "ABOUT" (Giới thiệu) hoặc liên hệ qua email tienanhnguyen912@gmail.com.
+
+Q: Trang web này được lập trình bằng công nghệ gì?
+A: Trang web được xây dựng bằng Next.js (React), Tailwind CSS cho phần giao diện mượt mà và Supabase làm cơ sở dữ liệu mạnh mẽ ở phía sau.
