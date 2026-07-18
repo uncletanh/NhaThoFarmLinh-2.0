@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import Header from "@/components/Header";
 import { MusicProvider } from "@/context/MusicContext";
 import MiniPlayer from "@/components/MiniPlayer";
-import Script from "next/script";
+import Novachat from "@/components/Novachat";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -38,14 +38,7 @@ export default function RootLayout({
           </MusicProvider>
         </ThemeProvider>
         {/* Chatbot Script & CSS */}
-        <link rel="stylesheet" href="https://cnpm-group-1.onrender.com/script.css" />
-        <Script 
-          src="https://cnpm-group-1.onrender.com/script.umd.cjs"
-          strategy="lazyOnload"
-          data-workspace-id="5"
-          data-widget-token="c43666f8f1774e2cb1f8c5962780adf0"
-          data-api-url="https://cnpm-group-1.onrender.com/api/v1"
-        />
+        <Novachat />
       </body>
     </html>
   );
