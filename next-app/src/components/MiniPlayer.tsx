@@ -13,7 +13,7 @@ export default function MiniPlayer() {
   if (pathname === '/music' || !currentTrack) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[999] flex items-center gap-4 bg-[var(--nav-bg)] border border-[var(--border-color)] p-2 pr-6 rounded-full shadow-2xl backdrop-blur-md animate-fade-in-up">
+    <div className="fixed bottom-6 left-6 md:bottom-10 md:left-10 z-[999] flex items-center gap-4 bg-[var(--nav-bg)] border border-[var(--border-color)] p-2 pr-6 rounded-full shadow-2xl backdrop-blur-md animate-fade-in-up">
       
       <Link href="/music" className="relative group overflow-hidden rounded-full w-14 h-14 border border-[var(--border-color)] cursor-pointer">
         {currentTrack.cover ? (
