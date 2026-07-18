@@ -39,13 +39,14 @@ export default function RootLayout({
         </ThemeProvider>
         
         {/* Chatbot Script */}
-        <Script 
+        {/* Chatbot Script */}
+        <script 
           src="https://cdn.novachat.ai/script.umd.js"
           data-workspace-id="5"
           data-widget-token="c43666f8f1774e2cb1f8c5962780adf0"
           data-api-url="https://cnpm-group-1.onrender.com/api/v1"
-          strategy="lazyOnload"
-        />
+          async
+        ></script>
       </body>
     </html>
   );
