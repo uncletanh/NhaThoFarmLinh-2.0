@@ -9,12 +9,18 @@ export default function Novachat() {
 
     const script = document.createElement('script');
     script.id = 'novachat-script';
-    script.src = 'https://cdn.novachat.ai/script.umd.js';
+    script.src = 'https://cnpm-group-1.onrender.com/script.umd.cjs';
     script.async = true;
     script.setAttribute('data-workspace-id', '5');
     script.setAttribute('data-widget-token', 'c43666f8f1774e2cb1f8c5962780adf0');
     script.setAttribute('data-api-url', 'https://cnpm-group-1.onrender.com/api/v1');
 
+    const link = document.createElement('link');
+    link.id = 'novachat-css';
+    link.rel = 'stylesheet';
+    link.href = 'https://cnpm-group-1.onrender.com/script.css';
+
+    document.head.appendChild(link);
     document.body.appendChild(script);
 
     return () => {
