@@ -1,41 +1,74 @@
-'use client';
-
 import Link from 'next/link';
-import Image from 'next/image';
+import { ArrowRight, Headphones, PenLine, Quote } from 'lucide-react';
 
 export default function Home() {
   return (
-    <main className="page-wrapper container mx-auto px-4 min-h-[calc(100vh-100px)] flex flex-col justify-center items-center text-center">
-      <div className="max-w-3xl space-y-10 flex flex-col items-center">
-        
-        <Image 
-          src="/logo.png" 
-          alt="Nhà Thơ Farm Lính Logo" 
-          width={80} 
-          height={80} 
-          className="rounded-sm dark:brightness-90 object-contain mb-4" 
-        />
+    <main className="home-page">
+      <section className="home-hero">
+        <div className="hero-copy">
+          <div className="eyebrow"><span /> Sổ tay của Farm Lính</div>
+          <h1>Nơi gieo những <em>mầm thơ</em>, thu hoạch những <em>giai điệu</em></h1>
+          <p>Một khoảng lặng dành cho thơ, những suy nghĩ vụn và âm nhạc được viết bằng cả trái tim.</p>
+          <div className="hero-actions">
+            <Link href="/poetry" className="button button-primary">Đọc thơ</Link>
+            <Link href="/music" className="button button-secondary">Nghe nhạc</Link>
+          </div>
+        </div>
 
-        <h1 className="text-5xl md:text-7xl font-serif text-neutral-800 dark:text-neutral-200 tracking-tight">
-          Nhà Thơ <span className="italic text-emerald-600">Farm Lính</span>
-        </h1>
-        
-        <p className="text-lg md:text-xl text-gray-500 font-sans tracking-wide leading-relaxed max-w-2xl">
-          Nơi gieo những mầm thơ, tưới những suy nghĩ và thu hoạch những giai điệu của cuộc sống.
-        </p>
-        
-        <div className="pt-8 flex flex-wrap justify-center gap-6">
-          <Link href="/poetry" className="px-8 py-3 border border-neutral-800 dark:border-neutral-200 text-neutral-800 dark:text-neutral-200 hover:bg-neutral-800 hover:text-white dark:hover:bg-neutral-200 dark:hover:text-neutral-900 transition-colors uppercase tracking-widest text-xs font-bold rounded-sm">
-            Đọc Thơ
+        <div className="vinyl-still-life" aria-label="Minh hoạ đĩa than và trang thơ">
+          <div className="paper-sheet">
+            <span className="paper-label">Một câu thơ nhỏ</span>
+            <p>“Giữa những ngày rất vội,<br />ta chọn sống thật chậm.”</p>
+            <span className="paper-signature">Farm Lính</span>
+          </div>
+          <div className="vinyl-record"><span /></div>
+          <div className="vinyl-caption">summer sky</div>
+        </div>
+      </section>
+
+      <section className="latest-section">
+        <div className="section-heading-row">
+          <div>
+            <span className="section-kicker">Từ khu vườn chữ</span>
+            <h2>Mới trên bàn viết</h2>
+          </div>
+          <Link href="/poetry" className="text-link">Xem tất cả <ArrowRight size={14} /></Link>
+        </div>
+
+        <div className="editorial-grid">
+          <Link href="/poetry" className="feature-card poem-card">
+            <div className="card-icon"><PenLine size={18} /></div>
+            <span className="card-kicker">Bài thơ mới nhất · 01.05.2026</span>
+            <h3>Mùa Hoa Tô Châu</h3>
+            <p>Thích mùa hoa ở Tô Châu<br />Tình này biết giấu vào đâu bây giờ...</p>
+            <span className="card-cta">Đọc trọn bài <ArrowRight size={14} /></span>
           </Link>
-          <Link href="/music" className="px-8 py-3 border border-transparent text-gray-500 hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors uppercase tracking-widest text-xs font-bold">
-            Nghe Nhạc
+
+          <Link href="/quotes" className="feature-card quote-card">
+            <Quote size={34} />
+            <p>“Chúng ta viết để nỗi nhớ có một nơi chốn mà trở về.”</p>
+            <span>— Farm Lính</span>
           </Link>
-          <Link href="/thoughts" className="px-8 py-3 border border-transparent text-gray-500 hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors uppercase tracking-widest text-xs font-bold">
-            Góc Suy Nghĩ
+
+          <Link href="/thoughts" className="feature-card thought-card">
+            <span className="card-kicker">Góc suy nghĩ</span>
+            <h3>Nghệ thuật của việc sống chậm</h3>
+            <p>Đôi khi, điều ta cần không phải là đi xa hơn, mà là dừng lại đủ lâu để nhìn thấy.</p>
+            <span className="card-cta">Đọc tiếp <ArrowRight size={14} /></span>
           </Link>
         </div>
-      </div>
+      </section>
+
+      <section className="home-invitation">
+        <Headphones size={22} />
+        <p>Mỗi bài hát là một bài thơ có thêm giai điệu.</p>
+        <Link href="/music">Ghé phòng nhạc <ArrowRight size={14} /></Link>
+      </section>
+
+      <footer className="home-footer">
+        <span className="footer-signature">Farm Lính</span>
+        <span>© 2026 Nhà Thơ Farm Lính — viết bằng cả trái tim</span>
+      </footer>
     </main>
   );
 }

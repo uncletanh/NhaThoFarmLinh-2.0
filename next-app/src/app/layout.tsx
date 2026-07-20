@@ -1,24 +1,30 @@
 import type { Metadata } from "next";
-import { Inter, Lora } from "next/font/google";
+import { Be_Vietnam_Pro, Lora, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Header from "@/components/Header";
 import { MusicProvider } from "@/context/MusicContext";
 import MiniPlayer from "@/components/MiniPlayer";
 
-const inter = Inter({
+const beVietnamPro = Be_Vietnam_Pro({
   variable: "--font-sans",
-  subsets: ["latin"],
+  subsets: ["latin", "vietnamese"],
+  weight: ["400", "500", "600"],
 });
 
 const lora = Lora({
   variable: "--font-serif",
-  subsets: ["latin"],
+  subsets: ["latin", "vietnamese"],
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-display",
+  subsets: ["latin", "vietnamese"],
 });
 
 export const metadata: Metadata = {
-  title: "Notebook & Poetry | A Literary Space",
-  description: "A space for poetry, thoughts, and music.",
+  title: "Nhà Thơ Farm Lính",
+  description: "Nơi gieo những mầm thơ, tưới những suy nghĩ và thu hoạch những giai điệu của cuộc sống.",
 };
 
 export default function RootLayout({
@@ -27,8 +33,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${lora.variable}`}>
+    <html lang="vi" suppressHydrationWarning>
+      <body className={`${beVietnamPro.variable} ${lora.variable} ${playfair.variable}`}>
         <ThemeProvider>
           <MusicProvider>
             <Header />

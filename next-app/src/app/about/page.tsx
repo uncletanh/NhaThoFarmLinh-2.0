@@ -118,13 +118,14 @@ export default function AboutPage() {
 
   return (
     <main className="page-wrapper container mx-auto px-4 pb-20">
-      <h1 className="section-title mb-10">About the Author</h1>
+      <div className="section-kicker mb-2">Chân dung</div>
+      <h1 className="section-title mb-10">Về tác giả</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
         <div className="w-full relative aspect-square rounded-lg overflow-hidden shadow-xl border border-[var(--border-color)]">
           <Image 
             src="/images/avatar.jpg" 
-            alt="Author Portrait" 
+            alt="Chân dung tác giả"
             fill
             className="object-cover"
             priority
@@ -158,8 +159,8 @@ export default function AboutPage() {
       </div>
 
       <div className="mt-32 pt-20 border-t border-[var(--border-color)]">
-        <h2 className="font-serif text-3xl mb-4 text-[var(--text-primary)]">Guestbook: Leave Your Mark</h2>
-        <p className="text-[var(--text-secondary)] mb-8">A digital canvas to draw, sign, or write whatever is on your mind. This is saved locally in your browser.</p>
+        <h2 className="font-serif text-3xl mb-4 text-[var(--text-primary)]">Sổ lưu bút: để lại dấu tay của bạn</h2>
+        <p className="text-[var(--text-secondary)] mb-8">Một trang giấy số để bạn vẽ, ký tên hoặc để lại đôi dòng. Nét vẽ được lưu ngay trên trình duyệt của bạn.</p>
         
         <div className="relative w-full h-[300px] bg-[var(--surface-color)] border-2 border-dashed border-[var(--accent-color)] rounded-xl overflow-hidden mb-4 cursor-crosshair">
           <canvas ref={canvasRef} className="absolute inset-0 touch-none"></canvas>
@@ -170,7 +171,7 @@ export default function AboutPage() {
             onClick={handleClear}
             className="px-6 py-2 bg-transparent border border-[var(--border-color)] text-[var(--text-secondary)] rounded-full hover:text-[var(--accent-color)] hover:border-[var(--accent-color)] transition-all font-sans text-sm uppercase tracking-wide"
           >
-            Clear Signature
+            Xoá nét vẽ
           </button>
         </div>
       </div>

@@ -82,7 +82,8 @@ export default function PoetryPage() {
 
   return (
     <main className="page-wrapper container">
-      <h1 className="section-title">Poetry Collection</h1>
+      <div className="section-kicker mb-2">Tuyển tập</div>
+      <h1 className="section-title">Thơ</h1>
       
       {/* Search Bar & Sort */}
       <div className="flex flex-col md:flex-row gap-4 mb-8">
@@ -92,7 +93,7 @@ export default function PoetryPage() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full p-4 pl-12 border border-gray-200 bg-transparent text-neutral-800 rounded-sm transition-all focus:outline-none focus:border-neutral-400"
-            placeholder="Search by title..."
+            placeholder="Tìm theo tựa đề..."
           />
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
         </div>
@@ -102,8 +103,8 @@ export default function PoetryPage() {
           onChange={(e) => { setSortOrder(e.target.value); setCurrentPage(1); }}
           className="p-4 border border-gray-200 bg-transparent text-neutral-800 rounded-sm focus:outline-none focus:border-neutral-400 font-sans text-sm uppercase tracking-widest min-w-[200px]"
         >
-          <option value="newest">Newest First</option>
-          <option value="oldest">Oldest First</option>
+          <option value="newest">Mới nhất trước</option>
+          <option value="oldest">Cũ nhất trước</option>
         </select>
       </div>
 
@@ -123,9 +124,9 @@ export default function PoetryPage() {
       {/* Masonry-like Grid for Poetry */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
         {loading ? (
-          <p className="text-gray-500 col-span-full text-center py-20 animate-pulse">Loading poetry collection...</p>
+          <p className="text-gray-500 col-span-full text-center py-20 animate-pulse">Đang mở tuyển tập...</p>
         ) : poems.length === 0 ? (
-          <p className="text-gray-500 col-span-full text-center py-20 italic">No poems found matching your criteria.</p>
+          <p className="text-gray-500 col-span-full text-center py-20 italic">Không tìm thấy bài thơ phù hợp.</p>
         ) : (
           poems.map(p => (
             <div key={p.id} className="flex flex-col p-8 border border-gray-100 rounded-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-white h-full justify-between group cursor-pointer">
@@ -150,7 +151,7 @@ export default function PoetryPage() {
               </div>
               
               <Link href={`/poetry/${p.id}`} className="text-xs uppercase tracking-[0.15em] font-bold text-neutral-800 mt-auto opacity-0 group-hover:opacity-100 transition-opacity border-b border-transparent group-hover:border-neutral-800 pb-0.5 inline-block w-fit">
-                Read Full Poem
+                Đọc trọn bài
               </Link>
             </div>
           ))
@@ -169,7 +170,7 @@ export default function PoetryPage() {
           </button>
           
           <span className="text-sm font-serif text-neutral-600">
-            Page {currentPage} of {totalPages}
+            Trang {currentPage} / {totalPages}
           </span>
           
           <button 
