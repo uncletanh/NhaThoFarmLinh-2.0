@@ -43,7 +43,7 @@ export default function ThoughtDetailPage({ params }: { params: Promise<{ id: st
   }
 
   return (
-    <main className="page-wrapper container mx-auto px-4 max-w-3xl">
+    <main className="page-wrapper container reading-page thought-reading-page">
       <Link 
         href="/thoughts" 
         className="inline-flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] mb-10 transition-colors uppercase tracking-widest text-xs font-bold"
@@ -51,7 +51,7 @@ export default function ThoughtDetailPage({ params }: { params: Promise<{ id: st
         <ArrowLeft size={16} /> Back to Collection
       </Link>
       
-      <article className="animate-fade-in">
+      <article className="reading-article animate-fade-in">
         <div className="text-sm font-sans uppercase tracking-widest text-[var(--text-secondary)] mb-4">{thought.date}</div>
         <h1 className="text-4xl md:text-5xl font-serif text-[var(--text-primary)] leading-tight mb-8">{thought.title}</h1>
         

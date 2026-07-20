@@ -15,20 +15,20 @@ export default function QuotesPage() {
   }) || [];
 
   return (
-    <main className="page-wrapper container mx-auto px-4">
+    <main className="page-wrapper container collection-page quotes-collection">
       <div className="section-kicker mb-2">Góp nhặt</div>
       <h1 className="section-title mb-8">Trích dẫn</h1>
       
-      <div className="relative mb-12 max-w-2xl mx-auto">
+      <label className="search-control collection-search-single">
+        <Search size={18} />
         <input 
           type="text" 
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full p-4 pl-12 border border-[var(--border-color)] bg-transparent text-[var(--text-primary)] rounded-[30px] transition-all focus:outline-none focus:border-[var(--accent-color)]"
+          className="collection-search-input"
           placeholder="Tìm theo câu chữ hoặc tác giả..."
         />
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-secondary)]" size={20} />
-      </div>
+      </label>
 
       <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
         {filteredQuotes.length === 0 ? (

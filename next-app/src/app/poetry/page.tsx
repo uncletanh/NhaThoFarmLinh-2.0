@@ -81,27 +81,27 @@ export default function PoetryPage() {
   const displayTags = ['All', ...allTags];
 
   return (
-    <main className="page-wrapper container">
+    <main className="page-wrapper container collection-page poetry-collection">
       <div className="section-kicker mb-2">Tuyển tập</div>
       <h1 className="section-title">Thơ</h1>
       
       {/* Search Bar & Sort */}
-      <div className="flex flex-col md:flex-row gap-4 mb-8">
-        <div className="relative flex-grow">
+      <div className="collection-toolbar">
+        <label className="search-control">
+          <Search size={18} />
           <input 
             type="text" 
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full p-4 pl-12 border border-gray-200 bg-transparent text-neutral-800 rounded-sm transition-all focus:outline-none focus:border-neutral-400"
+            className="collection-search-input"
             placeholder="Tìm theo tựa đề..."
           />
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-        </div>
+        </label>
         
         <select 
           value={sortOrder} 
           onChange={(e) => { setSortOrder(e.target.value); setCurrentPage(1); }}
-          className="p-4 border border-gray-200 bg-transparent text-neutral-800 rounded-sm focus:outline-none focus:border-neutral-400 font-sans text-sm uppercase tracking-widest min-w-[200px]"
+          className="sort-control"
         >
           <option value="newest">Mới nhất trước</option>
           <option value="oldest">Cũ nhất trước</option>
@@ -109,7 +109,7 @@ export default function PoetryPage() {
       </div>
 
       {/* Filter Tags */}
-      <div className="flex gap-4 overflow-x-auto pb-4 mb-8 scrollbar-hide">
+      <div className="tag-filter-row">
         {displayTags.map(tag => (
           <button 
             key={tag}
@@ -122,14 +122,14 @@ export default function PoetryPage() {
       </div>
 
       {/* Masonry-like Grid for Poetry */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+      <div className="collection-grid poetry-grid">
         {loading ? (
           <p className="text-gray-500 col-span-full text-center py-20 animate-pulse">Đang mở tuyển tập...</p>
         ) : poems.length === 0 ? (
           <p className="text-gray-500 col-span-full text-center py-20 italic">Không tìm thấy bài thơ phù hợp.</p>
         ) : (
           poems.map(p => (
-            <div key={p.id} className="flex flex-col p-8 border border-gray-100 rounded-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-white h-full justify-between group cursor-pointer">
+            <div key={p.id} className="collection-card poem-collection-card group">
               <div>
                 <div className="text-xs text-gray-400 uppercase tracking-[0.2em] mb-4">{p.date}</div>
                 <div className="min-h-[68px] mb-4">
