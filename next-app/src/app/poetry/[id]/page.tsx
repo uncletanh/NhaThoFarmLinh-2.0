@@ -34,13 +34,13 @@ export default function PoetryDetailPage({ params }: { params: Promise<{ id: str
   }
 
   return (
-    <main className="page-wrapper container mx-auto px-4 max-w-3xl py-10">
+    <main className="page-wrapper container reading-page poem-reading-page">
       <Link href="/poetry" className="inline-flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--accent-color)] mb-10 transition-colors">
         <ArrowLeft size={20} />
         <span className="font-sans uppercase text-sm tracking-widest">Back to Collection</span>
       </Link>
 
-      <article className="border border-[var(--border-color)] bg-[var(--nav-bg)] rounded-3xl p-8 md:p-14 shadow-sm">
+      <article className="reading-article poem-reading-article">
         <header className="mb-10 pb-10 border-b border-[var(--border-color)] text-center">
           <div className="text-sm font-sans uppercase tracking-widest text-[var(--text-secondary)] mb-4">{poem.date}</div>
           <h1 className="text-4xl md:text-5xl font-serif text-[var(--text-primary)] leading-tight mb-6">{poem.title}</h1>

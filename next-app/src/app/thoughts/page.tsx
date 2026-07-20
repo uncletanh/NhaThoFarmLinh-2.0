@@ -27,29 +27,29 @@ export default function ThoughtsPage() {
   });
 
   return (
-    <main className="page-wrapper container mx-auto px-4">
+    <main className="page-wrapper container collection-page thoughts-collection">
       <div className="section-kicker mb-2">Nhật ký</div>
       <h1 className="section-title mb-8">Góc suy nghĩ</h1>
       
-      <div className="relative mb-10 max-w-2xl mx-auto">
+      <label className="search-control collection-search-single">
+        <Search size={18} />
         <input 
           type="text" 
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full p-4 pl-12 border border-[var(--border-color)] bg-transparent text-[var(--text-primary)] rounded-[30px] transition-all focus:outline-none focus:border-[var(--accent-color)]"
+          className="collection-search-input"
           placeholder="Tìm trong những suy nghĩ..."
         />
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-secondary)]" size={20} />
-      </div>
+      </label>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="collection-grid thoughts-grid">
         {loading ? (
           <p className="text-[var(--text-secondary)] col-span-full text-center py-10 animate-pulse">Đang mở sổ tay...</p>
         ) : filteredThoughts.length === 0 ? (
           <p className="text-[var(--text-secondary)] col-span-full text-center py-10">Không tìm thấy ghi chép phù hợp.</p>
         ) : (
           filteredThoughts.map(t => (
-            <article key={t.id} className="p-8 border border-[var(--border-color)] bg-[var(--nav-bg)] rounded-2xl hover:shadow-lg hover:border-[var(--accent-color)] transition-all">
+            <article key={t.id} className="collection-card thought-collection-card">
               <div className="text-sm text-[var(--text-secondary)] mb-3">{t.date}</div>
               <h2 className="text-2xl font-bold font-serif mb-4 text-[var(--text-primary)]">{t.title}</h2>
               <div className="opacity-80 leading-relaxed font-sans text-sm whitespace-pre-line text-[var(--text-primary)] line-clamp-4">

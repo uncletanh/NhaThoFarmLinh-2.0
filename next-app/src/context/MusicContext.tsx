@@ -35,6 +35,45 @@ interface MusicContextType {
 
 const MusicContext = createContext<MusicContextType | undefined>(undefined);
 
+const normalizeTitle = (title: string) => title.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+
+const getLocalTrackAssets = (title: string) => {
+  const normalized = normalizeTitle(title);
+
+  if (normalized.includes('2478 kilometers of wind') || normalized.includes('2 478 kilometers of wind')) {
+    return {
+      cover: '/song/img/2478km of wind.png',
+      src: '/song/mp3/2,478 Kilometers of Wind.mp3',
+      lyrics: '/song/lrc/2,478 Kilometers of Wind.lrc',
+    };
+  }
+
+  if (normalized.includes('flowers of suzhou')) {
+    return {
+      cover: '/song/img/Flowers of Suzhou.png',
+      lyrics: '/song/lrc/Flower of Suzhou - JasperNguyen.lrc',
+    };
+  }
+
+  if (normalized.includes('finally arrived in suzhou')) {
+    return {
+      cover: "/song/img/I've finally arrived in Suzhou.png",
+      src: "/song/mp3/I've Finally Arrived in Suzhou.mp3",
+      lyrics: "/song/lrc/I've Finally Arrived in Suzhou.lrc",
+    };
+  }
+
+  if (normalized.includes('petals in the mist')) {
+    return {
+      cover: '/song/img/Petals in the Mist.png',
+      src: '/song/mp3/Petals in the Mist.mp3',
+      lyrics: '/song/lrc/Petals in the Mist.lrc',
+    };
+  }
+
+  return null;
+};
+
 export function MusicProvider({ children }: { children: ReactNode }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
@@ -56,14 +95,17 @@ export function MusicProvider({ children }: { children: ReactNode }) {
       const { data, error } = await supabase.from('music_tracks').select('*').eq('is_public', true).order('created_at', { ascending: false });
       if (!error && data) {
         // Map Supabase schema to local Track schema
-        const mappedPlaylist: Track[] = data.map(t => ({
-          id: t.id,
-          title: t.title,
-          artist: t.artist,
-          cover: t.cover_url,
-          src: t.src_url,
-          lyrics: t.lyrics_url || ''
-        }));
+        const mappedPlaylist: Track[] = data.map(t => {
+          const localAssets = getLocalTrackAssets(t.title);
+          return {
+            id: t.id,
+            title: t.title,
+            artist: t.artist,
+            cover: localAssets?.cover || t.cover_url || '/logo.png',
+            src: localAssets?.src || t.src_url,
+            lyrics: localAssets?.lyrics || t.lyrics_url || '',
+          };
+        });
         setPlaylist(mappedPlaylist);
       }
       setLoading(false);
@@ -175,13 +217,15 @@ export function MusicProvider({ children }: { children: ReactNode }) {
 
   // Auto play when track changes if was playing
   useEffect(() => {
-    if (audioRef.current && currentTrack) {
-      audioRef.current.src = currentTrack.src;
-      if (isPlaying) {
-        audioRef.current.play().catch(e => console.error("Auto-play failed:", e));
-      }
+    const audio = audioRef.current;
+    if (!audio || !currentTrack?.src) return;
+
+    audio.src = currentTrack.src;
+    audio.load();
+    if (isPlaying) {
+      audio.play().catch(e => console.error("Auto-play failed:", e));
     }
-  }, [currentTrackIndex]);
+  }, [currentTrack?.src]);
 
   return (
     <MusicContext.Provider value={{
