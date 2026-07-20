@@ -2311,7 +2311,7 @@ body::before {
 
 .music-screen {
   min-height: 100vh;
-  padding: 132px 32px 90px;
+  padding: clamp(92px, 11vh, 108px) 32px 48px;
 }
 
 .music-empty {
@@ -2334,13 +2334,13 @@ body::before {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 25px;
+  gap: 14px;
 }
 
 .vinyl-player {
   position: relative;
-  width: 360px;
-  height: 360px;
+  width: clamp(250px, 29vh, 300px);
+  height: clamp(250px, 29vh, 300px);
   padding: 0;
 }
 
@@ -2367,9 +2367,9 @@ body::before {
 
 .vinyl-grooves img {
   position: absolute;
-  inset: 70px;
-  width: 220px;
-  height: 220px;
+  inset: 19.5%;
+  width: 61%;
+  height: 61%;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -2400,7 +2400,7 @@ body::before {
 .track-heading h1 {
   margin: 0;
   font-family: var(--font-heading);
-  font-size: clamp(25px, 2.4vw, 31px);
+  font-size: clamp(23px, 2.1vw, 28px);
   font-weight: 600;
   line-height: 1.25;
 }
@@ -2419,7 +2419,7 @@ body::before {
   height: 17px;
   align-items: end;
   gap: 4px;
-  margin-top: 5px;
+  margin-top: 2px;
 }
 
 .equalizer span {
@@ -2459,7 +2459,7 @@ body::before {
 .player-progress > div {
   display: flex;
   justify-content: space-between;
-  margin-top: 7px;
+  margin-top: 3px;
   color: var(--text-secondary);
   font-family: var(--font-sans);
   font-size: 11px;
@@ -2493,8 +2493,8 @@ body::before {
 }
 
 .player-controls .primary-play {
-  width: 66px;
-  height: 66px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   background: var(--text-primary);
   color: var(--bg-color);
@@ -2590,7 +2590,7 @@ body::before {
 
 .track-list {
   display: flex;
-  max-height: 560px;
+  max-height: min(560px, calc(100vh - 250px));
   flex-direction: column;
   gap: 6px;
   padding-right: 6px;
@@ -2659,10 +2659,11 @@ body::before {
 
 .lyrics-view {
   display: flex;
-  height: 575px;
+  height: min(575px, calc(100vh - 245px));
+  min-height: 430px;
   flex-direction: column;
   gap: 16px;
-  padding: 250px 16px;
+  padding: clamp(150px, 20vh, 210px) 16px;
   overflow-y: auto;
   mask-image: linear-gradient(to bottom, transparent, black 18%, black 82%, transparent);
 }
@@ -2785,6 +2786,9 @@ body::before {
 }
 
 @media (max-width: 900px) {
+  .music-screen {
+    padding-top: 104px;
+  }
   .music-layout {
     grid-template-columns: 1fr;
     gap: 64px;
@@ -2805,7 +2809,8 @@ body::before {
   .sort-control { width: 100%; }
   .poetry-grid,
   .thoughts-grid { grid-template-columns: 1fr; }
-  .vinyl-player { width: min(310px, 78vw); height: min(310px, 78vw); }
+  .music-screen { padding-top: 96px !important; }
+  .vinyl-player { width: min(270px, 72vw); height: min(270px, 72vw); }
   .vinyl-grooves img { inset: 19%; width: 62%; height: 62%; }
   .player-controls { gap: 10px; }
   .mini-player {
