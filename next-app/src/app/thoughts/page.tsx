@@ -28,7 +28,8 @@ export default function ThoughtsPage() {
 
   return (
     <main className="page-wrapper container mx-auto px-4">
-      <h1 className="section-title mb-8">Fleeting Thoughts</h1>
+      <div className="section-kicker mb-2">Nhật ký</div>
+      <h1 className="section-title mb-8">Góc suy nghĩ</h1>
       
       <div className="relative mb-10 max-w-2xl mx-auto">
         <input 
@@ -36,16 +37,16 @@ export default function ThoughtsPage() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full p-4 pl-12 border border-[var(--border-color)] bg-transparent text-[var(--text-primary)] rounded-[30px] transition-all focus:outline-none focus:border-[var(--accent-color)]"
-          placeholder="Search thoughts..."
+          placeholder="Tìm trong những suy nghĩ..."
         />
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-secondary)]" size={20} />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {loading ? (
-          <p className="text-[var(--text-secondary)] col-span-full text-center py-10 animate-pulse">Loading thoughts...</p>
+          <p className="text-[var(--text-secondary)] col-span-full text-center py-10 animate-pulse">Đang mở sổ tay...</p>
         ) : filteredThoughts.length === 0 ? (
-          <p className="text-[var(--text-secondary)] col-span-full text-center py-10">No thoughts found.</p>
+          <p className="text-[var(--text-secondary)] col-span-full text-center py-10">Không tìm thấy ghi chép phù hợp.</p>
         ) : (
           filteredThoughts.map(t => (
             <article key={t.id} className="p-8 border border-[var(--border-color)] bg-[var(--nav-bg)] rounded-2xl hover:shadow-lg hover:border-[var(--accent-color)] transition-all">

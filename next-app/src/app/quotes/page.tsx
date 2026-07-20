@@ -16,7 +16,8 @@ export default function QuotesPage() {
 
   return (
     <main className="page-wrapper container mx-auto px-4">
-      <h1 className="section-title mb-8">Collected Quotes</h1>
+      <div className="section-kicker mb-2">Góp nhặt</div>
+      <h1 className="section-title mb-8">Trích dẫn</h1>
       
       <div className="relative mb-12 max-w-2xl mx-auto">
         <input 
@@ -24,14 +25,14 @@ export default function QuotesPage() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full p-4 pl-12 border border-[var(--border-color)] bg-transparent text-[var(--text-primary)] rounded-[30px] transition-all focus:outline-none focus:border-[var(--accent-color)]"
-          placeholder="Search by words or author..."
+          placeholder="Tìm theo câu chữ hoặc tác giả..."
         />
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text-secondary)]" size={20} />
       </div>
 
       <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
         {filteredQuotes.length === 0 ? (
-          <p className="text-[var(--text-secondary)] text-center py-10 w-full">No quotes found.</p>
+          <p className="text-[var(--text-secondary)] text-center py-10 w-full">Không tìm thấy trích dẫn phù hợp.</p>
         ) : (
           filteredQuotes.map((q, i) => (
             <div key={i} className="break-inside-avoid p-8 border border-[var(--border-color)] bg-[var(--nav-bg)] rounded-2xl relative group hover:border-[var(--accent-color)] transition-all">
