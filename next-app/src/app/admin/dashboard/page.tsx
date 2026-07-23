@@ -4,21 +4,38 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/../utils/supabase/client';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Feather, Cloud, Quote, Music, LogOut } from 'lucide-react';
+import { ArrowUpRight, Cloud, Feather, Library, LogOut, Music, Plus, Quote, Sparkles } from 'lucide-react';
+import type { User } from '@supabase/supabase-js';
+
+const modules = [
+  { key: 'poems', title: 'Thơ', description: 'Tuyển tập và bản thảo', href: '/admin/dashboard/poetry', createHref: '/admin/dashboard/poetry/create', icon: Feather, accent: 'umber' },
+  { key: 'thoughts', title: 'Tản văn', description: 'Những ghi chép ngắn', href: '/admin/dashboard/thoughts', createHref: '/admin/dashboard/thoughts/create', icon: Cloud, accent: 'sage' },
+  { key: 'quotes', title: 'Trích dẫn', description: 'Những câu chữ được lưu', href: '/admin/dashboard/quotes', createHref: '/admin/dashboard/quotes/create', icon: Quote, accent: 'plum' },
+  { key: 'music_tracks', title: 'Âm nhạc', description: 'Bài hát, lời và bản thu', href: '/admin/dashboard/music', createHref: '/admin/dashboard/music/create', icon: Music, accent: 'blue' },
+] as const;
 
 export default function AdminDashboard() {
   const router = useRouter();
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
+  const [counts, setCounts] = useState<Record<string, number | null>>({});
+  const [statsLoading, setStatsLoading] = useState(true);
 
   useEffect(() => {
     const checkUser = async () => {
       const { data: { user }, error } = await supabase.auth.getUser();
       if (error || !user) {
         router.push('/login');
-      } else {
-        setUser(user);
+        return;
       }
+
+      setUser(user);
+      const results = await Promise.all(
+        modules.map(({ key }) => supabase.from(key).select('*', { count: 'exact', head: true }))
+      );
+      setCounts(Object.fromEntries(modules.map((module, index) => [module.key, results[index].count])));
+      setStatsLoading(false);
     };
+
     checkUser();
   }, [router]);
 
@@ -27,77 +44,63 @@ export default function AdminDashboard() {
     router.push('/login');
   };
 
-  if (!user) return <div className="p-10 text-center">Loading...</div>;
+  if (!user) return <div className="admin-loading">Đang mở xưởng sáng tác…</div>;
+
+  const totalContent = Object.values(counts).reduce<number>((sum, count) => sum + (count ?? 0), 0);
+  const firstName = user.email?.split('@')[0] || 'Admin';
 
   return (
-    <main className="page-wrapper container mx-auto px-4 py-10">
-      <div className="flex justify-between items-center mb-10 pb-6 border-b border-[var(--border-color)]">
-        <div>
-          <h1 className="text-3xl font-serif text-[var(--text-primary)] mb-2">Creator Studio</h1>
-          <p className="text-[var(--text-secondary)] text-sm">Logged in as {user.email}</p>
+    <main className="admin-dashboard">
+      <header className="admin-hero">
+        <div className="admin-hero-copy">
+          <span className="admin-eyebrow"><Sparkles size={14} /> Nhà Thơ Farm Lính · Studio</span>
+          <h1>Chào {firstName},<br /><em>mình viết gì hôm nay?</em></h1>
+          <p>Quản lý các tác phẩm, bản nháp và giai điệu trong cùng một không gian yên tĩnh.</p>
+          <div className="admin-hero-actions">
+            <Link href="/admin/dashboard/poetry/create" className="admin-primary-action"><Plus size={17} /> Viết bài thơ mới</Link>
+            <Link href="/" className="admin-secondary-action">Xem trang công khai <ArrowUpRight size={16} /></Link>
+          </div>
         </div>
-        <div className="flex items-center gap-4">
-          <button 
-            onClick={handleLogout}
-            className="flex items-center gap-2 px-6 py-2 border border-gray-200 text-gray-500 rounded-sm text-xs font-bold uppercase tracking-[0.1em] hover:text-neutral-800 hover:border-neutral-800 transition-colors"
-          >
-            <LogOut size={16} />
-            Logout
-          </button>
+
+        <aside className="admin-profile-card">
+          <div className="admin-profile-top">
+            <span className="admin-avatar">{firstName.slice(0, 1).toUpperCase()}</span>
+            <button type="button" onClick={handleLogout} className="admin-logout" title="Đăng xuất"><LogOut size={17} /></button>
+          </div>
+          <span className="admin-profile-label">Tài khoản quản trị</span>
+          <strong>{user.email}</strong>
+          <div className="admin-total">
+            <Library size={18} />
+            <div><strong>{statsLoading ? '—' : totalContent}</strong><span>tác phẩm trong thư viện</span></div>
+          </div>
+        </aside>
+      </header>
+
+      <section className="admin-library" aria-labelledby="library-heading">
+        <div className="admin-section-heading">
+          <div><span>Tổng quan thư viện</span><h2 id="library-heading">Không gian sáng tác</h2></div>
+          <p>Chọn một khu vực để biên tập hoặc thêm tác phẩm mới.</p>
         </div>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        
-        {/* Module: Poetry */}
-        <Link href="/admin/dashboard/poetry" className="p-10 border border-gray-200 bg-transparent rounded-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 group cursor-pointer flex flex-col items-center text-center h-full">
-          <Feather className="text-gray-400 group-hover:text-neutral-800 mb-6 transition-colors" size={32} strokeWidth={1.5} />
-          <h2 className="text-2xl font-serif mb-2 text-neutral-800">Poetry</h2>
-          <p className="text-gray-500 text-sm mb-6">Manage your poetry collection</p>
-          <div className="flex items-center justify-center gap-2 text-xs uppercase tracking-[0.15em] text-neutral-800 font-bold group-hover:text-gray-500 transition-colors mt-auto">
-            <span className="border-b border-transparent group-hover:border-gray-400 pb-0.5">
-              Add Poem
-            </span>
-          </div>
-        </Link>
-
-        {/* Module: Thoughts */}
-        <Link href="/admin/dashboard/thoughts" className="p-10 border border-gray-200 bg-transparent rounded-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 group cursor-pointer flex flex-col items-center text-center h-full">
-          <Cloud className="text-gray-400 group-hover:text-neutral-800 mb-6 transition-colors" size={32} strokeWidth={1.5} />
-          <h2 className="text-2xl font-serif mb-2 text-neutral-800">Thoughts</h2>
-          <p className="text-gray-500 text-sm mb-6">Publish fleeting thoughts</p>
-          <div className="flex items-center justify-center gap-2 text-xs uppercase tracking-[0.15em] text-neutral-800 font-bold group-hover:text-gray-500 transition-colors mt-auto">
-            <span className="border-b border-transparent group-hover:border-gray-400 pb-0.5">
-              Add Thought
-            </span>
-          </div>
-        </Link>
-
-        {/* Module: Quotes */}
-        <Link href="/admin/dashboard/quotes" className="p-10 border border-gray-200 bg-transparent rounded-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 group cursor-pointer flex flex-col items-center text-center h-full">
-          <Quote className="text-gray-400 group-hover:text-neutral-800 mb-6 transition-colors" size={32} strokeWidth={1.5} />
-          <h2 className="text-2xl font-serif mb-2 text-neutral-800">Quotes</h2>
-          <p className="text-gray-500 text-sm mb-6">Curate interesting quotes</p>
-          <div className="flex items-center justify-center gap-2 text-xs uppercase tracking-[0.15em] text-neutral-800 font-bold group-hover:text-gray-500 transition-colors mt-auto">
-            <span className="border-b border-transparent group-hover:border-gray-400 pb-0.5">
-              Add Quote
-            </span>
-          </div>
-        </Link>
-
-        {/* Module: Music */}
-        <Link href="/admin/dashboard/music" className="p-10 border border-gray-200 bg-transparent rounded-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 group cursor-pointer flex flex-col items-center text-center h-full">
-          <Music className="text-gray-400 group-hover:text-neutral-800 mb-6 transition-colors" size={32} strokeWidth={1.5} />
-          <h2 className="text-2xl font-serif mb-2 text-neutral-800">Music</h2>
-          <p className="text-gray-500 text-sm mb-6">Upload tracks and lyrics</p>
-          <div className="flex items-center justify-center gap-2 text-xs uppercase tracking-[0.15em] text-neutral-800 font-bold group-hover:text-gray-500 transition-colors mt-auto">
-            <span className="border-b border-transparent group-hover:border-gray-400 pb-0.5">
-              Add Track
-            </span>
-          </div>
-        </Link>
-
-      </div>
+        <div className="admin-module-grid">
+          {modules.map((module) => {
+            const Icon = module.icon;
+            return (
+              <article key={module.key} className={`admin-module-card ${module.accent}`}>
+                <div className="admin-module-top">
+                  <span className="admin-module-icon"><Icon size={22} strokeWidth={1.7} /></span>
+                  <span className="admin-module-count">{statsLoading ? '—' : (counts[module.key] ?? 0).toString().padStart(2, '0')}</span>
+                </div>
+                <div className="admin-module-copy"><h3>{module.title}</h3><p>{module.description}</p></div>
+                <div className="admin-module-actions">
+                  <Link href={module.href}>Quản lý <ArrowUpRight size={15} /></Link>
+                  <Link href={module.createHref} className="admin-module-add" aria-label={`Thêm ${module.title}`}><Plus size={16} /></Link>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </section>
     </main>
   );
 }
