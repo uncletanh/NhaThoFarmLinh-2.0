@@ -2,9 +2,10 @@
 
 import { useState } from 'react';
 import { supabase } from '@/../utils/supabase/client';
-import { ArrowLeft, Save } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { normalizePoemDateInput } from '@/utils/poemDate';
 
 export default function AdminPoetryCreate() {
   const router = useRouter();
@@ -15,12 +16,20 @@ export default function AdminPoetryCreate() {
   const [content, setContent] = useState('');
   const [insight, setInsight] = useState('');
   const [tags, setTags] = useState('');
-  const [date, setDate] = useState(new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }));
+  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+  const [dateError, setDateError] = useState('');
   const [isPublic, setIsPublic] = useState(true);
   const [saving, setSaving] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const normalizedDate = normalizePoemDateInput(date);
+    if (!normalizedDate) {
+      setDateError('Ngày không hợp lệ. Dùng June 23, 2026; 06-23-2026; hoặc 2026-06-23.');
+      return;
+    }
+
+    setDateError('');
     setSaving(true);
     
     const tagsArray = tags.split(',').map(t => t.trim()).filter(t => t !== '');
@@ -31,7 +40,7 @@ export default function AdminPoetryCreate() {
       content,
       insight,
       tags: tagsArray,
-      date,
+      date: normalizedDate,
       is_public: isPublic
     }]);
 
@@ -61,7 +70,19 @@ export default function AdminPoetryCreate() {
             <div className="grid grid-cols-2 gap-8">
               <div>
                 <label className="block text-xs uppercase tracking-[0.1em] text-gray-500 mb-2">Date</label>
-                <input type="text" required value={date} onChange={e => setDate(e.target.value)} placeholder="e.g. May 14, 2026" className="w-full py-2 px-0 bg-transparent border-0 border-b border-gray-300 rounded-none focus:ring-0 focus:border-neutral-800 transition-colors text-neutral-800" />
+                <input
+                  type="text"
+                  required
+                  value={date}
+                  onChange={e => { setDate(e.target.value); setDateError(''); }}
+                  placeholder="June 23, 2026 hoặc 06-23-2026"
+                  aria-invalid={Boolean(dateError)}
+                  aria-describedby="poem-date-help"
+                  className="w-full py-2 px-0 bg-transparent border-0 border-b border-gray-300 rounded-none focus:ring-0 focus:border-neutral-800 transition-colors text-neutral-800"
+                />
+                <p id="poem-date-help" className={`mt-2 mb-0 text-xs ${dateError ? 'text-red-600' : 'text-gray-400'}`}>
+                  {dateError || 'Chấp nhận: June 23, 2026 · 06-23-2026 · 2026-06-23'}
+                </p>
               </div>
               <div>
                 <label className="block text-xs uppercase tracking-[0.1em] text-gray-500 mb-2">Tags (Comma separated)</label>

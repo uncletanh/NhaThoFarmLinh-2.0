@@ -3,7 +3,12 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/../utils/supabase/client';
 import Link from 'next/link';
-import { ArrowUpDown, ChevronLeft, ChevronRight, Search, SlidersHorizontal, X } from 'lucide-react';
+import { ArrowUpDown, ChevronLeft, ChevronRight, Eye, Search, SlidersHorizontal, X } from 'lucide-react';
+import {
+  comparePoems,
+  formatPoemDate,
+  type PoemSortOrder,
+} from '@/utils/poemDate';
 
 const ITEMS_PER_PAGE = 9;
 
@@ -11,6 +16,8 @@ type Poem = {
   id: string;
   title: string;
   date: string;
+  created_at?: string;
+  view_count?: number | null;
   preview?: string;
   tags?: string[];
 };
@@ -21,7 +28,7 @@ export default function PoetryPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [activeTag, setActiveTag] = useState('All');
-  const [sortOrder, setSortOrder] = useState('newest');
+  const [sortOrder, setSortOrder] = useState<PoemSortOrder>('newest');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
@@ -51,21 +58,19 @@ export default function PoetryPage() {
   useEffect(() => {
     const fetchPoems = async () => {
       setLoading(true);
-      let query = supabase.from('poems').select('*', { count: 'exact' }).eq('is_public', true);
+      let query = supabase.from('poems').select('*').eq('is_public', true);
 
       if (activeTag !== 'All') query = query.contains('tags', [activeTag]);
       if (debouncedSearch) query = query.ilike('title', `%${debouncedSearch}%`);
 
-      const from = (currentPage - 1) * ITEMS_PER_PAGE;
-      const to = from + ITEMS_PER_PAGE - 1;
-      const { data, count, error } = await query
-        .order('date', { ascending: sortOrder === 'oldest' })
-        .range(from, to);
+      const { data, error } = await query;
 
       if (!error && data) {
-        setPoems(data);
-        setTotalResults(count ?? data.length);
-        setTotalPages(Math.max(1, Math.ceil((count ?? data.length) / ITEMS_PER_PAGE)));
+        const sortedPoems = (data as Poem[]).sort((first, second) => comparePoems(first, second, sortOrder));
+        const from = (currentPage - 1) * ITEMS_PER_PAGE;
+        setPoems(sortedPoems.slice(from, from + ITEMS_PER_PAGE));
+        setTotalResults(sortedPoems.length);
+        setTotalPages(Math.max(1, Math.ceil(sortedPoems.length / ITEMS_PER_PAGE)));
       }
       setLoading(false);
     };
@@ -128,11 +133,12 @@ export default function PoetryPage() {
             <span className="sr-only">Sắp xếp tuyển tập</span>
             <select
               value={sortOrder}
-              onChange={(event) => { setSortOrder(event.target.value); setCurrentPage(1); }}
+              onChange={(event) => { setSortOrder(event.target.value as PoemSortOrder); setCurrentPage(1); }}
               className="sort-control"
             >
               <option value="newest">Mới nhất trước</option>
               <option value="oldest">Cũ nhất trước</option>
+              <option value="most_viewed">Được đọc nhiều nhất</option>
             </select>
           </label>
         </div>
@@ -169,7 +175,10 @@ export default function PoetryPage() {
           poems.map((poem) => (
             <div key={poem.id} className="collection-card poem-collection-card group">
               <div>
-                <div className="text-xs text-gray-400 uppercase tracking-[0.2em] mb-4">{poem.date}</div>
+                <div className="poem-card-meta">
+                  <span>{formatPoemDate(poem.date)}</span>
+                  <span title="Lượt đọc"><Eye size={12} /> {poem.view_count ?? 0}</span>
+                </div>
                 <div className="min-h-[68px] mb-4">
                   <h2 className="text-2xl font-serif font-bold text-neutral-800 leading-snug group-hover:text-amber-700 transition-colors line-clamp-2" title={poem.title}>{poem.title}</h2>
                 </div>

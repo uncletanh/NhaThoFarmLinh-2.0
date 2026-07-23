@@ -4,43 +4,48 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/../utils/supabase/client';
 import Link from 'next/link';
 import { Pencil, Trash2, Plus, ArrowLeft, Search, Eye, EyeOff } from 'lucide-react';
+import {
+  comparePoems,
+  formatPoemDate,
+  type PoemSortOrder,
+} from '@/utils/poemDate';
+
+type AdminPoem = {
+  id: string;
+  title: string;
+  date: string;
+  created_at?: string;
+  is_public: boolean;
+  view_count?: number | null;
+};
 
 export default function AdminPoetryList() {
-  const [poems, setPoems] = useState<any[]>([]);
+  const [poems, setPoems] = useState<AdminPoem[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Search and Filter states
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all'); // all, public, private
-  const [sortOrder, setSortOrder] = useState('newest'); // newest, oldest
+  const [sortOrder, setSortOrder] = useState<PoemSortOrder>('newest');
 
   useEffect(() => {
+    const fetchPoems = async () => {
+      setLoading(true);
+      let query = supabase.from('poems').select('*');
+
+      if (searchTerm) query = query.ilike('title', `%${searchTerm}%`);
+      if (filterStatus === 'public') query = query.eq('is_public', true);
+      if (filterStatus === 'private') query = query.eq('is_public', false);
+
+      const { data } = await query;
+      if (data) {
+        setPoems((data as AdminPoem[]).sort((first, second) => comparePoems(first, second, sortOrder)));
+      }
+      setLoading(false);
+    };
+
     fetchPoems();
   }, [searchTerm, filterStatus, sortOrder]);
-
-  const fetchPoems = async () => {
-    setLoading(true);
-    let query = supabase.from('poems').select('id, title, date, created_at, is_public');
-
-    // Filter by search term
-    if (searchTerm) {
-      query = query.ilike('title', `%${searchTerm}%`);
-    }
-
-    // Filter by status
-    if (filterStatus === 'public') {
-      query = query.eq('is_public', true);
-    } else if (filterStatus === 'private') {
-      query = query.eq('is_public', false);
-    }
-
-    // Sort (Flipped logic due to migration data insertion order)
-    query = query.order('created_at', { ascending: sortOrder === 'newest' });
-    
-    const { data, error } = await query;
-    if (data) setPoems(data);
-    setLoading(false);
-  };
 
   const handleToggleStatus = async (id: string, currentStatus: boolean) => {
     const { error } = await supabase.from('poems').update({ is_public: !currentStatus }).eq('id', id);
@@ -48,7 +53,7 @@ export default function AdminPoetryList() {
       alert('Error updating status: ' + error.message);
     } else {
       // Update local state
-      setPoems(poems.map(p => p.id === id ? { ...p, is_public: !currentStatus } : p));
+      setPoems(poems.map((poem) => poem.id === id ? { ...poem, is_public: !currentStatus } : poem));
     }
   };
 
@@ -59,7 +64,7 @@ export default function AdminPoetryList() {
     if (error) {
       alert('Error deleting poem: ' + error.message);
     } else {
-      setPoems(poems.filter(p => p.id !== id));
+      setPoems(poems.filter((poem) => poem.id !== id));
     }
   };
 
@@ -104,11 +109,12 @@ export default function AdminPoetryList() {
 
         <select 
           value={sortOrder} 
-          onChange={(e) => setSortOrder(e.target.value)}
+          onChange={(e) => setSortOrder(e.target.value as PoemSortOrder)}
           className="p-3 border border-gray-200 bg-white text-neutral-800 rounded-sm focus:outline-none focus:border-neutral-400 font-sans text-xs uppercase tracking-widest min-w-[150px]"
         >
           <option value="newest">Newest First</option>
           <option value="oldest">Oldest First</option>
+          <option value="most_viewed">Most Viewed</option>
         </select>
       </div>
 
@@ -118,6 +124,7 @@ export default function AdminPoetryList() {
             <tr className="bg-gray-50 border-b border-gray-200 text-xs uppercase tracking-widest text-gray-500 font-sans">
               <th className="p-4 font-normal">Title</th>
               <th className="p-4 font-normal w-40 whitespace-nowrap">Date</th>
+              <th className="p-4 font-normal w-24 whitespace-nowrap">Views</th>
               <th className="p-4 font-normal w-24">Status</th>
               <th className="p-4 font-normal w-40 text-right">Actions</th>
             </tr>
@@ -125,17 +132,18 @@ export default function AdminPoetryList() {
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={3} className="p-10 text-center text-gray-400">Loading...</td>
+                <td colSpan={5} className="p-10 text-center text-gray-400">Loading...</td>
               </tr>
             ) : poems.length === 0 ? (
               <tr>
-                <td colSpan={4} className="p-10 text-center text-gray-400">No poems found.</td>
+                <td colSpan={5} className="p-10 text-center text-gray-400">No poems found.</td>
               </tr>
             ) : (
               poems.map(poem => (
                 <tr key={poem.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
                   <td className="p-4 font-serif text-lg text-neutral-800">{poem.title}</td>
-                  <td className="p-4 text-sm text-gray-500 font-sans uppercase tracking-widest whitespace-nowrap">{poem.date}</td>
+                  <td className="p-4 text-sm text-gray-500 font-sans uppercase tracking-widest whitespace-nowrap">{formatPoemDate(poem.date)}</td>
+                  <td className="p-4 text-sm text-gray-500 font-sans">{poem.view_count ?? 0}</td>
                   <td className="p-4">
                     <span className={`inline-flex items-center px-2 py-1 rounded-sm text-[10px] uppercase tracking-widest border ${poem.is_public ? 'bg-emerald-50 text-emerald-600 border-emerald-200' : 'bg-gray-50 text-gray-500 border-gray-200'}`}>
                       {poem.is_public ? 'Public' : 'Private'}

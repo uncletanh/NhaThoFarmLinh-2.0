@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS public.poems (
     insight TEXT,
     tags TEXT[],
     date TEXT,
+    view_count BIGINT NOT NULL DEFAULT 0,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
@@ -59,6 +60,30 @@ CREATE POLICY "Allow public read-only access to music_tracks" ON public.music_tr
 CREATE POLICY "Allow auth insert to poems" ON public.poems FOR INSERT TO authenticated WITH CHECK (true);
 CREATE POLICY "Allow auth update to poems" ON public.poems FOR UPDATE TO authenticated USING (true);
 CREATE POLICY "Allow auth delete to poems" ON public.poems FOR DELETE TO authenticated USING (true);
+
+-- Public readers can increment a published poem's view count without receiving
+-- permission to update any other poem fields.
+CREATE OR REPLACE FUNCTION public.increment_poem_view(poem_id UUID)
+RETURNS BIGINT
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+DECLARE
+    updated_count BIGINT;
+BEGIN
+    UPDATE public.poems
+    SET view_count = view_count + 1
+    WHERE id = poem_id
+      AND is_public = true
+    RETURNING view_count INTO updated_count;
+
+    RETURN COALESCE(updated_count, 0);
+END;
+$$;
+
+REVOKE ALL ON FUNCTION public.increment_poem_view(UUID) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.increment_poem_view(UUID) TO anon, authenticated;
 
 CREATE POLICY "Allow auth insert to thoughts" ON public.thoughts FOR INSERT TO authenticated WITH CHECK (true);
 CREATE POLICY "Allow auth update to thoughts" ON public.thoughts FOR UPDATE TO authenticated USING (true);
